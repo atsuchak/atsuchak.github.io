@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: beige;
+        }
+
+        #Calculator {
+            background-repeat: no-repeat;
+            /* background-image: url(Photos/sakin.jpg); */
+            background-position-x: center;
+            background-position-y: calc(50% + .8in);
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: rgb(160, 158, 158);
+            border-radius: 15px;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        #display {
+            width: 100%;
+            padding: 5vw;
+            font-size: 2rem;
+            text-align: right;
+            border: none;
+            background-color: rgb(180, 180, 250);
+            color: wheat;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        #keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 25px;
+        }
+
+
+        button {
+            width: 80px;
+            height: 10vh;
+            border-radius: 30px;
+            border: 2px solid black;
+            background-color: rgb(180, 180, 250);
+            color: whitesmoke;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .operator {
+            background-color: rgb(230, 200, 200);
+            color: black;
+        }
+
+        .operator:hover {
+            background-color: rgb(250, 220, 220);
+        }
+
+        .operator:active {
+            background-color: rgb(260, 230, 220) !important;
+        }
+
+        .special {
+            background-color: blue;
+        }
+
+
+        button:hover {
+            background-color: rgb(190, 190, 300);
+        }
+
+        button:active {
+            background-color: rgb(200, 200, 300);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="Calculator">
+
+        <input id="display" readonly>
+        <div id="keys">
+            <button onclick="clearDisplay('C')" class="operator">C</button>
+            <button onclick="appendToDisplay('M+')" class="operator">M+</button>
+            <button onclick="appendToDisplay('%')" class="operator">%</button>
+            <button onclick="appendToDisplay('/')" class="operator">/</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')" class="operator">*</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')" class="operator">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')" class="operator">+</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+
+            <button onclick="memoryRecall()" class="operator">MR</button>
+            <button onclick="calculate()" class="operator">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById("display");
+
+        let memoryValue = 0;
+
+        function appendToDisplay(input) {
+            if (input === 'M+') {
+                memoryPlus();
+            } else {
+                display.value += input;
+            }
+        }
+
+        function memoryPlus() {
+            const current = parseFloat(display.value);
+            if (!isNaN(current)) {
+                memoryValue += current;
+                display.value = '';
+            } else {
+                display.value = "ERROR";
+            }
+        }
+
+        function memoryRecall() {
+            display.value += memoryValue.toString();
+        }
+
+        function clearDisplay() {
+            display.value = "";
+
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            }
+            catch (error) {
+                display.value = "ERROR"
+            }
+
+        }
+    </script>
+</body>
+
+</html>
