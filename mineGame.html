@@ -4,241 +4,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minesweeper</title>
-    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
+    <title>Mine Game | atsuchak</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            background-color: rgb(130, 130, 100);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            font-family: 'New Tegomin', serif;
-            justify-content: center;
-            gap: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
+            color: #333;
         }
 
-        .game-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .board {
+        .game-board {
             display: grid;
-            grid-template-columns: repeat(15, 35px);
-            grid-template-rows: repeat(15, 35px);
-            gap: 1px;
-            width: 525px;
-            height: 525px;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 5px;
+            margin: 20px 0;
         }
 
         .cell {
-            width: 35px;
-            height: 35px;
-            background: #a8a88c;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
+            width: 100%;
+            padding: 0;
+            /* Remove padding to make it square */
+            aspect-ratio: 1;
+            /* Ensures the cell is square */
+            background-color: #fff;
+            border: 1px solid #ccc;
             cursor: pointer;
-            border: 1px solid #666;
-            text-align: center;
-            line-height: 1;
-            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        .cell:hover {
+            background-color: #e0e0e0;
         }
 
         .cell.revealed {
-            background: #d6d6bc;
-            cursor: default;
+            background-color: #d1ffd1;
         }
 
         .cell.mine {
-            background: red;
-            color: white;
-            animation: explode 0.5s ease-out;
-        }
-
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 0;
-            }
+            background-color: #ffcccc;
         }
 
         button {
-            padding: 10px;
+            padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            width: 200px;
-            max-width: 100%;
+        }
+
+        .message {
             margin-top: 20px;
-        }
-
-        .mobile-message {
-            display: none;
-            font-size: 15px;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            position: absolute;
-            top: 10px;
-            right: -100px;
-            padding: 5px 15px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-            word-wrap: break-word;
-            max-width: 90vw;
-        }
-
-        @media (max-width: 600px) {
-            .board {
-                width: 375px;
-                height: 375px;
-            }
-
-            .cell {
-                font-size: 14px;
-            }
-
-            button {
-                width: 150px;
-            }
-
-            .mobile-message {
-                display: block;
-            }
+            font-size: 18px;
+            color: #d9534f;
         }
     </style>
 </head>
 
 <body>
-    <h1>Minesweeper</h1>
-    <div class="game-container">
-        <div class="board" id="board"></div>
-        <button onclick="startGame()">Restart</button>
+    <div class="container">
+        <h1>Mine Game</h1>
+        <div id="gameBoard" class="game-board"></div>
+        <button id="resetButton">Reset Game</button>
+        <div id="message" class="message"></div>
     </div>
-    <div class="mobile-message">
-        Use desktop mode <br> for better experience
-    </div>
-
-    <script>
-        const rows = 15, cols = 15, mines = 30;
+    <script>const boardSize = 12; // 12x12 grid
+        const mineCount = 20; // Adjusted mine count for larger board
         let board = [];
-
-        function startGame() {
-            const boardElement = document.getElementById('board');
-            boardElement.innerHTML = '';
-            board = Array.from({ length: rows }, () => Array(cols).fill(0));
+        let gameOver = false;
+        
+        function createBoard() {
+            board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
             placeMines();
-
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    const cell = document.createElement('button');
-                    cell.classList.add('cell');
-                    cell.dataset.row = r;
-                    cell.dataset.col = c;
-                    cell.addEventListener('click', () => revealCell(r, c, cell));
-                    boardElement.appendChild(cell);
-                }
-            }
+            renderBoard();
         }
-
+        
         function placeMines() {
-            let mineCount = 0;
-            while (mineCount < mines) {
-                let r = Math.floor(Math.random() * rows);
-                let c = Math.floor(Math.random() * cols);
-                if (board[r][c] !== 'M') {
-                    board[r][c] = 'M';
-                    mineCount++;
-                    updateNumbers(r, c);
+            let minesPlaced = 0;
+            while (minesPlaced < mineCount) {
+                const x = Math.floor(Math.random() * boardSize);
+                const y = Math.floor(Math.random() * boardSize);
+                if (board[x][y] !== 'M') {
+                    board[x][y] = 'M';
+                    minesPlaced++;
                 }
             }
         }
-
-        function updateNumbers(r, c) {
-            for (let dr = -1; dr <= 1; dr++) {
-                for (let dc = -1; dc <= 1; dc++) {
-                    let nr = r + dr, nc = c + dc;
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] !== 'M') {
-                        board[nr][nc]++;
-                    }
-                }
-            }
+        
+        function renderBoard() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            board.forEach((row, x) => {
+                row.forEach((cell, y) => {
+                    const cellDiv = document.createElement('div');
+                    cellDiv.classList.add('cell');
+                    cellDiv.addEventListener('click', () => handleCellClick(x, y));
+                    gameBoard.appendChild(cellDiv);
+                });
+            });
         }
-
-        function revealCell(r, c, cell) {
-            if (cell.classList.contains('revealed')) return;
-            cell.classList.add('revealed');
-            if (board[r][c] === 'M') {
-                cell.classList.add('mine');
+        
+        function handleCellClick(x, y) {
+            if (gameOver) return;
+            const cell = board[x][y];
+            if (cell === 'M') {
                 revealMines();
-                setTimeout(() => alert('Game Over!'), 500);
-                setTimeout(startGame, 1000);
-                return;
-            }
-            cell.innerText = board[r][c] === 0 ? '' : board[r][c];
-            if (board[r][c] === 0) {
-                revealAdjacentCells(r, c);
+                document.getElementById('message').innerText = 'Game Over! You hit a mine!';
+                gameOver = true;
+            } else {
+                revealRandomConnectedCells(x, y);
             }
         }
-
-        function revealAdjacentCells(r, c) {
-            let toReveal = [[r, c]];
-            while (toReveal.length) {
-                let [cr, cc] = toReveal.pop();
-                for (let dr = -1; dr <= 1; dr++) {
-                    for (let dc = -1; dc <= 1; dc++) {
-                        let nr = cr + dr, nc = cc + dc;
-                        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-                            let neighbor = document.querySelector(`[data-row='${nr}'][data-col='${nc}']`);
-                            if (neighbor && !neighbor.classList.contains('revealed')) {
-                                neighbor.classList.add('revealed');
-                                neighbor.innerText = board[nr][nc] === 0 ? '' : board[nr][nc];
-                                if (board[nr][nc] === 0) toReveal.push([nr, nc]);
-                            }
-                        }
-                    }
+        
+        function revealRandomConnectedCells(x, y) {
+            const maxCellsToReveal = Math.floor(Math.random() * 7) + 1; // Random number of cells to reveal (1 to 7)
+            const revealedCells = new Set(); // To keep track of already revealed cells
+            const cellsToReveal = [];
+        
+            // Get all adjacent cells
+            const directions = [
+                [-1, -1], [-1, 0], [-1, 1],
+                [0, -1],          [0, 1],
+                [1, -1], [1, 0], [1, 1]
+            ];
+        
+            // Collect all adjacent cells
+            for (const [dx, dy] of directions) {
+                const newX = x + dx;
+                const newY = y + dy;
+                if (newX >= 0 && newX < boardSize && newY >= 0 && newY < boardSize) {
+                    cellsToReveal.push([newX, newY]);
+                }
+            }
+        
+            // Shuffle the adjacent cells and select a random number to reveal
+            for (let i = 0; i < cellsToReveal.length; i++) {
+                const randomIndex = Math.floor(Math.random() * cellsToReveal.length);
+                [cellsToReveal[i], cellsToReveal[randomIndex]] = [cellsToReveal[randomIndex], cellsToReveal[i]];
+            }
+        
+            // Reveal the selected number of cells
+            for (let i = 0; i < Math.min(maxCellsToReveal, cellsToReveal.length); i++) {
+                const [cellX, cellY] = cellsToReveal[i];
+                if (board[cellX][cellY] !== 'M' && !revealedCells.has(`${cellX},${cellY}`)) {
+                    revealedCells.add(`${cellX},${cellY}`);
+                    const cellDiv = document.querySelectorAll('.cell')[cellX * boardSize + cellY];
+                    cellDiv.classList.add('revealed');
                 }
             }
         }
-
+        
         function revealMines() {
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    if (board[r][c] === 'M') {
-                        const mineCell = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
-                        mineCell.classList.add('mine');
+            board.forEach((row, x) => {
+                row.forEach((cell, y) => {
+                    if (cell === 'M') {
+                        const cellDiv = document.querySelectorAll('.cell')[x * boardSize + y];
+                        cellDiv.classList.add('mine');
                     }
-                }
-            }
+                });
+            });
         }
-
-        startGame();
+        
+        document.getElementById('resetButton').addEventListener('click', () => {
+            gameOver = false;
+            document.getElementById('message').innerText = '';
+            createBoard();
+        });
+        
+        createBoard();
     </script>
 </body>
 

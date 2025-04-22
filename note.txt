@@ -1,0 +1,1122 @@
+//Calculator code by me
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: beige;
+        }
+
+        #Calculator {
+            background-repeat: no-repeat;
+            /* background-image: url(Photos/sakin.jpg); */
+            background-position-x: center;
+            background-position-y: calc(50% + .8in);
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: rgb(160, 158, 158);
+            border-radius: 15px;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        #display {
+            width: 100%;
+            padding: 5vw;
+            font-size: 2rem;
+            text-align: right;
+            border: none;
+            background-color: rgb(180, 180, 250);
+            color: wheat;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        #keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 25px;
+        }
+
+
+        button {
+            width: 80px;
+            height: 10vh;
+            border-radius: 30px;
+            border: 2px solid black;
+            background-color: rgb(180, 180, 250);
+            color: whitesmoke;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .operator {
+            background-color: rgb(230, 200, 200);
+            color: black;
+        }
+
+        .operator:hover {
+            background-color: rgb(250, 220, 220);
+        }
+
+        .operator:active {
+            background-color: rgb(260, 230, 220) !important;
+        }
+
+        .special {
+            background-color: blue;
+        }
+
+
+        button:hover {
+            background-color: rgb(190, 190, 300);
+        }
+
+        button:active {
+            background-color: rgb(200, 200, 300);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="Calculator">
+
+        <input id="display" readonly>
+        <div id="keys">
+            <button onclick="clearDisplay('C')" class="operator">C</button>
+            <button onclick="appendToDisplay('M+')" class="operator">M+</button>
+            <button onclick="appendToDisplay('%')" class="operator">%</button>
+            <button onclick="appendToDisplay('/')" class="operator">/</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')" class="operator">*</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')" class="operator">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')" class="operator">+</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+
+            <button onclick="memoryRecall()" class="operator">MR</button>
+            <button onclick="calculate()" class="operator">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById("display");
+
+        let memoryValue = 0;
+
+        function appendToDisplay(input) {
+            if (input === 'M+') {
+                memoryPlus();
+            } else {
+                display.value += input;
+            }
+        }
+
+        function memoryPlus() {
+            const current = parseFloat(display.value);
+            if (!isNaN(current)) {
+                memoryValue += current;
+                display.value = '';
+            } else {
+                display.value = "ERROR";
+            }
+        }
+
+        function memoryRecall() {
+            display.value += memoryValue.toString();
+        }
+
+        function clearDisplay() {
+            display.value = "";
+
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            }
+            catch (error) {
+                display.value = "ERROR"
+            }
+
+        }
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// snake code by me
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=yes">
+    <title>Snake Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url(Photos/snakeLogo.png);
+            background-repeat: no-repeat;
+            background-position: bottom right;
+            background-color: rgb(130, 130, 100);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            font-family: 'New Tegomin', serif;
+            justify-content: center;
+        }
+
+        .header {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .gameContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .scoreContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 20px;
+            font-size: 20px;
+            margin-top: -480px;
+        }
+
+        #scoreBox,
+        #hiscoreBox {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        #resetHighScore {
+            font-family: 'New Tegomin', serif;
+            background: none;
+            border: 3px solid;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            white-space: nowrap;
+            width: auto;
+            display: inline-block;
+        }
+
+        #board {
+            background: linear-gradient(rgb(170, 236, 170), rgb(236, 236, 167));
+            width: 80vw;
+            height: 80vh;
+            max-width: 700px;
+            max-height: 700px;
+            margin: 0 auto;
+            border: 2px solid black;
+            display: grid;
+            grid-template-rows: repeat(48, 1fr);
+            grid-template-columns: repeat(48, 1fr);
+            padding: 10px;
+        }
+
+        .head {
+            background: linear-gradient(rgb(240, 124, 124), rgb(228, 228, 129));
+            border: 2px solid black;
+            width: 100%;
+            height: 100%;
+        }
+
+        .snake {
+            background-color: purple;
+            border: 1px solid white;
+            width: 100%;
+            height: 100%;
+        }
+
+        .food {
+            background: linear-gradient(red, purple);
+            border: 1px solid black;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mobile-controls {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-controls div {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            width: 100%;
+        }
+
+        button {
+            font-size: 28px;
+            padding: 18px;
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .mobile-message {
+            display: none;
+            font-size: 15px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            word-wrap: break-word;
+            max-width: 90vw;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background: rgb(130, 130, 100);
+            }
+
+            .header {
+                display: none;
+            }
+
+            #board {
+                width: 90vw;
+                height: 90vw;
+                max-width: 400px;
+                max-height: 400px;
+            }
+
+            .scoreContainer {
+                font-size: 16px;
+                margin-left: 10px;
+                margin-top: -20px;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+
+            button:hover {
+                background-color: none;
+                background: none;
+            }
+
+            .mobile-controls {
+                display: flex;
+                bottom: 20px;
+            }
+
+            button {
+                background: none;
+                border: 2px solid;
+                font-size: 24px;
+                padding: 15px;
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scoreContainer {
+                width: 50vw;
+                height: 1vh;
+                font-size: 20px;
+                margin-left: 3vw;
+                margin-top: -5vw;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+
+            .mobile-message {
+                display: block;
+            }
+
+            #board {
+                margin-bottom: 30vw;
+                width: 90vw;
+                height: 90vw;
+                max-width: 300px;
+                max-height: 300px;
+            }
+
+            button:hover {
+                background-color: none;
+                background: none;
+            }
+
+            button {
+                background: none;
+                border: 2px solid;
+                /* font-size: 40px; */
+                /* padding: 15px; */
+                /* width: 70px; */
+                /* height: 70px; */
+                font-size: 10vw;
+                /* padding: 1vw; */
+                width: 20vw;
+                height: 20vw;
+            }
+
+            .mobile-controls div {
+                gap: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Snake Game</h1>
+    </div>
+    <div class="gameContainer">
+        <div id="board"></div>
+        <div class="scoreContainer">
+            <div id="scoreBox">Score: 0</div>
+            <div id="hiscoreBox">HiScore: 0</div>
+            <button id="resetHighScore">Reset High Score</button>
+        </div>
+
+        <div class="mobile-controls">
+            <button id="upBtn">↑</button>
+            <div>
+                <button id="leftBtn">←</button>
+                <button id="rightBtn">→</button>
+            </div>
+            <button id="downBtn">↓</button>
+        </div>
+        <div class="mobile-message">
+            Use PC or laptop <br> for better experience
+        </div>
+    </div>
+
+    <script>
+        let inputDir = { x: 0, y: 0 };
+        let speed = 10;
+        let score = 0;
+        let lastPaintTime = 0;
+        let snakeArr = [{ x: 13, y: 15 }];
+        let food = { x: 6, y: 7 };
+        let board = document.getElementById("board");
+
+        let foodSound = new Audio("music/food.mp3");
+        let gameOverSound = new Audio("music/gameover.mp3");
+        let moveSound = new Audio("music/move.mp3");
+        let musicSound = new Audio("music/background.mp3");
+        musicSound.loop = true;
+
+        let hiscore = localStorage.getItem("hiscore");
+        let hiscoreval = hiscore ? JSON.parse(hiscore) : 0;
+        document.getElementById("hiscoreBox").innerHTML = "HiScore: " + hiscoreval;
+
+        board.style.gridTemplateRows = "repeat(28, 1fr)";
+        board.style.gridTemplateColumns = "repeat(28, 1fr)";
+
+        function main(ctime) {
+            window.requestAnimationFrame(main);
+            if ((ctime - lastPaintTime) / 1000 < 1 / speed) return;
+            lastPaintTime = ctime;
+            gameEngine();
+        }
+
+        function isCollide(snake) {
+            for (let i = 1; i < snake.length; i++) {
+                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
+            }
+            return snake[0].x >= 28 || snake[0].x < 0 || snake[0].y >= 28 || snake[0].y < 0;
+        }
+
+        function gameEngine() {
+            if (isCollide(snakeArr)) {
+                gameOverSound.play();
+                musicSound.pause();
+                alert("Game Over! Press any key to restart.");
+                snakeArr = [{ x: 13, y: 15 }];
+                inputDir = { x: 0, y: 0 };
+                score = 0;
+                document.getElementById("scoreBox").innerHTML = "Score: " + score;
+                musicSound.play();
+            }
+
+            if (snakeArr[0].x === food.x && snakeArr[0].y === food.y) {
+                foodSound.play();
+                score += 1;
+                if (score > hiscoreval) {
+                    hiscoreval = score;
+                    localStorage.setItem("hiscore", JSON.stringify(hiscoreval));
+                    document.getElementById("hiscoreBox").innerHTML = "HiScore: " + hiscoreval;
+                }
+                document.getElementById("scoreBox").innerHTML = "Score: " + score;
+                snakeArr.unshift({ x: snakeArr[0].x + inputDir.x, y: snakeArr[0].y + inputDir.y });
+
+                let a = 2, b = 25;
+                food = { x: Math.floor(a + (b - a) * Math.random()), y: Math.floor(a + (b - a) * Math.random()) };
+            }
+
+            for (let i = snakeArr.length - 2; i >= 0; i--) {
+                snakeArr[i + 1] = { ...snakeArr[i] };
+            }
+            snakeArr[0].x += inputDir.x;
+            snakeArr[0].y += inputDir.y;
+
+            board.innerHTML = "";
+
+            snakeArr.forEach((e, index) => {
+                let snakeElement = document.createElement('div');
+                snakeElement.style.gridRowStart = e.y + 1;
+                snakeElement.style.gridColumnStart = e.x + 1;
+                snakeElement.classList.add(index === 0 ? 'head' : 'snake');
+                board.appendChild(snakeElement);
+            });
+
+            let foodElement = document.createElement('div');
+            foodElement.style.gridRowStart = food.y + 1;
+            foodElement.style.gridColumnStart = food.x + 1;
+            foodElement.classList.add('food');
+            board.appendChild(foodElement);
+        }
+
+        window.requestAnimationFrame(main);
+
+        window.addEventListener("keydown", (e) => {
+            inputDir = { x: 0, y: 1 };
+            moveSound.play();
+            musicSound.play();
+
+            switch (e.key) {
+                case "ArrowUp": inputDir = { x: 0, y: -1 }; break;
+                case "ArrowDown": inputDir = { x: 0, y: 1 }; break;
+                case "ArrowLeft": inputDir = { x: -1, y: 0 }; break;
+                case "ArrowRight": inputDir = { x: 1, y: 0 }; break;
+            }
+        });
+
+        document.getElementById("resetHighScore").addEventListener("click", () => {
+            localStorage.removeItem("hiscore");
+            hiscoreval = 0;
+            localStorage.setItem("hiscore", hiscoreval);
+            document.getElementById("hiscoreBox").innerHTML = "HiScore: " + hiscoreval;
+            alert("🔥 High Score Reset! 🔥");
+        });
+
+        document.getElementById('upBtn').addEventListener('click', () => {
+            inputDir = { x: 0, y: -1 };
+            moveSound.play();
+        });
+
+        document.getElementById('downBtn').addEventListener('click', () => {
+            inputDir = { x: 0, y: 1 };
+            moveSound.play();
+        });
+
+        document.getElementById('leftBtn').addEventListener('click', () => {
+            inputDir = { x: -1, y: 0 };
+            moveSound.play();
+        });
+
+        document.getElementById('rightBtn').addEventListener('click', () => {
+            inputDir = { x: 1, y: 0 };
+            moveSound.play();
+        });
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//mine game code by me
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(130, 130, 100);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            font-family: 'New Tegomin', serif;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(15, 35px);
+            grid-template-rows: repeat(15, 35px);
+            gap: 1px;
+            width: 525px;
+            height: 525px;
+        }
+
+        .cell {
+            width: 35px;
+            height: 35px;
+            background: #a8a88c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid #666;
+            text-align: center;
+            line-height: 1;
+            overflow: hidden;
+        }
+
+        .cell.revealed {
+            background: #d6d6bc;
+            cursor: default;
+        }
+
+        .cell.mine {
+            background: red;
+            color: white;
+            animation: explode 0.5s ease-out;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 200px;
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        .mobile-message {
+            display: none;
+            font-size: 15px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            position: absolute;
+            top: 10px;
+            right: -100px;
+            padding: 5px 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            word-wrap: break-word;
+            max-width: 90vw;
+        }
+
+        @media (max-width: 600px) {
+            .board {
+                width: 375px;
+                height: 375px;
+            }
+
+            .cell {
+                font-size: 14px;
+            }
+
+            button {
+                width: 150px;
+            }
+
+            .mobile-message {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Minesweeper</h1>
+    <div class="game-container">
+        <div class="board" id="board"></div>
+        <button onclick="startGame()">Restart</button>
+    </div>
+    <div class="mobile-message">
+        Use desktop mode <br> for better experience
+    </div>
+
+    <script>
+        const rows = 15, cols = 15, mines = 30;
+        let board = [];
+
+        function startGame() {
+            const boardElement = document.getElementById('board');
+            boardElement.innerHTML = '';
+            board = Array.from({ length: rows }, () => Array(cols).fill(0));
+            placeMines();
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const cell = document.createElement('button');
+                    cell.classList.add('cell');
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    cell.addEventListener('click', () => revealCell(r, c, cell));
+                    boardElement.appendChild(cell);
+                }
+            }
+        }
+
+        function placeMines() {
+            let mineCount = 0;
+            while (mineCount < mines) {
+                let r = Math.floor(Math.random() * rows);
+                let c = Math.floor(Math.random() * cols);
+                if (board[r][c] !== 'M') {
+                    board[r][c] = 'M';
+                    mineCount++;
+                    updateNumbers(r, c);
+                }
+            }
+        }
+
+        function updateNumbers(r, c) {
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    let nr = r + dr, nc = c + dc;
+                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && board[nr][nc] !== 'M') {
+                        board[nr][nc]++;
+                    }
+                }
+            }
+        }
+
+        function revealCell(r, c, cell) {
+            if (cell.classList.contains('revealed')) return;
+            cell.classList.add('revealed');
+            if (board[r][c] === 'M') {
+                cell.classList.add('mine');
+                revealMines();
+                setTimeout(() => alert('Game Over!'), 500);
+                setTimeout(startGame, 1000);
+                return;
+            }
+            cell.innerText = board[r][c] === 0 ? '' : board[r][c];
+            if (board[r][c] === 0) {
+                revealAdjacentCells(r, c);
+            }
+        }
+
+        function revealAdjacentCells(r, c) {
+            let toReveal = [[r, c]];
+            while (toReveal.length) {
+                let [cr, cc] = toReveal.pop();
+                for (let dr = -1; dr <= 1; dr++) {
+                    for (let dc = -1; dc <= 1; dc++) {
+                        let nr = cr + dr, nc = cc + dc;
+                        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                            let neighbor = document.querySelector(`[data-row='${nr}'][data-col='${nc}']`);
+                            if (neighbor && !neighbor.classList.contains('revealed')) {
+                                neighbor.classList.add('revealed');
+                                neighbor.innerText = board[nr][nc] === 0 ? '' : board[nr][nc];
+                                if (board[nr][nc] === 0) toReveal.push([nr, nc]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function revealMines() {
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (board[r][c] === 'M') {
+                        const mineCell = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+                        mineCell.classList.add('mine');
+                    }
+                }
+            }
+        }
+
+        startGame();
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// tic tac toe by me
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #FFF9F2;
+            margin: 0px;
+        }
+
+        nav {
+            background-color: rgb(50, 50, 50);
+            color: white;
+            height: 50px;
+            font-size: 25px;
+            display: flex;
+            padding: 0 10px;
+            align-items: center;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        .gameContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-rows: repeat(3, 15vw);
+            grid-template-columns: repeat(3, 15vw);
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+        }
+
+        .box {
+            font-size: min(15vw, 80px);
+            border: 2px solid black;
+            font-size: 10vw;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box:hover {
+            background-color: blanchedalmond;
+        }
+
+        .info {
+            font-size: 20px;
+        }
+
+        .gameInfo {
+            padding: 35px;
+            font-size: 'Baloo Bhaina 2', cursive;
+        }
+
+        .imgbox img {
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        .br-0 {
+            border-right: 0;
+        }
+
+        .bl-0 {
+            border-left: 0;
+        }
+
+        .bt-0 {
+            border-top: 0;
+        }
+
+        .bb-0 {
+            border-bottom: 0;
+        }
+
+        #reset {
+            margin: 15px 25px;
+            padding: 1px 15px;
+            background-color: rgb(230, 245, 245);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Baloo Bhaina 2';
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 800px) {
+            .gameContainer {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                grid-template-rows: repeat(3, minmax(60px, 25vw));
+                grid-template-columns: repeat(3, minmax(60px, 25vw));
+            }
+
+            .gameInfo {
+                text-align: center;
+                padding: 20px;
+            }
+
+            .info {
+                font-size: 16px;
+            }
+
+            #reset {
+                font-size: 20px;
+                padding: 5px 10px;
+            }
+
+            .gameInfo h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>TIC TAC TOE</li>
+        </ul>
+    </nav>
+
+    <div class="gameContainer">
+        <div class="container">
+            <div class="box bl-0 bt-0"><span class="boxtext"></span></div>
+            <div class="box bt-0"><span class="boxtext"></span></div>
+            <div class="box bt-0 br-0"><span class="boxtext"></span></div>
+            <div class="box bl-0"><span class="boxtext"></span></div>
+            <div class="box"><span class="boxtext"></span></div>
+            <div class="box br-0"><span class="boxtext"></span></div>
+            <div class="box bl-0 bb-0"><span class="boxtext"></span></div>
+            <div class="box bb-0"><span class="boxtext"></span></div>
+            <div class="box bb-0 br-0"><span class="boxtext"></span></div>
+        </div>
+        <div class="gameInfo">
+            <h1>Welcome to TIC TAC TOE</h1>
+            <div>
+                <span class="info">Turn for X</span>
+                <button id="reset">reset</button>
+            </div>
+            <div class="imgbox">
+                <img src="Photos/cartoon-unscreen.gif" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log("Welcome to Tic Tac Toe")
+        let turn = "X"
+        let gameover = false;
+
+        const changeTurn = () => {
+            return turn === "X" ? "0" : "X"
+        }
+
+        const checkWin = () => {
+            let boxtext = document.getElementsByClassName('boxtext');
+            let wins = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [6, 4, 2],
+            ]
+            wins.forEach(e => {
+                if ((boxtext[e[0]].innerText === boxtext[e[1]].innerText) && (boxtext[e[2]].innerText === boxtext[e[1]].innerText) && boxtext[e[0]].innerText !== "") {
+                    document.querySelector('.info').innerText = boxtext[e[0]].innerText + " won"
+                    gameover = true
+                    document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "200px";
+                }
+            })
+        }
+
+        //Game logic
+        let boxes = document.getElementsByClassName("box");
+        Array.from(boxes).forEach(element => {
+            let boxtext = element.querySelector('.boxtext');
+            element.addEventListener('click', () => {
+                if (boxtext.innerText === '') {
+                    boxtext.innerText = turn;
+                    turn = changeTurn();
+                    checkWin();
+                    if (!gameover) {
+                        document.getElementsByClassName("info")[0].innerText = "Turn for " + turn;
+                    }
+                }
+            })
+        })
+
+
+        reset.addEventListener('click', (e) => {
+            let boxtexts = document.querySelectorAll('.boxtext');
+            Array.from(boxtexts).forEach(element => {
+                element.innerText = ""
+            });
+            turn = "X"
+            gameover = false
+            document.getElementsByClassName("info")[0].innerText = "Turn for " + turn;
+            document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "0px"
+
+        })
+    </script>
+
+</body>
+
+</html>
