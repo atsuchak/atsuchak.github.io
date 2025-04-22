@@ -1,203 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mine Game | atsuchak</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game | atsuchak</title>
     <style>
+        /* ---------- RESET ---------- */
         * {
             box-sizing: border-box;
-        }
-
-        html, body {
             margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #121212;
-            color: #00ff95;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            padding: 0
         }
 
-        .container {
-            height: 95vh;
-            width: 95vw;
+        html,
+        body {
+            height: 100%
+        }
+
+        /* ---------- GLOBAL ---------- */
+        body {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            background: #121212;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, sans-serif
         }
 
         h1 {
-            margin: 0;
-            font-size: 2em;
+            color: #00ff95;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: .3rem
         }
 
-        .game-board {
+        .score-box {
+            font-size: 1.1rem;
+            margin-bottom: .8rem
+        }
+
+        .score-box span {
+            margin: 0 .6rem
+        }
+
+        /* ---------- FLEX WRAPPER ---------- */
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.4rem;
+            /* mobile default spacing */
+        }
+
+        /* ---------- GAME BOARD ---------- */
+        #game-board {
+            width: 60vmin;
+            /* square via width + aspect-ratio */
+            aspect-ratio: 1/1;
+            background: #1e1e1e;
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(12, 1fr);
-            gap: 2px;
-            aspect-ratio: 1 / 1;
-            width: 90vmin;
-            max-height: 90vmin;
+            grid-template: repeat(20, 1fr)/repeat(20, 1fr);
             border: 4px solid #00ff95;
-            border-radius: 12px;
-            box-shadow: 0 0 15px #00ff9570;
+            border-radius: 10px;
+            box-shadow: 0 0 18px #00ff9570
         }
 
-        .cell {
-            background-color: #1e1e1e;
-            border-radius: 4px;
+        .snake {
+            background: #00ff95;
+            border-radius: 4px
+        }
+
+        .food {
+            background: #ff3c38;
+            border-radius: 50%
+        }
+
+        /* ---------- CONTROLS ---------- */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem
+        }
+
+        .row {
+            display: flex;
+            gap: 4rem;
+            justify-content: center
+        }
+
+        .btn {
+            background: #232323;
+            border: 1px solid #00ff95;
+            color: #00ff95;
+            font-size: 1.6rem;
+            padding: 20px 26px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: .2s;
+            min-width: 80px;
+            min-height: 80px
         }
 
-        .cell:hover {
-            background-color: #2d2d2d;
+        .btn:hover {
+            background: #00ff95;
+            color: #121212
         }
 
-        .cell.revealed {
-            background-color: #007a5a;
-        }
-
-        .cell.mine {
-            background-color: #ff3c38;
-        }
-
-        button {
-            background-color: #00ff95;
+        #start-btn {
+            background: #00ff95;
             color: #121212;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s ease;
+            font-size: 1.3rem;
+            padding: 16px 36px;
+            border-radius: 8px
         }
 
-        button:hover {
-            background-color: #00d681;
+        #start-btn:hover {
+            background: #00d681
         }
 
-        .message {
-            font-size: 1em;
-            color: #ff6961;
+        /* ---------- DESKTOP ≥768px ---------- */
+        @media(min-width:768px) {
+            .main {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 3rem
+            }
+
+            .side {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+                margin-top: .5rem
+            }
+
+            /* make board a bit larger on big screens but keep within viewport */
+            #game-board {
+                width: 50vmin
+            }
+        }
+
+        @media(min-width:1200px) {
+            #game-board {
+                width: 45vmin
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Mine Game</h1>
-        <div id="gameBoard" class="game-board"></div>
-        <button id="resetButton">Reset Game</button>
-        <div id="message" class="message"></div>
+    <div class="main">
+        <!-- Board -->
+        <div>
+            <h1>Snake Game</h1>
+            <div class="score-box">
+                <span>Score: <span id="score">0</span></span>
+                <span>High Score: <span id="high-score">0</span></span>
+            </div>
+            <div id="game-board"></div>
+        </div>
+
+        <!-- Controls + Start (side column for desktop) -->
+        <div class="side">
+            <div class="controls">
+                <button class="btn" id="up">↑</button>
+                <div class="row">
+                    <button class="btn" id="left">←</button>
+                    <button class="btn" id="right">→</button>
+                </div>
+                <button class="btn" id="down">↓</button>
+            </div>
+            <button id="start-btn">Start Game</button>
+        </div>
     </div>
 
     <script>
-        const boardSize = 12;
-        const mineCount = 20;
-        let board = [];
-        let gameOver = false;
+        /* ---------- GAME LOGIC ---------- */
+        const board = document.getElementById('game-board');
+        const scoreDisplay = document.getElementById('score');
+        const highScoreDisplay = document.getElementById('high-score');
+        const startBtn = document.getElementById('start-btn');
 
-        function createBoard() {
-            board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
-            placeMines();
-            renderBoard();
+        let snake = [{ x: 9, y: 9 }], direction = { x: 1, y: 0 }, food = { x: 5, y: 5 };
+        let score = 0, highScore = 0, loop;
+
+        /* Start & Reset */
+        startBtn.onclick = () => { reset(); start() };
+        function start() { clearInterval(loop); document.onkeydown = dirKey; placeFood(); loop = setInterval(tick, 120); }
+        function reset() { snake = [{ x: 9, y: 9 }]; direction = { x: 1, y: 0 }; score = 0; scoreDisplay.textContent = score; render(); }
+
+        /* Direction via keys & buttons */
+        function dirKey(e) {
+            if (e.key === 'ArrowUp' && !direction.y) direction = { x: 0, y: -1 };
+            if (e.key === 'ArrowDown' && !direction.y) direction = { x: 0, y: 1 };
+            if (e.key === 'ArrowLeft' && !direction.x) direction = { x: -1, y: 0 };
+            if (e.key === 'ArrowRight' && !direction.x) direction = { x: 1, y: 0 };
         }
-
-        function placeMines() {
-            let minesPlaced = 0;
-            while (minesPlaced < mineCount) {
-                const x = Math.floor(Math.random() * boardSize);
-                const y = Math.floor(Math.random() * boardSize);
-                if (board[x][y] !== 'M') {
-                    board[x][y] = 'M';
-                    minesPlaced++;
-                }
-            }
-        }
-
-        function renderBoard() {
-            const gameBoard = document.getElementById('gameBoard');
-            gameBoard.innerHTML = '';
-            board.forEach((row, x) => {
-                row.forEach((cell, y) => {
-                    const cellDiv = document.createElement('div');
-                    cellDiv.classList.add('cell');
-                    cellDiv.addEventListener('click', () => handleCellClick(x, y));
-                    gameBoard.appendChild(cellDiv);
-                });
-            });
-        }
-
-        function handleCellClick(x, y) {
-            if (gameOver) return;
-            const cell = board[x][y];
-            if (cell === 'M') {
-                revealMines();
-                document.getElementById('message').innerText = 'Game Over! You hit a mine!';
-                gameOver = true;
-            } else {
-                revealRandomConnectedCells(x, y);
-            }
-        }
-
-        function revealRandomConnectedCells(x, y) {
-            const maxCellsToReveal = Math.floor(Math.random() * 7) + 1;
-            const revealedCells = new Set();
-            const cellsToReveal = [];
-
-            const directions = [
-                [-1, -1], [-1, 0], [-1, 1],
-                [0, -1],          [0, 1],
-                [1, -1], [1, 0], [1, 1]
-            ];
-
-            for (const [dx, dy] of directions) {
-                const newX = x + dx;
-                const newY = y + dy;
-                if (newX >= 0 && newX < boardSize && newY >= 0 && newY < boardSize) {
-                    cellsToReveal.push([newX, newY]);
-                }
-            }
-
-            for (let i = 0; i < cellsToReveal.length; i++) {
-                const randomIndex = Math.floor(Math.random() * cellsToReveal.length);
-                [cellsToReveal[i], cellsToReveal[randomIndex]] = [cellsToReveal[randomIndex], cellsToReveal[i]];
-            }
-
-            for (let i = 0; i < Math.min(maxCellsToReveal, cellsToReveal.length); i++) {
-                const [cellX, cellY] = cellsToReveal[i];
-                if (board[cellX][cellY] !== 'M' && !revealedCells.has(`${cellX},${cellY}`)) {
-                    revealedCells.add(`${cellX},${cellY}`);
-                    const cellDiv = document.querySelectorAll('.cell')[cellX * boardSize + cellY];
-                    cellDiv.classList.add('revealed');
-                }
-            }
-        }
-
-        function revealMines() {
-            board.forEach((row, x) => {
-                row.forEach((cell, y) => {
-                    if (cell === 'M') {
-                        const cellDiv = document.querySelectorAll('.cell')[x * boardSize + y];
-                        cellDiv.classList.add('mine');
-                    }
-                });
-            });
-        }
-
-        document.getElementById('resetButton').addEventListener('click', () => {
-            gameOver = false;
-            document.getElementById('message').innerText = '';
-            createBoard();
+        ['up', 'down', 'left', 'right'].forEach(id => {
+            document.getElementById(id).onclick = _ => {
+                if (id === 'up' && !direction.y) direction = { x: 0, y: -1 };
+                if (id === 'down' && !direction.y) direction = { x: 0, y: 1 };
+                if (id === 'left' && !direction.x) direction = { x: -1, y: 0 };
+                if (id === 'right' && !direction.x) direction = { x: 1, y: 0 };
+            };
         });
 
-        createBoard();
+        /* Food & Tick */
+        function placeFood() { food.x = Math.floor(Math.random() * 20); food.y = Math.floor(Math.random() * 20); }
+        function tick() {
+            const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+            if (head.x < 0 || head.x > 19 || head.y < 0 || head.y > 19 || snake.some(s => s.x === head.x && s.y === head.y)) {
+                clearInterval(loop); alert('Game Over! Score: ' + score);
+                highScore = Math.max(highScore, score); highScoreDisplay.textContent = highScore; reset(); return;
+            }
+            snake.unshift(head);
+            if (head.x === food.x && head.y === food.y) { score++; scoreDisplay.textContent = score; placeFood(); }
+            else snake.pop();
+            render();
+        }
+
+        /* Render */
+        function render() {
+            board.innerHTML = '';
+            snake.forEach(s => {
+                const d = document.createElement('div'); d.className = 'snake';
+                d.style.gridRowStart = s.y + 1; d.style.gridColumnStart = s.x + 1; board.appendChild(d);
+            });
+            const f = document.createElement('div'); f.className = 'food';
+            f.style.gridRowStart = food.y + 1; f.style.gridColumnStart = food.x + 1; board.appendChild(f);
+        }
+        render();
     </script>
 </body>
+
 </html>
