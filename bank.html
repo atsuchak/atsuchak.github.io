@@ -2,130 +2,273 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Management System</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>একটা ব্যাংক - Clean Modern UI</title>
     <style>
+        /* Reset and base */
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #f0f2f5;
-            color: #333;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b1a3d;
+            /* Navy Blue background */
+            color: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background-color: #0066b3;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
+        a,
+        button {
+            font-family: inherit;
         }
 
         button {
-            background-color: #0066b3;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            border: none;
+            border-radius: 5px;
+            background-color: #18ffff;
+            /* Neon cyan */
+            color: #0b1a3d;
+            font-weight: 600;
+            padding: 12px 18px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #004e8c;
+        button:hover,
+        button:focus {
+            background-color: #0ff;
+            outline: none;
         }
 
         button.secondary {
-            background-color: #6c757d;
+            background-color: #1366d6;
+            color: #e0e0e0;
         }
 
         button.secondary:hover {
-            background-color: #5a6268;
+            background-color: #0a4fc9;
         }
 
         button.danger {
-            background-color: #dc3545;
+            background-color: #ff1744;
+            color: white;
         }
 
         button.danger:hover {
-            background-color: #c82333;
+            background-color: #d50030;
         }
 
+        a {
+            color: #18ffff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 16px 20px 40px;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            background: #021030;
+            padding: 20px 0;
+            margin-bottom: 16px;
+            box-shadow: 0 0 15px #18ffffaa;
+        }
+
+        .header-content {
+            max-width: 420px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 900;
+        }
+
+        .neon-text {
+            color: #000000;
+            text-shadow:
+                0 0 3px #0ff6f6,
+                0 0 7px #0ff6f6,
+                0 0 12px #0ff6f6,
+                0 0 20px #0ff6f6;
+        }
+
+        /* Mobile menu toggle - simplified for now */
+        /* .mobile-menu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: #18ffff;
+            border-radius: 1px;
+        } */
+
+        /* Cards - clean layout */
+        .card {
+            background: #142a5c;
+            border-radius: 12px;
+            padding: 24px 28px 32px;
+            box-shadow:
+                0 0 8px #18ffff66,
+                inset 0 0 12px #0ff5;
+            margin-bottom: 24px;
+        }
+
+        /* Headings inside cards */
+        .card h2,
+        .card h3,
+        .card h4 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: #c0eefd;
+        }
+
+        /* Add these CSS styles to the <style> section in the <head> of your HTML */
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: #142a5c;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 340px;
+            box-shadow: 0 0 15px #ff1744aa, inset 0 0 12px #ff174433;
+            text-align: center;
+        }
+
+        .popup-content h3 {
+            color: #ff1744;
+            margin-top: 0;
+        }
+
+        .popup-content button {
+            background-color: #1366d6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .popup-content button:hover {
+            background-color: #0a4fc9;
+        }
+
+        /* Style for the "See More" and "Show Less" buttons in transaction history */
+        #transactions-body button.secondary {
+            background-color: #1366d6;
+            color: #e0e0e0;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        #transactions-body button.secondary:hover {
+            background-color: #0a4fc9;
+        }
+
+        /* Form Groups with labels on top */
+        form {
+            margin-top: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #a8d7e7;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="number"] {
+            padding: 10px 14px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background-color: #224882;
+            color: #daf6ff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #18ffff;
+            outline: none;
+            background-color: #1c3c70;
+            color: #e0faff;
+        }
+
+        input::placeholder {
+            color: #74d5ff88;
+        }
+
+        /* Buttons container */
         .buttons {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: nowrap;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        /* Message area */
+        #message-area {
+            margin-bottom: 16px;
+            color: #ff8585;
+            font-weight: 700;
+            min-height: 20px;
+            text-align: center;
         }
 
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
+        /* Screens */
         .screens>div {
             display: none;
         }
@@ -134,745 +277,197 @@
             display: block;
         }
 
-        .success-message,
-        .error-message {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .popup-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-        }
-
-        .popup-content h3 {
-            margin-top: 0;
-            color: #0066b3;
-        }
-
-        .popup-content .account-number {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #f0f2f5;
-            border-radius: 4px;
-        }
-
-        .close-popup {
-            display: block;
-            margin: 20px auto 0;
-            padding: 10px 20px;
-        }
-
-        .profile-info {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 10px;
-        }
-
-        .profile-info div {
-            padding: 10px;
-        }
-
-        .profile-info div:nth-child(odd) {
-            font-weight: bold;
-        }
-
+        /* Dashboard nav tabs */
         .nav-tabs {
             display: flex;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
         }
 
-        .nav-tab {
-            padding: 10px 15px;
+        /* .nav-tab {
+            flex: 1;
+            text-align: center;
+            background-color: #224882;
+            padding: 10px 0;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #a8d7e7;
             cursor: pointer;
-            border: 1px solid transparent;
-            border-bottom: none;
-            margin-right: 5px;
-            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s ease;
+            user-select: none;
         }
 
         .nav-tab.active {
-            background-color: white;
-            border-color: #ddd;
-            color: #0066b3;
-            font-weight: bold;
-        }
-
-        .nav-tab:hover:not(.active) {
-            background-color: #f0f2f5;
-        }
+            background-color: #18ffff;
+            color: #0b1a3d;
+            font-weight: 800;
+            box-shadow:
+                0 0 10px #18ffffaa,
+                inset 0 0 6px #0b1a3d;
+        } */
 
         .logout-btn {
-            margin-left: auto;
-        }
-
-        /* Responsive CSS for Bank Management System */
-
-        /* Base Styling Improvements */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f0f2f5;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            width: 100%;
-        }
-
-        header {
-            background-color: #0066b3;
+            flex: 1 0 100%;
+            margin-top: 8px;
+            background-color: #ff1744;
             color: white;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #ff1744cc;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .logout-btn:hover {
+            background-color: #d50030;
         }
 
-        /* Responsive Typography */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            h3 {
-                font-size: 1.2rem;
-            }
+        /* Profile Info Grid */
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 14px;
+            column-gap: 12px;
+            color: #d0eefe;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            h2 {
-                font-size: 1.3rem;
-            }
-
-            h3 {
-                font-size: 1.1rem;
-            }
+        /* Deposit/Withdraw: form style consistency */
+        #deposit-current-balance,
+        #withdraw-current-balance {
+            font-weight: 700;
+            color: #18ffff;
         }
 
-        /* Card Styling */
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 12px;
-            }
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        @media (max-width: 480px) {
-            input {
-                padding: 8px;
-                font-size: 14px;
-            }
-        }
-
-        /* Buttons */
-        button {
-            background-color: #0066b3;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #004e8c;
-        }
-
-        button.secondary {
-            background-color: #6c757d;
-        }
-
-        button.secondary:hover {
-            background-color: #5a6268;
-        }
-
-        button.danger {
-            background-color: #dc3545;
-        }
-
-        button.danger:hover {
-            background-color: #c82333;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 480px) {
-            button {
-                padding: 8px 12px;
-                font-size: 14px;
-                width: 100%;
-            }
-
-            .buttons {
-                flex-direction: column;
-                gap: 8px;
-            }
-        }
-
-        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
+            background: #19356f;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         th,
         td {
-            padding: 12px;
-            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 1px solid #224882;
+            color: #a0d7ff;
+            font-size: 0.9rem;
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #1362d8;
+            font-weight: 700;
         }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+        tbody tr:hover {
+            background-color: #224882cc;
         }
 
-        /* Transaction table specific styles */
-        .transaction-wrapper {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .transaction-table {
-            margin-top: 0;
-        }
-
-        .transaction-header {
-            background-color: #f4f4f4;
-            padding: 12px;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .transaction-header h3 {
-            margin: 0;
-        }
-
-        .transaction-footer {
-            background-color: #f9f9f9;
-            padding: 12px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
-
-        .see-more-btn {
-            background-color: #f0f2f5;
-            color: #0066b3;
-            border: 1px solid #ddd;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .see-more-btn:hover {
-            background-color: #e4e6e9;
-        }
-
-        @media (max-width: 768px) {
-
-            th,
-            td {
-                padding: 8px;
-            }
-        }
-
-        /* Responsive Table */
-        @media (max-width: 640px) {
-
-            /* Convert table to a card-like display */
-            table,
-            thead,
-            tbody,
-            th,
-            td,
-            tr {
-                display: block;
-            }
-
-            thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-
-            tr {
-                margin-bottom: 15px;
-                border: 1px solid #ddd;
-            }
-
-            td {
-                border: none;
-                border-bottom: 1px solid #eee;
-                position: relative;
-                padding-left: 50%;
-                text-align: right;
-            }
-
-            td:before {
-                position: absolute;
-                top: 6px;
-                left: 6px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: nowrap;
-                text-align: left;
-                font-weight: bold;
-                content: attr(data-label);
-            }
-
-            /* Transaction table specific */
-            #transactions-body td:nth-of-type(1):before {
-                content: "Date & Time";
-            }
-
-            #transactions-body td:nth-of-type(2):before {
-                content: "Type";
-            }
-
-            #transactions-body td:nth-of-type(3):before {
-                content: "Amount";
-            }
-
-            #transactions-body tr:first-child td {
-                text-align: center;
-                padding-left: 0;
-            }
-
-            #transactions-body tr:first-child td:before {
-                content: none;
-            }
-        }
-
-        /* Navigation Tabs */
-        .nav-tabs {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nav-tab {
-            padding: 10px 15px;
-            cursor: pointer;
-            border: 1px solid transparent;
+        tbody tr:last-child td {
             border-bottom: none;
-            margin-right: 5px;
-            border-radius: 5px 5px 0 0;
-            white-space: nowrap;
         }
 
-        .nav-tab.active {
-            background-color: white;
-            border-color: #ddd;
-            color: #0066b3;
-            font-weight: bold;
+        /* Settings card inside big card */
+        #settings-tab .card {
+            background-color: #19356f;
+            box-shadow: none;
+            padding: 16px 18px;
+            margin-top: 12px;
         }
 
-        .nav-tab:hover:not(.active) {
-            background-color: #f0f2f5;
+        #delete-account-form {
+            max-width: 320px;
+            margin-top: 10px;
         }
 
-        .logout-btn {
-            margin-left: auto;
-        }
+        /* Responsive for mobile smaller devices */
+        @media screen and (max-width: 400px) {
+            .container {
+                max-width: 100%;
+                padding: 12px 14px 32px;
+            }
 
-        @media (max-width: 768px) {
             .nav-tabs {
-                justify-content: space-between;
+                gap: 6px;
+                flex-wrap: wrap;
             }
 
-            .nav-tab {
-                padding: 8px 12px;
-                margin-right: 2px;
-                font-size: 14px;
-            }
-
+            .nav-tab,
             .logout-btn {
-                margin-left: 0;
-                margin-top: 10px;
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .nav-tabs {
-                flex-direction: column;
-                border-bottom: none;
+                font-size: 0.85rem;
+                padding: 8px 6px;
             }
 
-            .nav-tab {
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                margin-bottom: 5px;
-                text-align: center;
-                padding: 10px;
-            }
-
-            .nav-tab.active {
-                background-color: #0066b3;
-                color: white;
-                border-color: #0066b3;
-            }
-        }
-
-        /* Profile Info */
-        .profile-info {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 10px;
-        }
-
-        .profile-info div {
-            padding: 10px;
-        }
-
-        .profile-info div:nth-child(odd) {
-            font-weight: bold;
-        }
-
-        @media (max-width: 640px) {
             .profile-info {
+                font-size: 0.85rem;
                 grid-template-columns: 1fr;
             }
 
-            .profile-info div {
-                padding: 8px;
-                border-bottom: 1px solid #eee;
+            button {
+                font-size: 0.9rem;
+                padding: 10px 14px;
             }
-
-            .profile-info div:nth-child(odd) {
-                background-color: #f9f9f9;
-                margin-bottom: 0;
-                border-bottom: none;
-                padding-bottom: 0;
-            }
-
-            .profile-info div:nth-child(even) {
-                margin-bottom: 10px;
-                padding-top: 5px;
-            }
-        }
-
-        /* Alert Messages */
-        .alert-popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .alert-popup-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            animation: fadeInUp 0.3s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .alert-popup-content.success {
-            border-top: 5px solid #28a745;
-        }
-
-        .alert-popup-content.error {
-            border-top: 5px solid #dc3545;
-        }
-
-        .alert-popup-content h3 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .alert-popup-content p {
-            margin-bottom: 20px;
-        }
-
-        .alert-popup-btn {
-            background-color: #0066b3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .alert-popup-btn.error {
-            background-color: #dc3545;
-        }
-
-        .alert-popup-btn.error:hover {
-            background-color: #c82333;
-        }
-
-        .alert-popup-btn.success {
-            background-color: #28a745;
-        }
-
-        .alert-popup-btn.success:hover {
-            background-color: #218838;
-        }
-
-        /* Legacy Messages for backward compatibility */
-        .success-message,
-        .error-message {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        /* Popup */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .popup-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-        }
-
-        @media (max-width: 480px) {
-            .popup-content {
-                padding: 15px;
-                width: 95%;
-            }
-        }
-
-        .popup-content h3 {
-            margin-top: 0;
-            color: #0066b3;
-        }
-
-        .popup-content .account-number {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #f0f2f5;
-            border-radius: 4px;
-            word-break: break-all;
-        }
-
-        @media (max-width: 480px) {
-            .popup-content .account-number {
-                font-size: 18px;
-            }
-        }
-
-        .close-popup {
-            display: block;
-            margin: 20px auto 0;
-            padding: 10px 20px;
         }
     </style>
 </head>
 
 <body>
+
     <header>
-        <div class="container">
-            <h1>একটা ব্যাংক</h1>
+        <div class="header-content">
+            <h1> <span class="neon-text">একটা ব্যাংক</span></h1>
+            <!-- <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Mobile Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button> -->
         </div>
     </header>
 
     <div class="container">
-        <div id="message-area"></div>
+        <div id="message-area" role="alert" aria-live="polite"></div>
 
         <div class="screens">
             <!-- Main Screen -->
-            <div id="main-screen" class="active">
+            <div id="main-screen" class="active" role="main" aria-label="Welcome Screen">
                 <div class="card">
-                    <h2>Welcome to একটা ব্যাংক</h2>
+                    <h2>Welcome to <span class="neon-text">একটা ব্যাংক</span></h2>
                     <p>Please choose an option to proceed:</p>
                     <div class="buttons">
-                        <button id="create-account-btn">Create New Account</button>
-                        <button id="login-btn">Login to Existing Account</button>
+                        <button id="create-account-btn" type="button">Create New Account</button>
+                        <button id="login-btn" type="button">Login to Existing Account</button>
                     </div>
                 </div>
             </div>
 
             <!-- Create Account Screen -->
-            <div id="create-account-screen">
+            <div id="create-account-screen" role="region" aria-label="Create Account Screen">
                 <div class="card">
                     <h2>Create New Account</h2>
-                    <form id="create-account-form">
+                    <form id="create-account-form" novalidate>
                         <div class="form-group">
-                            <label for="create-name">Full Name:</label>
-                            <input type="text" id="create-name" required>
+                            <label for="create-name">Full Name</label>
+                            <input type="text" id="create-name" name="create-name" autocomplete="name" required />
                         </div>
                         <div class="form-group">
-                            <label for="create-address">Address:</label>
-                            <input type="text" id="create-address" required>
+                            <label for="create-address">Address</label>
+                            <input type="text" id="create-address" name="create-address" autocomplete="street-address"
+                                required />
                         </div>
                         <div class="form-group">
-                            <label for="create-phone">Phone Number:</label>
-                            <input type="tel" id="create-phone" required>
+                            <label for="create-phone">Phone Number</label>
+                            <input type="tel" id="create-phone" name="create-phone" autocomplete="tel" required />
                         </div>
                         <div class="form-group">
-                            <label for="create-password">Password:</label>
-                            <input type="password" id="create-password" required>
+                            <label for="create-password">Password</label>
+                            <input type="password" id="create-password" name="create-password"
+                                autocomplete="new-password" required />
                         </div>
                         <div class="form-group">
-                            <label for="create-confirm-password">Confirm Password:</label>
-                            <input type="password" id="create-confirm-password" required>
+                            <label for="create-confirm-password">Confirm Password</label>
+                            <input type="password" id="create-confirm-password" name="create-confirm-password"
+                                autocomplete="new-password" required />
                         </div>
                         <div class="buttons">
                             <button type="submit">Create Account</button>
@@ -883,17 +478,19 @@
             </div>
 
             <!-- Login Screen -->
-            <div id="login-screen">
+            <div id="login-screen" role="region" aria-label="Login Screen">
                 <div class="card">
                     <h2>Login to Your Account</h2>
-                    <form id="login-form">
+                    <form id="login-form" novalidate>
                         <div class="form-group">
-                            <label for="login-account">Account Number:</label>
-                            <input type="text" id="login-account" required>
+                            <label for="login-account">Account Number</label>
+                            <input type="text" id="login-account" name="login-account" autocomplete="username"
+                                required />
                         </div>
                         <div class="form-group">
-                            <label for="login-password">Password:</label>
-                            <input type="password" id="login-password" required>
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" name="login-password"
+                                autocomplete="current-password" required />
                         </div>
                         <div class="buttons">
                             <button type="submit">Login</button>
@@ -904,29 +501,28 @@
             </div>
 
             <!-- Dashboard Screen -->
-            <div id="dashboard-screen">
+            <div id="dashboard-screen" role="region" aria-label="Dashboard Screen">
                 <div class="card">
-                    <div class="nav-tabs">
-                        <div class="nav-tab active" data-tab="profile">Profile</div>
-                        <a href="#deposit-tab" style="text-decoration: none; color: black;">
-                            <div class="nav-tab" data-tab="deposit">Deposit</div>
-                        </a>
-                        <a href="#withdraw-tab" style="text-decoration: none; color: black;">
-                            <div class="nav-tab" data-tab="withdraw">Withdraw</div>
-                        </a>
-                        <a href="#transactions-tab" style="text-decoration: none; color: black;">
-                            <div class="nav-tab" data-tab="transactions">Transactions</div>
-                        </a>
-                        <a href="#settings-tab" style="text-decoration: none; color: black;">
-                            <div class="nav-tab" data-tab="settings">Settings</div>
-                        </a>
-                        <button id="logout-btn" class="secondary logout-btn">Logout</button>
-                    </div>
+                    <nav class="nav-tabs" role="tablist" aria-label="Dashboard Navigation Tabs">
+                        <!-- <div class="nav-tab active" data-tab="profile" role="tab" tabindex="0" aria-selected="true"
+                            aria-controls="profile-tab" id="tab-profile">Profile</div>
+                        <div class="nav-tab" data-tab="deposit" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="deposit-tab" id="tab-deposit">Deposit</div>
+                        <div class="nav-tab" data-tab="withdraw" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="withdraw-tab" id="tab-withdraw">Withdraw</div>
+                        <div class="nav-tab" data-tab="transactions" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="transactions-tab" id="tab-transactions">Transactions</div>
+                        <div class="nav-tab" data-tab="settings" role="tab" tabindex="-1" aria-selected="false"
+                            aria-controls="settings-tab" id="tab-settings">Settings</div> -->
+                        <button id="logout-btn" class="secondary logout-btn" type="button">Logout</button>
+                    </nav>
+
+                    <br>
 
                     <div id="tab-content">
                         <!-- Profile Tab -->
-                        <div id="profile-tab" class="tab-pane active">
-                            <h3>Account Information</h3>
+                        <section id="profile-tab" class="tab-pane active" role="tabpanel" aria-labelledby="tab-profile">
+                            <h2>Account Information</h2>
                             <div class="profile-info">
                                 <div>Account Number:</div>
                                 <div id="profile-account-number"></div>
@@ -939,74 +535,86 @@
                                 <div>Current Balance:</div>
                                 <div id="profile-balance"></div>
                             </div>
-                        </div>
+                        </section>
+
+                        <br><br>
 
                         <!-- Deposit Tab -->
-                        <div id="deposit-tab" class="tab-pane">
-                            <h3>Deposit Money</h3>
+                        <section id="deposit-tab" class="tab-pane" role="tabpanel" aria-labelledby="tab-deposit">
+                            <h2>Deposit Money</h2>
                             <p>Current Balance: $<span id="deposit-current-balance">0.00</span></p>
-                            <form id="deposit-form">
+                            <form id="deposit-form" novalidate>
                                 <div class="form-group">
-                                    <label for="deposit-amount">Amount to Deposit ($):</label>
-                                    <input type="number" id="deposit-amount" min="1" step="0.01" required>
+                                    <label for="deposit-amount">Amount to Deposit ($)</label>
+                                    <input type="number" id="deposit-amount" name="deposit-amount" min="1" step="0.01"
+                                        required />
                                 </div>
                                 <button type="submit">Deposit</button>
                             </form>
-                        </div>
+                        </section>
+
+                        <br><br>
 
                         <!-- Withdraw Tab -->
-                        <div id="withdraw-tab" class="tab-pane">
-                            <h3>Withdraw Money</h3>
+                        <section id="withdraw-tab" class="tab-pane" role="tabpanel" aria-labelledby="tab-withdraw">
+                            <h2>Withdraw Money</h2>
                             <p>Current Balance: $<span id="withdraw-current-balance">0.00</span></p>
-                            <form id="withdraw-form">
+                            <form id="withdraw-form" novalidate>
                                 <div class="form-group">
-                                    <label for="withdraw-amount">Amount to Withdraw ($):</label>
-                                    <input type="number" id="withdraw-amount" min="1" step="0.01" required>
+                                    <label for="withdraw-amount">Amount to Withdraw ($)</label>
+                                    <input type="number" id="withdraw-amount" name="withdraw-amount" min="1" step="0.01"
+                                        required />
                                 </div>
                                 <button type="submit">Withdraw</button>
                             </form>
-                        </div>
+                        </section>
+
+                        <br><br>
 
                         <!-- Transactions Tab -->
-                        <div id="transactions-tab" class="tab-pane">
-                            <h3>Transaction History</h3>
-                            <table id="transactions-table">
+                        <section id="transactions-tab" class="tab-pane" role="tabpanel"
+                            aria-labelledby="tab-transactions">
+                            <h2>Transaction History</h2>
+                            <table id="transactions-table" role="grid" aria-describedby="Transaction History">
                                 <thead>
                                     <tr>
-                                        <th>Date & Time</th>
-                                        <th>Type</th>
-                                        <th>Amount</th>
+                                        <th scope="col">Date &amp; Time</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody id="transactions-body">
                                     <!-- Transactions will be added here dynamically -->
                                 </tbody>
                             </table>
-                        </div>
+                        </section>
+
+                        <br><br>
 
                         <!-- Settings Tab -->
-                        <div id="settings-tab" class="tab-pane">
-                            <h3>Account Settings</h3>
+                        <section id="settings-tab" class="tab-pane" role="tabpanel" aria-labelledby="tab-settings">
+                            <h2>Account Settings</h2>
                             <div class="card">
                                 <h4>Delete Account</h4>
                                 <p>Warning: This action cannot be undone!</p>
-                                <form id="delete-account-form">
+                                <form id="delete-account-form" novalidate>
                                     <div class="form-group">
-                                        <label for="delete-password">Enter your password to confirm:</label>
-                                        <input type="password" id="delete-password" required>
+                                        <label for="delete-password">Enter your password to confirm</label>
+                                        <input type="password" id="delete-password" name="delete-password" required />
                                     </div>
                                     <button type="submit" class="danger">Delete My Account</button>
                                 </form>
                             </div>
-                        </div>
+                        </section>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Bank Management System - JavaScript Implementation
+
         class Transaction {
             constructor(type, amount) {
                 this.type = type;
@@ -1148,6 +756,22 @@
 
                 // Logout button
                 document.getElementById('logout-btn').addEventListener('click', () => this.logout());
+
+                // Mobile menu toggle - simple alert for now
+                const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+                mobileMenuToggle.addEventListener('click', () => {
+                    alert('Toggle mobile menu - functionality to be implemented');
+                });
+
+                // Add keyboard navigation to tabs
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            tab.click();
+                        }
+                    });
+                });
             },
 
             showScreen(screenId) {
@@ -1164,12 +788,16 @@
                 // Remove active class from all tabs
                 document.querySelectorAll('.nav-tab').forEach(tab => {
                     tab.classList.remove('active');
+                    tab.setAttribute('aria-selected', 'false');
+                    tab.setAttribute('tabindex', '-1');
                 });
 
                 // Add active class to selected tab
                 const selectedTab = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
                 if (selectedTab) {
                     selectedTab.classList.add('active');
+                    selectedTab.setAttribute('aria-selected', 'true');
+                    selectedTab.setAttribute('tabindex', '0');
                 }
 
                 // Hide all tab panes
@@ -1190,6 +818,11 @@
                             this.currentAccount.balance.toFixed(2);
                     }
                 }
+
+                // If switching to transactions tab, refresh transaction list
+                if (tabId === 'transactions' && this.currentAccount) {
+                    this.loadTransactionHistory(true);
+                }
             },
 
             showMessage(message, isError = false) {
@@ -1202,7 +835,9 @@
 
                 // Auto-hide message after 5 seconds
                 setTimeout(() => {
-                    messageElement.remove();
+                    if (messageArea.contains(messageElement)) {
+                        messageElement.remove();
+                    }
                 }, 5000);
             },
 
@@ -1239,12 +874,12 @@
                 content.className = 'popup-content';
 
                 content.innerHTML = `
-                    <h3>Account Created Successfully!</h3>
-                    <p>Please save your account number. You will need it to login.</p>
-                    <div class="account-number">${accountNumber}</div>
-                    <p>Keep this number and your password secure.</p>
-                    <button class="close-popup">Got it!</button>
-                `;
+            <h3>Account Created Successfully!</h3>
+            <p>Please save your account number. You will need it to login.</p>
+            <div class="account-number">${accountNumber}</div>
+            <p>Keep this number and your password secure.</p>
+            <button class="close-popup">Got it!</button>
+        `;
 
                 overlay.appendChild(content);
                 document.body.appendChild(overlay);
@@ -1282,11 +917,24 @@
                 document.getElementById('profile-phone').textContent = this.currentAccount.phoneNumber;
                 document.getElementById('profile-balance').textContent = `$${this.currentAccount.balance.toFixed(2)}`;
 
-                // Load transaction history
+                // Load transaction history with pagination
+                this.loadTransactionHistory(true); // true means load initial/limited view
+
+                // Reset forms and update balances
+                document.getElementById('deposit-form').reset();
+                document.getElementById('withdraw-form').reset();
+                document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+                document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+            },
+
+            loadTransactionHistory(limitResults = false) {
                 const transactionsBody = document.getElementById('transactions-body');
                 transactionsBody.innerHTML = '';
 
-                if (this.currentAccount.transactionHistory.length === 0) {
+                // Get transactions
+                const transactions = this.currentAccount.transactionHistory;
+
+                if (transactions.length === 0) {
                     const row = document.createElement('tr');
                     const cell = document.createElement('td');
                     cell.colSpan = 3;
@@ -1294,33 +942,74 @@
                     cell.style.textAlign = 'center';
                     row.appendChild(cell);
                     transactionsBody.appendChild(row);
-                } else {
-                    this.currentAccount.transactionHistory.forEach(transaction => {
-                        const row = document.createElement('tr');
-
-                        const dateCell = document.createElement('td');
-                        dateCell.textContent = transaction.date;
-                        row.appendChild(dateCell);
-
-                        const typeCell = document.createElement('td');
-                        typeCell.textContent = transaction.type;
-                        row.appendChild(typeCell);
-
-                        const amountCell = document.createElement('td');
-                        amountCell.textContent = `$${transaction.amount.toFixed(2)}`;
-                        row.appendChild(amountCell);
-
-                        transactionsBody.appendChild(row);
-                    });
+                    return;
                 }
 
-                // Reset the deposit and withdraw forms
-                document.getElementById('deposit-form').reset();
-                document.getElementById('withdraw-form').reset();
+                // Sort transactions by date (newest first)
+                const sortedTransactions = [...transactions].sort((a, b) => {
+                    return new Date(b.date) - new Date(a.date);
+                });
 
-                // Update balances
-                document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
-                document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+                // Limit to 5 if needed
+                const displayTransactions = limitResults ? sortedTransactions.slice(0, 5) : sortedTransactions;
+
+                // Add transactions to the table
+                displayTransactions.forEach(transaction => {
+                    const row = document.createElement('tr');
+
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = transaction.date;
+                    dateCell.setAttribute('data-label', 'Date & Time');
+                    row.appendChild(dateCell);
+
+                    const typeCell = document.createElement('td');
+                    typeCell.textContent = transaction.type;
+                    typeCell.setAttribute('data-label', 'Type');
+                    row.appendChild(typeCell);
+
+                    const amountCell = document.createElement('td');
+                    amountCell.textContent = `$${transaction.amount.toFixed(2)}`;
+                    amountCell.setAttribute('data-label', 'Amount');
+                    row.appendChild(amountCell);
+
+                    transactionsBody.appendChild(row);
+                });
+
+                // Add "See More" button if limiting results and there are more than 5 transactions
+                if (limitResults && transactions.length > 5) {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.colSpan = 3;
+                    cell.style.textAlign = 'center';
+
+                    const seeMoreBtn = document.createElement('button');
+                    seeMoreBtn.textContent = 'See All Transactions';
+                    seeMoreBtn.className = 'secondary';
+                    seeMoreBtn.style.margin = '10px 0';
+                    seeMoreBtn.addEventListener('click', () => this.loadTransactionHistory(false));
+
+                    cell.appendChild(seeMoreBtn);
+                    row.appendChild(cell);
+                    transactionsBody.appendChild(row);
+                }
+
+                // Add "Show Less" button if showing all and there are more than 5
+                if (!limitResults && transactions.length > 5) {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.colSpan = 3;
+                    cell.style.textAlign = 'center';
+
+                    const showLessBtn = document.createElement('button');
+                    showLessBtn.textContent = 'Show Less';
+                    showLessBtn.className = 'secondary';
+                    showLessBtn.style.margin = '10px 0';
+                    showLessBtn.addEventListener('click', () => this.loadTransactionHistory(true));
+
+                    cell.appendChild(showLessBtn);
+                    row.appendChild(cell);
+                    transactionsBody.appendChild(row);
+                }
             },
 
             handleDeposit(e) {
@@ -1337,14 +1026,7 @@
                 if (this.currentAccount.deposit(amount)) {
                     this.bank.saveData();
                     this.showMessage(`Successfully deposited $${amount.toFixed(2)}`);
-
-                    // Update balance displays
-                    document.getElementById('profile-balance').textContent = `$${this.currentAccount.balance.toFixed(2)}`;
-                    document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
-                    document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
-
-                    // Reset the form
-                    amountInput.value = '';
+                    this.loadDashboard();
                 }
             },
 
@@ -1359,20 +1041,43 @@
                     return;
                 }
 
+                if (amount > this.currentAccount.balance) {
+                    // Show popup for insufficient funds
+                    this.showInsufficientFundsPopup(amount);
+                    return;
+                }
+
                 if (this.currentAccount.withdraw(amount)) {
                     this.bank.saveData();
                     this.showMessage(`Successfully withdrew $${amount.toFixed(2)}`);
-
-                    // Update balance displays
-                    document.getElementById('profile-balance').textContent = `$${this.currentAccount.balance.toFixed(2)}`;
-                    document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
-                    document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
-
-                    // Reset the form
-                    amountInput.value = '';
-                } else {
-                    this.showMessage("Insufficient funds for this withdrawal!", true);
+                    this.loadDashboard();
                 }
+            },
+
+            showInsufficientFundsPopup(attemptedAmount) {
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'popup-overlay';
+
+                // Create popup content
+                const content = document.createElement('div');
+                content.className = 'popup-content';
+
+                content.innerHTML = `
+            <h3>Insufficient Funds</h3>
+            <p>Your current balance is $${this.currentAccount.balance.toFixed(2)}.</p>
+            <p>You cannot withdraw $${attemptedAmount.toFixed(2)}.</p>
+            <button class="close-popup">OK</button>
+        `;
+
+                overlay.appendChild(content);
+                document.body.appendChild(overlay);
+
+                // Add event listener to close button
+                const closeButton = content.querySelector('.close-popup');
+                closeButton.addEventListener('click', () => {
+                    document.body.removeChild(overlay);
+                });
             },
 
             handleDeleteAccount(e) {
@@ -1385,10 +1090,8 @@
                         this.showMessage("Account deleted successfully.");
                         this.currentAccount = null;
 
-                        // Reset the form
                         document.getElementById('delete-account-form').reset();
 
-                        // Go back to main screen after 2 seconds
                         setTimeout(() => {
                             this.showScreen('main-screen');
                         }, 2000);
@@ -1405,312 +1108,12 @@
             }
         };
 
-        // Enhanced JavaScript for Responsive Bank Management System
-
-        // Add these functions to your existing JS code
-
-        // Global variable to track if transaction view is in expanded mode
-        let transactionsExpanded = false;
-        let allTransactions = [];
-
-        // This function adds data-label attributes to table cells for responsive design
-        function enhanceTableForResponsiveness() {
-            const transactionsTable = document.getElementById('transactions-body');
-            if (transactionsTable) {
-                const rows = transactionsTable.querySelectorAll('tr');
-                rows.forEach(row => {
-                    // Skip the "No transactions found" row
-                    if (row.cells.length === 1 && row.cells[0].colSpan === 3) {
-                        return;
-                    }
-
-                    // Add data attributes to each cell
-                    const cells = row.querySelectorAll('td');
-                    if (cells.length >= 3) {
-                        cells[0].setAttribute('data-label', 'Date & Time');
-                        cells[1].setAttribute('data-label', 'Type');
-                        cells[2].setAttribute('data-label', 'Amount');
-                    }
-                });
-            }
-        }
-
-        // Responsive navigation handling
-        function handleResponsiveNavigation() {
-            // For smaller screens, collapse the tabs after clicking
-            const screenWidth = window.innerWidth;
-            if (screenWidth <= 640) {
-                const navTabs = document.querySelectorAll('.nav-tab');
-                navTabs.forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        // Scroll to the tab content for better UX on mobile
-                        const tabId = tab.dataset.tab;
-                        const tabContent = document.getElementById(`${tabId}-tab`);
-                        if (tabContent) {
-                            setTimeout(() => {
-                                tabContent.scrollIntoView({ behavior: 'smooth' });
-                            }, 100);
-                        }
-                    });
-                });
-            }
-        }
-
-        // Handle window resize events
-        function handleWindowResize() {
-            window.addEventListener('resize', () => {
-                handleResponsiveNavigation();
-            });
-        }
-
-        // Modify the loadDashboard function to enhance tables for responsiveness
-        const originalLoadDashboard = app.loadDashboard;
-        app.loadDashboard = function () {
-            originalLoadDashboard.call(this);
-            enhanceTableForResponsiveness();
-        };
-
-        // Extend the init function to add responsive features
-        const originalInit = app.init;
-        app.init = function () {
-            originalInit.call(this);
-            handleResponsiveNavigation();
-            handleWindowResize();
-        };
-
-        // Add a function to handle orientation change for mobile devices
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                enhanceTableForResponsiveness();
-            }, 200);
-        });
-
-        // Function to adjust form layout based on screen size
-        function adjustFormLayout() {
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                if (window.innerWidth <= 480) {
-                    form.classList.add('mobile-form');
-                } else {
-                    form.classList.remove('mobile-form');
-                }
-            });
-        }
-
-        // Call adjustFormLayout on page load and resize
-        window.addEventListener('load', adjustFormLayout);
-        window.addEventListener('resize', adjustFormLayout);
-
-        // Enhanced alert message function with centered pop-up
-        function showAlertPopup(message, isError = false) {
-            // Create popup overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'alert-popup-overlay';
-
-            // Create popup content
-            const content = document.createElement('div');
-            content.className = 'alert-popup-content ' + (isError ? 'error' : 'success');
-
-            const title = document.createElement('h3');
-            title.textContent = isError ? 'Error' : 'Success';
-
-            const text = document.createElement('p');
-            text.textContent = message;
-
-            const button = document.createElement('button');
-            button.className = 'alert-popup-btn ' + (isError ? 'error' : 'success');
-            button.textContent = 'OK';
-
-            content.appendChild(title);
-            content.appendChild(text);
-            content.appendChild(button);
-
-            overlay.appendChild(content);
-            document.body.appendChild(overlay);
-
-            // Add event listener to close button
-            button.addEventListener('click', () => {
-                document.body.removeChild(overlay);
-            });
-
-            // Auto-hide after 5 seconds for success messages
-            if (!isError) {
-                setTimeout(() => {
-                    if (document.body.contains(overlay)) {
-                        document.body.removeChild(overlay);
-                    }
-                }, 5000);
-            }
-        }
-
-        // Updated showMessage function to use popup for alerts
-        app.showMessage = function (message, isError = false) {
-            // Use popup for alerts
-            showAlertPopup(message, isError);
-
-            // Legacy message area for backward compatibility
-            const messageArea = document.getElementById('message-area');
-            const messageElement = document.createElement('div');
-            messageElement.className = isError ? 'error-message' : 'success-message';
-            messageElement.textContent = message;
-            messageArea.innerHTML = '';
-            messageArea.appendChild(messageElement);
-
-            // Auto-hide legacy message after 5 seconds
-            setTimeout(() => {
-                if (messageArea.contains(messageElement)) {
-                    messageElement.remove();
-                }
-            }, 5000);
-        };
-
-        // Function to display transaction history with the latest at the top
-        function displayTransactions(transactions, limit = 5) {
-            const transactionsBody = document.getElementById('transactions-body');
-            const transactionsTab = document.getElementById('transactions-tab');
-
-            // Clear the tab content
-            transactionsTab.innerHTML = '';
-
-            // Create transaction wrapper with header
-            const wrapper = document.createElement('div');
-            wrapper.className = 'transaction-wrapper';
-
-            const header = document.createElement('div');
-            header.className = 'transaction-header';
-
-            const headerTitle = document.createElement('h3');
-            headerTitle.textContent = 'Transaction History';
-            header.appendChild(headerTitle);
-
-            wrapper.appendChild(header);
-
-            // Create table
-            const table = document.createElement('table');
-            table.className = 'transaction-table';
-
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-
-            ['Date & Time', 'Type', 'Amount'].forEach(text => {
-                const th = document.createElement('th');
-                th.textContent = text;
-                headerRow.appendChild(th);
-            });
-
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-
-            const tbody = document.createElement('tbody');
-            tbody.id = 'transactions-body';
-
-            if (transactions.length === 0) {
-                const row = document.createElement('tr');
-                const cell = document.createElement('td');
-                cell.colSpan = 3;
-                cell.textContent = 'No transactions found.';
-                cell.style.textAlign = 'center';
-                row.appendChild(cell);
-                tbody.appendChild(row);
-            } else {
-                // Sort transactions by date (newest first) before limiting
-                const sortedTransactions = [...transactions].sort((a, b) => {
-                    return new Date(b.date) - new Date(a.date);
-                });
-
-                // Only show limited number of transactions initially
-                const displayTransactions = transactionsExpanded ?
-                    sortedTransactions :
-                    sortedTransactions.slice(0, Math.min(limit, sortedTransactions.length));
-
-                displayTransactions.forEach(transaction => {
-                    const row = document.createElement('tr');
-
-                    const dateCell = document.createElement('td');
-                    dateCell.textContent = transaction.date;
-                    dateCell.setAttribute('data-label', 'Date & Time');
-                    row.appendChild(dateCell);
-
-                    const typeCell = document.createElement('td');
-                    typeCell.textContent = transaction.type;
-                    typeCell.setAttribute('data-label', 'Type');
-                    row.appendChild(typeCell);
-
-                    const amountCell = document.createElement('td');
-                    amountCell.textContent = `${transaction.amount.toFixed(2)}`;
-                    amountCell.setAttribute('data-label', 'Amount');
-                    row.appendChild(amountCell);
-
-                    tbody.appendChild(row);
-                });
-            }
-
-            table.appendChild(tbody);
-            wrapper.appendChild(table);
-
-            // Add "See More" button if there are more than the limit
-            if (transactions.length > limit && !transactionsExpanded) {
-                const footer = document.createElement('div');
-                footer.className = 'transaction-footer';
-
-                const seeMoreBtn = document.createElement('button');
-                seeMoreBtn.className = 'see-more-btn';
-                seeMoreBtn.textContent = 'See All Transactions';
-                seeMoreBtn.addEventListener('click', function () {
-                    transactionsExpanded = true;
-                    displayTransactions(transactions);
-                });
-
-                footer.appendChild(seeMoreBtn);
-                wrapper.appendChild(footer);
-            } else if (transactionsExpanded && transactions.length > limit) {
-                const footer = document.createElement('div');
-                footer.className = 'transaction-footer';
-
-                const seeLessBtn = document.createElement('button');
-                seeLessBtn.className = 'see-more-btn';
-                seeLessBtn.textContent = 'Show Less';
-                seeLessBtn.addEventListener('click', function () {
-                    transactionsExpanded = false;
-                    displayTransactions(transactions);
-                });
-
-                footer.appendChild(seeLessBtn);
-                wrapper.appendChild(footer);
-            }
-
-            transactionsTab.appendChild(wrapper);
-        }
-
-        // Override the loadDashboard function to include the new transaction display
-        app.loadDashboard = function () {
-            // Load profile info
-            document.getElementById('profile-account-number').textContent = this.currentAccount.accountNumber;
-            document.getElementById('profile-name').textContent = this.currentAccount.name;
-            document.getElementById('profile-address').textContent = this.currentAccount.address;
-            document.getElementById('profile-phone').textContent = this.currentAccount.phoneNumber;
-            document.getElementById('profile-balance').textContent = `${this.currentAccount.balance.toFixed(2)}`;
-
-            // Store all transactions for reference
-            allTransactions = this.currentAccount.transactionHistory;
-
-            // Display transaction history with the new function
-            displayTransactions(allTransactions);
-
-            // Reset the deposit and withdraw forms
-            document.getElementById('deposit-form').reset();
-            document.getElementById('withdraw-form').reset();
-
-            // Update balances
-            document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
-            document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
-        };
-
-        // Initialize the application when the DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             app.init();
         });
+
     </script>
+
 </body>
 
 </html>
