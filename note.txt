@@ -1867,3 +1867,242 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Achievement section
+#HTML
+<!-- Achievements & Certificates Section -->
+<section id="achievements" class="achievements-section">
+    <div class="container">
+        <h2 class="section-heading">Achievements & Certificates</h2>
+        <div class="achievements-grid">
+            <!-- Achievement Card 1 -->
+            <div class="achievement-card">
+                <div class="achievement-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="achievement-content">
+                    <h3 class="achievement-title">Dean's List Award</h3>
+                    <p class="achievement-date">2023</p>
+                    <p class="achievement-description">Recognized for outstanding academic performance with a GPA of 3.9/4.0 for the Spring semester.</p>
+                    <div class="achievement-issuer">United International University</div>
+                </div>
+            </div>
+
+            <!-- Achievement Card 2 -->
+            <div class="achievement-card">
+                <div class="achievement-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <div class="achievement-content">
+                    <h3 class="achievement-title">Full Stack Web Development</h3>
+                    <p class="achievement-date">July 2024</p>
+                    <p class="achievement-description">Completed 80+ hours of coursework covering HTML, CSS, JavaScript, and responsive design principles.</p>
+                    <div class="achievement-issuer">Coursera</div>
+                </div>
+            </div>
+
+            <!-- Achievement Card 3 -->
+            <div class="achievement-card">
+                <div class="achievement-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="achievement-content">
+                    <h3 class="achievement-title">Hackathon Finalist</h3>
+                    <p class="achievement-date">October 2023</p>
+                    <p class="achievement-description">Placed in the top 5 teams at UIU's annual hackathon with an innovative solution for campus navigation.</p>
+                    <div class="achievement-issuer">UIU Tech Club</div>
+                </div>
+            </div>
+
+            <!-- Achievement Card 4 -->
+            <div class="achievement-card">
+                <div class="achievement-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="achievement-content">
+                    <h3 class="achievement-title">Python for Data Science</h3>
+                    <p class="achievement-date">March 2024</p>
+                    <p class="achievement-description">Mastered Python libraries for data analysis including NumPy, Pandas, and Matplotlib.</p>
+                    <div class="achievement-issuer">DataCamp</div>
+                </div>
+            </div>
+
+            <!-- Achievement Card 5 -->
+            <div class="achievement-card">
+                <div class="achievement-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="achievement-content">
+                    <h3 class="achievement-title">JavaScript Algorithms and Data Structures</h3>
+                    <p class="achievement-date">January 2024</p>
+                    <p class="achievement-description">Completed certification covering fundamental programming concepts and algorithms implementation.</p>
+                    <div class="achievement-issuer">freeCodeCamp</div>
+                </div>
+            </div>
+
+            <!-- Achievement Card 6 -->
+            <div class="achievement-card">
+                <div class="achievement-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="achievement-content">
+                    <h3 class="achievement-title">Programming Contest Finalist</h3>
+                    <p class="achievement-date">November 2023</p>
+                    <p class="achievement-description">Ranked among top 10 contestants in the UIU inter-department programming competition.</p>
+                    <div class="achievement-issuer">UIU CSE Department</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+#CSS
+/* ===== Achievements & Certificates Section ===== */
+.achievements-section {
+  padding: 6rem 0;
+  background-color: var(--bg-primary);
+}
+
+.achievements-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.achievement-card {
+  display: flex;
+  background-color: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 1px solid var(--bg-secondary);
+}
+
+.achievement-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+}
+
+.achievement-content {
+  flex: 1;
+}
+
+.achievement-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.achievement-date {
+  color: var(--accent);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.achievement-description {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.achievement-issuer {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Media queries for responsive layout */
+@media (min-width: 768px) {
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .achievements-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+#js
+// Add animations to elements when they enter the viewport
+const animateOnScroll = () => {
+  const elements = document.querySelectorAll('.skill-card, .project-card, .achievement-card, .section-heading, .about-image-container');
+
+  elements.forEach(element => {
+    const elementPosition = element.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    if (elementPosition < windowHeight - 100) {
+      element.classList.add('fadeIn');
+    }
+  });
+};
+
+
+
+
+##nav
+<!-- Desktop Navigation -->
+<div class="nav-links">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#achievements" class="nav-link">Achievements</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer" class="nav-link">
+        <i class="fab fa-github"></i>
+    </a>
+    <a href="https://linkedin.com/in/atsuchak" target="_blank" rel="noopener noreferrer" class="nav-link">
+        <i class="fab fa-linkedin"></i>
+    </a>
+</div>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav-links">
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#skills" class="mobile-nav-link">Skills</a>
+    <a href="#projects" class="mobile-nav-link">Projects</a>
+    <a href="#achievements" class="mobile-nav-link">Achievements</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <div class="mobile-social-links">
+        <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+        </a>
+    </div>
+    <a href="https://drive.google.com/uc?export=view&id=1hVFpEtWldRS7z6uAFUNOGgY3eXQdf8UB"
+        class="mobile-resume-btn">Resume</a>
+</div>
