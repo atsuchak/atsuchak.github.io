@@ -2106,3 +2106,839 @@ const animateOnScroll = () => {
     <a href="https://drive.google.com/uc?export=view&id=1hVFpEtWldRS7z6uAFUNOGgY3eXQdf8UB"
         class="mobile-resume-btn">Resume</a>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #0066b3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #0066b3;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #004e8c;
+        }
+
+        button.secondary {
+            background-color: #6c757d;
+        }
+
+        button.secondary:hover {
+            background-color: #5a6268;
+        }
+
+        button.danger {
+            background-color: #dc3545;
+        }
+
+        button.danger:hover {
+            background-color: #c82333;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .screens > div {
+            display: none;
+        }
+
+        .screens > div.active {
+            display: block;
+        }
+
+        .success-message, .error-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .popup-content h3 {
+            margin-top: 0;
+            color: #0066b3;
+        }
+        
+        .popup-content .account-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f0f2f5;
+            border-radius: 4px;
+        }
+        
+        .close-popup {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+        }
+
+        .profile-info div {
+            padding: 10px;
+        }
+
+        .profile-info div:nth-child(odd) {
+            font-weight: bold;
+        }
+
+        .nav-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .nav-tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .nav-tab.active {
+            background-color: white;
+            border-color: #ddd;
+            color: #0066b3;
+            font-weight: bold;
+        }
+
+        .nav-tab:hover:not(.active) {
+            background-color: #f0f2f5;
+        }
+
+        .logout-btn {
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>একটা ব্যাংক</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="message-area"></div>
+        
+        <div class="screens">
+            <!-- Main Screen -->
+            <div id="main-screen" class="active">
+                <div class="card">
+                    <h2>Welcome to একটা ব্যাংক</h2>
+                    <p>Please choose an option to proceed:</p>
+                    <div class="buttons">
+                        <button id="create-account-btn">Create New Account</button>
+                        <button id="login-btn">Login to Existing Account</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create Account Screen -->
+            <div id="create-account-screen">
+                <div class="card">
+                    <h2>Create New Account</h2>
+                    <form id="create-account-form">
+                        <div class="form-group">
+                            <label for="create-name">Full Name:</label>
+                            <input type="text" id="create-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-address">Address:</label>
+                            <input type="text" id="create-address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-phone">Phone Number:</label>
+                            <input type="tel" id="create-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-password">Password:</label>
+                            <input type="password" id="create-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-confirm-password">Confirm Password:</label>
+                            <input type="password" id="create-confirm-password" required>
+                        </div>
+                        <div class="buttons">
+                            <button type="submit">Create Account</button>
+                            <button type="button" class="secondary back-btn">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Login Screen -->
+            <div id="login-screen">
+                <div class="card">
+                    <h2>Login to Your Account</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-account">Account Number:</label>
+                            <input type="text" id="login-account" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password:</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <div class="buttons">
+                            <button type="submit">Login</button>
+                            <button type="button" class="secondary back-btn">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Dashboard Screen -->
+            <div id="dashboard-screen">
+                <div class="card">
+                    <div class="nav-tabs">
+                        <div class="nav-tab active" data-tab="profile">Profile</div>
+                        <a href="#deposit-tab" style="text-decoration: none; color: black;"><div class="nav-tab" data-tab="deposit">Deposit</div></a>
+                        <a href="#withdraw-tab" style="text-decoration: none; color: black;"><div class="nav-tab" data-tab="withdraw">Withdraw</div></a>
+                        <a href="#transactions-tab" style="text-decoration: none; color: black;"><div class="nav-tab" data-tab="transactions">Transactions</div></a>
+                        <a href="#settings-tab" style="text-decoration: none; color: black;"><div class="nav-tab" data-tab="settings">Settings</div></a>
+                        <button id="logout-btn" class="secondary logout-btn">Logout</button>
+                    </div>
+
+                    <div id="tab-content">
+                        <!-- Profile Tab -->
+                        <div id="profile-tab" class="tab-pane active">
+                            <h3>Account Information</h3>
+                            <div class="profile-info">
+                                <div>Account Number:</div>
+                                <div id="profile-account-number"></div>
+                                <div>Name:</div>
+                                <div id="profile-name"></div>
+                                <div>Address:</div>
+                                <div id="profile-address"></div>
+                                <div>Phone Number:</div>
+                                <div id="profile-phone"></div>
+                                <div>Current Balance:</div>
+                                <div id="profile-balance"></div>
+                            </div>
+                        </div>
+
+                        <!-- Deposit Tab -->
+                        <div id="deposit-tab" class="tab-pane">
+                            <h3>Deposit Money</h3>
+                            <p>Current Balance: $<span id="deposit-current-balance">0.00</span></p>
+                            <form id="deposit-form">
+                                <div class="form-group">
+                                    <label for="deposit-amount">Amount to Deposit ($):</label>
+                                    <input type="number" id="deposit-amount" min="1" step="0.01" required>
+                                </div>
+                                <button type="submit">Deposit</button>
+                            </form>
+                        </div>
+
+                        <!-- Withdraw Tab -->
+                        <div id="withdraw-tab" class="tab-pane">
+                            <h3>Withdraw Money</h3>
+                            <p>Current Balance: $<span id="withdraw-current-balance">0.00</span></p>
+                            <form id="withdraw-form">
+                                <div class="form-group">
+                                    <label for="withdraw-amount">Amount to Withdraw ($):</label>
+                                    <input type="number" id="withdraw-amount" min="1" step="0.01" required>
+                                </div>
+                                <button type="submit">Withdraw</button>
+                            </form>
+                        </div>
+
+                        <!-- Transactions Tab -->
+                        <div id="transactions-tab" class="tab-pane">
+                            <h3>Transaction History</h3>
+                            <table id="transactions-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactions-body">
+                                    <!-- Transactions will be added here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Settings Tab -->
+                        <div id="settings-tab" class="tab-pane">
+                            <h3>Account Settings</h3>
+                            <div class="card">
+                                <h4>Delete Account</h4>
+                                <p>Warning: This action cannot be undone!</p>
+                                <form id="delete-account-form">
+                                    <div class="form-group">
+                                        <label for="delete-password">Enter your password to confirm:</label>
+                                        <input type="password" id="delete-password" required>
+                                    </div>
+                                    <button type="submit" class="danger">Delete My Account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Bank Management System - JavaScript Implementation
+        class Transaction {
+            constructor(type, amount) {
+                this.type = type;
+                this.amount = amount;
+                this.date = new Date().toLocaleString();
+            }
+        }
+
+        class Account {
+            constructor(accountNumber, password, name, address, phoneNumber) {
+                this.accountNumber = accountNumber;
+                this.password = password;
+                this.name = name;
+                this.address = address;
+                this.phoneNumber = phoneNumber;
+                this.balance = 0.0;
+                this.transactionHistory = [];
+            }
+
+            validatePassword(password) {
+                return this.password === password;
+            }
+
+            deposit(amount) {
+                if (amount > 0) {
+                    this.balance += amount;
+                    this.transactionHistory.push(new Transaction("Deposit", amount));
+                    return true;
+                }
+                return false;
+            }
+
+            withdraw(amount) {
+                if (amount > 0 && amount <= this.balance) {
+                    this.balance -= amount;
+                    this.transactionHistory.push(new Transaction("Withdrawal", amount));
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        class Bank {
+            constructor() {
+                this.accounts = {};
+                this.lastAccountNumber = 1000;
+                this.loadData();
+            }
+
+            createAccount(password, name, address, phoneNumber) {
+                this.lastAccountNumber++;
+                const accountNumber = "ACC" + this.lastAccountNumber;
+                const newAccount = new Account(accountNumber, password, name, address, phoneNumber);
+                this.accounts[accountNumber] = newAccount;
+                this.saveData();
+                return accountNumber;
+            }
+
+            getAccount(accountNumber, password) {
+                const account = this.accounts[accountNumber];
+                if (account && account.validatePassword(password)) {
+                    return account;
+                }
+                return null;
+            }
+
+            deleteAccount(accountNumber, password) {
+                const account = this.getAccount(accountNumber, password);
+                if (account) {
+                    delete this.accounts[accountNumber];
+                    this.saveData();
+                    return true;
+                }
+                return false;
+            }
+
+            saveData() {
+                localStorage.setItem('bankData', JSON.stringify({
+                    accounts: this.accounts,
+                    lastAccountNumber: this.lastAccountNumber
+                }));
+            }
+
+            loadData() {
+                const data = localStorage.getItem('bankData');
+                if (data) {
+                    const parsedData = JSON.parse(data);
+                    this.accounts = parsedData.accounts;
+                    this.lastAccountNumber = parsedData.lastAccountNumber;
+                    
+                    // Restore transaction dates as proper objects
+                    for (const accNum in this.accounts) {
+                        this.accounts[accNum].__proto__ = Account.prototype;
+                        for (const transaction of this.accounts[accNum].transactionHistory) {
+                            transaction.__proto__ = Transaction.prototype;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Application Logic
+        const app = {
+            bank: new Bank(),
+            currentAccount: null,
+            
+            init() {
+                this.attachEventListeners();
+                this.showScreen('main-screen');
+            },
+            
+            attachEventListeners() {
+                // Main screen buttons
+                document.getElementById('create-account-btn').addEventListener('click', () => this.showScreen('create-account-screen'));
+                document.getElementById('login-btn').addEventListener('click', () => this.showScreen('login-screen'));
+                
+                // Back buttons
+                document.querySelectorAll('.back-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.showScreen('main-screen'));
+                });
+                
+                // Forms
+                document.getElementById('create-account-form').addEventListener('submit', (e) => this.handleCreateAccount(e));
+                document.getElementById('login-form').addEventListener('submit', (e) => this.handleLogin(e));
+                document.getElementById('deposit-form').addEventListener('submit', (e) => this.handleDeposit(e));
+                document.getElementById('withdraw-form').addEventListener('submit', (e) => this.handleWithdraw(e));
+                document.getElementById('delete-account-form').addEventListener('submit', (e) => this.handleDeleteAccount(e));
+                
+                // Dashboard tabs - using event delegation for better handling
+                const navTabs = document.querySelector('.nav-tabs');
+                if (navTabs) {
+                    navTabs.addEventListener('click', (e) => {
+                        const tab = e.target.closest('.nav-tab');
+                        if (tab && tab.dataset.tab) {
+                            this.switchTab(tab.dataset.tab);
+                        }
+                    });
+                }
+                
+                // Logout button
+                document.getElementById('logout-btn').addEventListener('click', () => this.logout());
+            },
+            
+            showScreen(screenId) {
+                document.querySelectorAll('.screens > div').forEach(screen => {
+                    screen.classList.remove('active');
+                });
+                document.getElementById(screenId).classList.add('active');
+                
+                // Clear message area when switching screens
+                document.getElementById('message-area').innerHTML = '';
+            },
+            
+            switchTab(tabId) {
+                // Remove active class from all tabs
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Add active class to selected tab
+                const selectedTab = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
+                if (selectedTab) {
+                    selectedTab.classList.add('active');
+                }
+                
+                // Hide all tab panes
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.remove('active');
+                });
+                
+                // Show selected tab pane
+                const tabPane = document.getElementById(`${tabId}-tab`);
+                if (tabPane) {
+                    tabPane.classList.add('active');
+                }
+                
+                // Update balances in deposit/withdraw tabs
+                if (tabId === 'deposit' || tabId === 'withdraw') {
+                    if (this.currentAccount) {
+                        document.getElementById(`${tabId}-current-balance`).textContent = 
+                            this.currentAccount.balance.toFixed(2);
+                    }
+                }
+            },
+            
+            showMessage(message, isError = false) {
+                const messageArea = document.getElementById('message-area');
+                const messageElement = document.createElement('div');
+                messageElement.className = isError ? 'error-message' : 'success-message';
+                messageElement.textContent = message;
+                messageArea.innerHTML = '';
+                messageArea.appendChild(messageElement);
+                
+                // Auto-hide message after 5 seconds
+                setTimeout(() => {
+                    messageElement.remove();
+                }, 5000);
+            },
+            
+            handleCreateAccount(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('create-name').value;
+                const address = document.getElementById('create-address').value;
+                const phone = document.getElementById('create-phone').value;
+                const password = document.getElementById('create-password').value;
+                const confirmPassword = document.getElementById('create-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    this.showMessage("Passwords do not match!", true);
+                    return;
+                }
+                
+                const accountNumber = this.bank.createAccount(password, name, address, phone);
+                
+                // Reset form
+                document.getElementById('create-account-form').reset();
+                
+                // Show popup with account number
+                this.showAccountCreatedPopup(accountNumber);
+            },
+            
+            showAccountCreatedPopup(accountNumber) {
+                // Create popup overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'popup-overlay';
+                
+                // Create popup content
+                const content = document.createElement('div');
+                content.className = 'popup-content';
+                
+                content.innerHTML = `
+                    <h3>Account Created Successfully!</h3>
+                    <p>Please save your account number. You will need it to login.</p>
+                    <div class="account-number">${accountNumber}</div>
+                    <p>Keep this number and your password secure.</p>
+                    <button class="close-popup">Got it!</button>
+                `;
+                
+                overlay.appendChild(content);
+                document.body.appendChild(overlay);
+                
+                // Add event listener to close button
+                const closeButton = content.querySelector('.close-popup');
+                closeButton.addEventListener('click', () => {
+                    document.body.removeChild(overlay);
+                    this.showScreen('main-screen');
+                });
+            },
+            
+            handleLogin(e) {
+                e.preventDefault();
+                
+                const accountNumber = document.getElementById('login-account').value;
+                const password = document.getElementById('login-password').value;
+                
+                const account = this.bank.getAccount(accountNumber, password);
+                if (account) {
+                    this.currentAccount = account;
+                    this.loadDashboard();
+                    this.showScreen('dashboard-screen');
+                    document.getElementById('login-form').reset();
+                } else {
+                    this.showMessage("Invalid account number or password!", true);
+                }
+            },
+            
+            loadDashboard() {
+                // Load profile info
+                document.getElementById('profile-account-number').textContent = this.currentAccount.accountNumber;
+                document.getElementById('profile-name').textContent = this.currentAccount.name;
+                document.getElementById('profile-address').textContent = this.currentAccount.address;
+                document.getElementById('profile-phone').textContent = this.currentAccount.phoneNumber;
+                document.getElementById('profile-balance').textContent = `$${this.currentAccount.balance.toFixed(2)}`;
+                
+                // Load transaction history
+                const transactionsBody = document.getElementById('transactions-body');
+                transactionsBody.innerHTML = '';
+                
+                if (this.currentAccount.transactionHistory.length === 0) {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.colSpan = 3;
+                    cell.textContent = 'No transactions found.';
+                    cell.style.textAlign = 'center';
+                    row.appendChild(cell);
+                    transactionsBody.appendChild(row);
+                } else {
+                    this.currentAccount.transactionHistory.forEach(transaction => {
+                        const row = document.createElement('tr');
+                        
+                        const dateCell = document.createElement('td');
+                        dateCell.textContent = transaction.date;
+                        row.appendChild(dateCell);
+                        
+                        const typeCell = document.createElement('td');
+                        typeCell.textContent = transaction.type;
+                        row.appendChild(typeCell);
+                        
+                        const amountCell = document.createElement('td');
+                        amountCell.textContent = `$${transaction.amount.toFixed(2)}`;
+                        row.appendChild(amountCell);
+                        
+                        transactionsBody.appendChild(row);
+                    });
+                }
+                
+                // Reset the deposit and withdraw forms
+                document.getElementById('deposit-form').reset();
+                document.getElementById('withdraw-form').reset();
+                
+                // Update balances
+                document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+                document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+            },
+            
+            handleDeposit(e) {
+                e.preventDefault();
+                
+                const amountInput = document.getElementById('deposit-amount');
+                const amount = parseFloat(amountInput.value);
+                
+                if (isNaN(amount) || amount <= 0) {
+                    this.showMessage("Please enter a valid amount!", true);
+                    return;
+                }
+                
+                if (this.currentAccount.deposit(amount)) {
+                    this.bank.saveData();
+                    this.showMessage(`Successfully deposited $${amount.toFixed(2)}`);
+                    
+                    // Update balance displays
+                    document.getElementById('profile-balance').textContent = `$${this.currentAccount.balance.toFixed(2)}`;
+                    document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+                    document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+                    
+                    // Reset the form
+                    amountInput.value = '';
+                }
+            },
+            
+            handleWithdraw(e) {
+                e.preventDefault();
+                
+                const amountInput = document.getElementById('withdraw-amount');
+                const amount = parseFloat(amountInput.value);
+                
+                if (isNaN(amount) || amount <= 0) {
+                    this.showMessage("Please enter a valid amount!", true);
+                    return;
+                }
+                
+                if (this.currentAccount.withdraw(amount)) {
+                    this.bank.saveData();
+                    this.showMessage(`Successfully withdrew $${amount.toFixed(2)}`);
+                    
+                    // Update balance displays
+                    document.getElementById('profile-balance').textContent = `$${this.currentAccount.balance.toFixed(2)}`;
+                    document.getElementById('deposit-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+                    document.getElementById('withdraw-current-balance').textContent = this.currentAccount.balance.toFixed(2);
+                    
+                    // Reset the form
+                    amountInput.value = '';
+                } else {
+                    this.showMessage("Insufficient funds for this withdrawal!", true);
+                }
+            },
+            
+            handleDeleteAccount(e) {
+                e.preventDefault();
+                
+                const password = document.getElementById('delete-password').value;
+                
+                if (confirm("Are you sure you want to delete your account? This action cannot be undone!")) {
+                    if (this.bank.deleteAccount(this.currentAccount.accountNumber, password)) {
+                        this.showMessage("Account deleted successfully.");
+                        this.currentAccount = null;
+                        
+                        // Reset the form
+                        document.getElementById('delete-account-form').reset();
+                        
+                        // Go back to main screen after 2 seconds
+                        setTimeout(() => {
+                            this.showScreen('main-screen');
+                        }, 2000);
+                    } else {
+                        this.showMessage("Incorrect password. Account deletion failed.", true);
+                    }
+                }
+            },
+            
+            logout() {
+                this.currentAccount = null;
+                this.showScreen('main-screen');
+                this.showMessage("Logged out successfully.");
+            }
+        };
+
+        // Initialize the application when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>
