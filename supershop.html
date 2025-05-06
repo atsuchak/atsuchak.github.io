@@ -80,6 +80,8 @@
       padding: 16px 20px 40px;
     }
 
+    
+
     /* Header */
     header {
       width: 100%;
@@ -264,28 +266,6 @@
       margin-bottom: 25px;
     }
 
-    /* .nav-tab {
-      flex: 1;
-      text-align: center;
-      background-color: #224882;
-      padding: 10px 0;
-      border-radius: 10px;
-      font-weight: 600;
-      color: #a8d7e7;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-
-    .nav-tab.active {
-      background-color: #18ffff;
-      color: #0b1a3d;
-      font-weight: 800;
-      box-shadow:
-        0 0 10px #18ffffaa,
-        inset 0 0 6px #0b1a3d;
-    } */
-
     .logout-btn {
       flex: 1 0 100%;
       margin-top: 8px;
@@ -380,15 +360,30 @@
       color: #1362d8;
     }
 
-    /* Responsive styles */
+    /* Add this to your existing CSS */
+.credentials-hint {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #a8d7e7;
+    text-align: center;
+    background-color: #224882;
+    padding: 8px;
+    border-radius: 6px;
+    border-left: 3px solid #18ffff;
+}
+
+.credentials-hint strong {
+    color: #18ffff;
+}
+
     @media screen and (max-width: 768px) {
       .container {
         padding: 12px 14px 32px;
       }
 
       table {
-        display: block;
-        overflow-x: auto;
+          display: block;
+          overflow-x: auto;
       }
 
       .nav-tabs {
@@ -399,59 +394,20 @@
         font-size: 0.85rem;
         padding: 8px 6px;
       }
+      .add-to-cart-btn{
+        font-size: 0.9rem;
+        padding: 2px 14px;
+      }
+      .remove-from-cart-btn {
+        font-size: 0.9rem;
+        padding: 3px 14px;
+      }
 
       button {
         font-size: 0.9rem;
         padding: 10px 14px;
       }
     }
-
-    /* @media screen and (max-width: 768px) {
-            .container {
-                padding: 12px 14px 32px;
-            }
-
-            table {
-                display: table;
-                width: 100%;
-                white-space: normal;
-            }
-
-            th,
-            td {
-                padding: 8px 10px;
-                font-size: 0.85rem;
-                white-space: normal;
-                word-break: break-word;
-            }
-
-            #cart-table th,
-            #cart-table td {
-                padding: 6px 8px;
-            }
-
-            button.add-to-cart-btn,
-            button.remove-from-cart-btn {
-                padding: 6px 10px;
-                font-size: 0.8rem;
-            }
-
-            .nav-tabs {
-                gap: 6px;
-            }
-
-            .nav-tab {
-                font-size: 0.85rem;
-                padding: 8px 6px;
-            }
-
-            button {
-                font-size: 0.9rem;
-                padding: 10px 14px;
-            }
-        } */
-
-
   </style>
 </head>
 
@@ -499,6 +455,9 @@
               <button type="button" class="secondary back-btn">Back</button>
             </div>
           </form>
+          <div class="credentials-hint">
+            Demo Credentials: <strong>Username: Admin</strong>, <strong>Password: Admin123</strong>
+        </div>
         </div>
       </div>
 
@@ -507,14 +466,6 @@
         <div class="card">
           <h1>Admin Dashboard</h1>
           <nav class="nav-tabs" role="tablist" aria-label="Admin Navigation Tabs">
-            <!-- <div class="nav-tab active" data-tab="add-product" role="tab" tabindex="0" aria-selected="true"
-              aria-controls="add-product-tab" id="tab-add-product">Add Product</div>
-            <div class="nav-tab" data-tab="view-product" role="tab" tabindex="-1" aria-selected="false"
-              aria-controls="view-product-tab" id="tab-view-product">View Products</div>
-            <div class="nav-tab" data-tab="remove-product" role="tab" tabindex="-1" aria-selected="false"
-              aria-controls="remove-product-tab" id="tab-remove-product">Remove Product</div>
-            <div class="nav-tab" data-tab="cleanup" role="tab" tabindex="-1" aria-selected="false"
-              aria-controls="cleanup-tab" id="tab-cleanup">Cleanup Zero Stock</div> -->
             <button id="admin-logout-btn" class="secondary logout-btn" type="button">Logout</button>
           </nav>
           
@@ -1081,7 +1032,7 @@
             <td>${product.quantity}</td>
             <td>$${product.price.toFixed(2)}</td>
             <td>
-                <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}">Add</button>
             </td>
         </tr>
     `;
@@ -1328,9 +1279,10 @@
         } else {
           // Initialize with some sample products if no data exists
           this.products = [
-            { id: 'P001', name: 'Laptop', quantity: 10, price: 999.99 },
-            { id: 'P002', name: 'Smartphone', quantity: 15, price: 699.99 },
-            { id: 'P003', name: 'Headphones', quantity: 20, price: 149.99 }
+            { id: 'P001', name: 'Rice(1kg)', quantity: 50, price: 80 },
+            { id: 'P002', name: 'Flour(1kg)', quantity: 45, price: 60 },
+            { id: 'P003', name: 'Suger(1kg)', quantity: 30, price: 65 },
+            { id: 'P004', name: 'Oil(1L)', quantity: 35, price: 180}
           ];
           this.saveData();
         }
