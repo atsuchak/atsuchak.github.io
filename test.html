@@ -2,1298 +2,777 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SuperShop Management System</title>
-  <style>
-    /* Reset and base */
-    * {
-      box-sizing: border-box;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Ahnaf Tajwar Suchak is a Computer Science student at United International University. Passionate about software development, machine learning, and robotics. Explore his portfolio, projects, resume, and contact details.">
+  <meta name="keywords"
+    content="Ahnaf Tajwar Suchak, atsuchak, CSE, UIU, machine learning, software developer, portfolio, student portfolio, ahnaf portfolio, robotics, programming">
+  <meta name="author" content="Ahnaf Tajwar Suchak">
+  <meta name="robots" content="index, follow">
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0b1a3d;
-      /* Navy Blue background */
-      color: #fafafa;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  <meta name="google-site-verification" content="zwjdEiJwszMmT55Mu6acBytEkdbiRacshKRwZxAaB8I">
+  <link rel="icon" type="image/png" href="Photos/image.ico">
 
-    a,
-    button {
-      font-family: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      background-color: #18ffff;
-      /* Neon cyan */
-      color: #0b1a3d;
-      font-weight: 600;
-      padding: 12px 18px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    button:hover,
-    button:focus {
-      background-color: #0ff;
-      outline: none;
-    }
-
-    button.secondary {
-      background-color: #1366d6;
-      color: #e0e0e0;
-    }
-
-    button.secondary:hover {
-      background-color: #0a4fc9;
-    }
-
-    button.danger {
-      background-color: #ff1744;
-      color: white;
-    }
-
-    button.danger:hover {
-      background-color: #d50030;
-    }
-
-    a {
-      color: #18ffff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Container */
-    .container {
-      width: 100%;
-      max-width: 800px;
-      padding: 16px 20px 40px;
-    }
-
-    
-
-    /* Header */
-    header {
-      width: 100%;
-      background: #021030;
-      padding: 20px 0;
-      margin-bottom: 16px;
-      box-shadow: 0 0 15px #18ffffaa;
-    }
-
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 20px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin: 0;
-      font-weight: 900;
-    }
-
-    .neon-text {
-      color: #000000;
-      text-shadow:
-        0 0 3px #0ff6f6,
-        0 0 7px #0ff6f6,
-        0 0 12px #0ff6f6,
-        0 0 20px #0ff6f6;
-    }
-
-    /* Cards - clean layout */
-    .card {
-      background: #142a5c;
-      border-radius: 12px;
-      padding: 24px 28px 32px;
-      box-shadow:
-        0 0 8px #18ffff66,
-        inset 0 0 12px #0ff5;
-      margin-bottom: 24px;
-    }
-
-    .card h1{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Headings inside cards */
-    .card h2,
-    .card h3,
-    .card h4 {
-      margin-top: 0;
-      margin-bottom: 18px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      color: #c0eefd;
-    }
-
-    /* Popup overlay */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .popup-content {
-      background-color: #142a5c;
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 0 15px #18ffffaa, inset 0 0 12px #18ffff33;
-      text-align: center;
-    }
-
-    .popup-content h3 {
-      color: #18ffff;
-      margin-top: 0;
-    }
-
-    .popup-content.error h3 {
-      color: #ff1744;
-    }
-
-    .popup-content button {
-      background-color: #1366d6;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    .popup-content button:hover {
-      background-color: #0a4fc9;
-    }
-
-    /* Form Groups with labels on top */
-    form {
-      margin-top: 12px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      margin-bottom: 6px;
-      font-weight: 600;
-      color: #a8d7e7;
-    }
-
-    input[type="text"],
-    input[type="password"],
-    input[type="tel"],
-    input[type="number"] {
-      padding: 10px 14px;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      background-color: #224882;
-      color: #daf6ff;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-    }
-
-    input:focus {
-      border-color: #18ffff;
-      outline: none;
-      background-color: #1c3c70;
-      color: #e0faff;
-    }
-
-    input::placeholder {
-      color: #74d5ff88;
-    }
-
-    /* Buttons container */
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: nowrap;
-    }
-
-    /* Message area */
-    #message-area {
-      margin-bottom: 16px;
-      color: #ff8585;
-      font-weight: 700;
-      min-height: 20px;
-      text-align: center;
-    }
-
-    /* Screens */
-    .screens>div {
-      display: none;
-    }
-
-    .screens>div.active {
-      display: block;
-    }
-
-    /* Admin Dashboard Tabs */
-    .nav-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 25px;
-    }
-
-    .logout-btn {
-      flex: 1 0 100%;
-      margin-top: 8px;
-      background-color: #ff1744;
-      color: white;
-      font-weight: 700;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #ff1744cc;
-    }
-
-    .logout-btn:hover {
-      background-color: #d50030;
-    }
-
-    /* Table styles */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #19356f;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-
-    th,
-    td {
-      padding: 12px 14px;
-      border-bottom: 1px solid #224882;
-      color: #a0d7ff;
-      font-size: 0.9rem;
-      text-align: left;
-    }
-
-    th {
-      background-color: #1362d8;
-      font-weight: 700;
-      color: white;
-    }
-
-    tbody tr:hover {
-      background-color: #224882cc;
-    }
-
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* Receipt styles */
-    .receipt {
-      background-color: #ffffff;
-      color: #0b1a3d;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    .receipt h3 {
-      color: #0b1a3d;
-      border-bottom: 2px solid #18ffff;
-      padding-bottom: 10px;
-    }
-
-    .receipt-table {
-      width: 100%;
-      background-color: white;
-      color: #0b1a3d;
-    }
-
-    .receipt-table th {
-      background-color: #e0f7fa;
-      color: #0b1a3d;
-    }
-
-    .receipt-table th,
-    .receipt-table td {
-      color: #0b1a3d;
-      padding: 8px 10px;
-    }
-
-    .receipt-total {
-      text-align: right;
-      font-weight: bold;
-      margin-top: 15px;
-      border-top: 1px solid #0b1a3d;
-      padding-top: 10px;
-    }
-
-    .receipt-footer {
-      text-align: center;
-      margin-top: 20px;
-      font-style: italic;
-      color: #1362d8;
-    }
-
-    /* Add this to your existing CSS */
-.credentials-hint {
-    margin-top: 20px;
-    font-size: 0.85rem;
-    color: #a8d7e7;
-    text-align: center;
-    background-color: #224882;
-    padding: 8px;
-    border-radius: 6px;
-    border-left: 3px solid #18ffff;
-}
-
-.credentials-hint strong {
-    color: #18ffff;
-}
-
-    @media screen and (max-width: 768px) {
-      .container {
-        padding: 12px 14px 32px;
-      }
-
-      table {
-          display: block;
-          overflow-x: auto;
-      }
-
-      .nav-tabs {
-        gap: 6px;
-      }
-
-      .nav-tab {
-        font-size: 0.85rem;
-        padding: 8px 6px;
-      }
-      .add-to-cart-btn{
-        font-size: 0.9rem;
-        padding: 2px 14px;
-      }
-      .remove-from-cart-btn {
-        font-size: 0.9rem;
-        padding: 3px 14px;
-      }
-
-      button {
-        font-size: 0.9rem;
-        padding: 10px 14px;
-      }
-    }
-  </style>
+  <title>Ahnaf Tajwar Suchak | Portfolio</title>
+  <link rel="stylesheet" href="CSS/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
+  <!-- Header -->
+  <header id="header" class="header">
+    <div class="container">
+      <nav class="nav">
+        <!-- Logo -->
+        <a href="#hero" class="logo">Suchak<span>.</span></a>
 
-  <header>
-    <div class="header-content">
-      <h1><span class="neon-text">একটা SuperShop</span></h1>
+        <!-- Desktop Navigation -->
+        <div class="nav-links">
+          <a href="#about" class="nav-link">About</a>
+          <a href="#skills" class="nav-link">Skills</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#contact" class="nav-link">Contact</a>
+          <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer" class="nav-link">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/atsuchak" target="_blank" rel="noopener noreferrer" class="nav-link">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+
+        <!-- Resume Button -->
+        <a href="https://drive.google.com/file/d/1wrmO6KsKze0oVv3mDUcrNDHsKKKAmRrB/view?usp=sharing"
+          class="resume-btn">Resume</a>
+
+        <!-- Mobile menu button -->
+        <div class="hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+      <div class="mobile-nav-links">
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#skills" class="mobile-nav-link">Skills</a>
+        <a href="#projects" class="mobile-nav-link">Projects</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+        <div class="mobile-social-links">
+          <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+        <a href="https://drive.google.com/uc?export=view&id=1hVFpEtWldRS7z6uAFUNOGgY3eXQdf8UB"
+          class="mobile-resume-btn">Resume</a>
+      </div>
     </div>
   </header>
 
-  <div class="container">
-    <div id="message-area" role="alert" aria-live="polite"></div>
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <p class="intro-text">Hi, my name is </p>
+          <h1 class="name">Suchak.</h1>
+          <h2 class="headline">CSE student passionate about software development</h2>
+          <p class="description">
+            I'm a Computer Science student at United International University, passionate about software
+            development and problem-solving.
+          </p>
+          <a href="#projects" class="cta-button">Check out my work!</a>
+        </div>
+      </div>
+    </section>
 
-    <div class="screens">
-      <!-- Main Screen -->
-      <div id="main-screen" class="active" role="main" aria-label="Welcome Screen">
-        <div class="card">
-          <h2>Welcome to <span class="neon-text"> একটা SuperShop</span></h2>
-          <p>Please choose an option to proceed:</p>
-          <div class="buttons">
-            <button id="admin-login-btn" type="button">Admin Login</button>
-            <button id="shopping-btn" type="button">Start Shopping</button>
-            <button id="view-products-btn" type="button">View Products</button>
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-content">
+            <h2 class="section-heading">About Me</h2>
+            <div class="about-text">
+              <p>
+                Hi! I’m Ahnaf Tajwar Suchak, a CSE student passionate about software development. I
+                started exploring web development by playing around with HTML and CSS, and quickly grew
+                to love building clean, responsive, and user-friendly websites.
+              </p>
+              <p>
+                These days, I’m focused on building accessible and inclusive web projects while
+                continuously learning and growing as a developer.
+              </p>
+              <p>
+                Here are a few technologies I've been working with recently:
+              </p>
+              <ul class="skills-list">
+                <li>JavaScript (ES6+)</li>
+                <li>HTML</li>
+                <li>Python</li>
+                <li>CSS</li>
+                <li>JAVA</li>
+                <li>C</li>
+              </ul>
+            </div>
+          </div>
+          <div class="about-image-container">
+            <div class="image-frame">
+              <img src="Photos/suchak.jpg" alt="Suchak" class="about-image">
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Admin Login Screen -->
-      <div id="admin-login-screen" role="region" aria-label="Admin Login Screen">
-        <div class="card">
-          <h2>Admin Login</h2>
-          <form id="admin-login-form" novalidate>
-            <div class="form-group">
-              <label for="admin-username">Username</label>
-              <input type="text" id="admin-username" name="admin-username" autocomplete="username" required />
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+      <div class="container">
+        <h2 class="section-heading">Skills & Expertise</h2>
+        <div class="skills-grid">
+          <!-- Skill Card 1 -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-laptop-code"></i>
             </div>
-            <div class="form-group">
-              <label for="admin-password">Password</label>
-              <input type="password" id="admin-password" name="admin-password" autocomplete="current-password"
-                required />
+            <h3 class="skill-title">Frontend Development</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">HTML</span>
+              <span class="skill-tag">CSS</span>
+              <span class="skill-tag">JavaScript</span>
             </div>
-            <div class="buttons">
-              <button type="submit">Login</button>
-              <button type="button" class="secondary back-btn">Back</button>
+            <p class="skill-description">Continually expanding proficiency in modern frontend tools and technologies</p>
+          </div>
+
+          <!-- Skill Card 2 -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-code"></i>
             </div>
-          </form>
-          <div class="credentials-hint">
-            Demo Credentials: <strong>Username: Admin</strong>, <strong>Password: Admin123</strong>
-        </div>
+            <h3 class="skill-title">Programming Languages</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">C</span>
+              <span class="skill-tag">C++</span>
+            </div>
+            <p class="skill-description">Proficient in multiple programming languages for diverse software development
+              needs</p>
+          </div>
+
+          <!-- Skill Card 3 -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-chess"></i>
+            </div>
+            <h3 class="skill-title">Competitive Programming</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Problem Solving</span>
+              <span class="skill-tag">Codeforces</span>
+              <span class="skill-tag">Codechef</span>
+              <span class="skill-tag">LeetCode</span>
+              <span class="skill-tag">HackerRank</span>
+            </div>
+            <p class="skill-description">Sharpening problem-solving skills through algorithmic challenges and coding
+              contests</p>
+          </div>
+
+          <!-- Skill Card 4 -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <h3 class="skill-title">Tools & Version Control</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">GitHub</span>
+              <span class="skill-tag">VS Code</span>
+              <span class="skill-tag">IntelliJ IDEA</span>
+            </div>
+            <p class="skill-description">Using essential tools for efficient development, version control, and
+              collaboration</p>
+          </div>
+
+          <!-- Skill Card 5 -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <h3 class="skill-title">Soft Skills / Other Tech</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Team Collaboration</span>
+              <span class="skill-tag">Documentation</span>
+              <span class="skill-tag">Debugging</span>
+              <span class="skill-tag">Communication</span>
+            </div>
+            <p class="skill-description">Effective communication, debugging, and teamwork in collaborative and agile
+              environments</p>
+          </div>
+
+          <!-- Skill Card 6  -->
+          <!-- <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3 class="skill-title">Skillset under development</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Agile</span>
+                            <span class="skill-tag">Scrum</span>
+                            <span class="skill-tag">Jira</span>
+                            <span class="skill-tag">Trello</span>
+                        </div>
+                        <p class="skill-description">Leading teams with agile methodologies, user stories, and sprint
+                            planning.</p>
+                    </div> -->
         </div>
       </div>
+    </section>
 
-      <!-- Admin Dashboard Screen -->
-      <div id="admin-dashboard-screen" role="region" aria-label="Admin Dashboard Screen">
-        <div class="card">
-          <h1>Admin Dashboard</h1>
-          <nav class="nav-tabs" role="tablist" aria-label="Admin Navigation Tabs">
-            <button id="admin-logout-btn" class="secondary logout-btn" type="button">Logout</button>
-          </nav>
-          
-          <br>
-
-          <div id="admin-tab-content">
-            <!-- Add Product Tab -->
-            <section id="add-product-tab" class="tab-pane active" role="tabpanel" aria-labelledby="tab-add-product">
-              <h2>Add New Product</h2>
-              <form id="add-product-form" novalidate>
-                <div class="form-group">
-                  <label for="product-id">Product ID</label>
-                  <input type="text" id="product-id" name="product-id" required />
-                </div>
-                <div class="form-group">
-                  <label for="product-name">Product Name</label>
-                  <input type="text" id="product-name" name="product-name" required />
-                </div>
-                <div class="form-group">
-                  <label for="product-quantity">Quantity</label>
-                  <input type="number" id="product-quantity" name="product-quantity" min="1" required />
-                </div>
-                <div class="form-group">
-                  <label for="product-price">Price ($)</label>
-                  <input type="number" id="product-price" name="product-price" min="0.01" step="0.01" required />
-                </div>
-                <button type="submit">Add Product</button>
-              </form>
-            </section>
-
-            <br><br>
-
-            <!-- View Products Tab -->
-            <section id="view-product-tab" class="tab-pane" role="tabpanel" aria-labelledby="tab-view-product">
-              <h2>Product Inventory</h2>
-              <table id="admin-product-table">
-                <thead>
-                  <tr>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price ($)</th>
-                  </tr>
-                </thead>
-                <tbody id="admin-product-list">
-                  <!-- Products will be loaded here -->
-                </tbody>
-              </table>
-            </section>
-
-            <br><br>
-
-            <!-- Remove Product Tab -->
-            <section id="remove-product-tab" class="tab-pane" role="tabpanel" aria-labelledby="tab-remove-product">
-              <h2>Remove Product</h2>
-              <div class="form-group">
-                <label for="remove-product-id">Enter Product ID to Remove</label>
-                <input type="text" id="remove-product-id" name="remove-product-id" required />
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <h2 class="section-heading">Some Things I've Built</h2>
+        <div class="projects-grid">
+          <!-- Project Card 1 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="Photos/calculator.png" alt="Calculator" class="project-image">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Calculator</h3>
+              <p class="project-description">A basic tool for quick and easy arithmetic calculations,
+                designed for simplicity and efficiency.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
               </div>
-              <button id="remove-product-btn" type="button">Remove Product</button>
-
-              <h4 style="margin-top: 20px;">Current Products</h4>
-              <table id="remove-product-table">
-                <thead>
-                  <tr>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price ($)</th>
-                  </tr>
-                </thead>
-                <tbody id="remove-product-list">
-                  <!-- Products will be loaded here -->
-                </tbody>
-              </table>
-            </section>
-
-            <br><br>
-
-            <!-- Cleanup Tab -->
-            <section id="cleanup-tab" class="tab-pane" role="tabpanel" aria-labelledby="tab-cleanup">
-              <h2>Clean Zero Quantity Products</h2>
-              <p>This will remove all products with zero quantity from the inventory.</p>
-              <button id="cleanup-btn" type="button">Clean Up Now</button>
-
-              <h4 style="margin-top: 20px;">Zero Quantity Products</h4>
-              <table id="zero-quantity-table">
-                <thead>
-                  <tr>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price ($)</th>
-                  </tr>
-                </thead>
-                <tbody id="zero-quantity-list">
-                  <!-- Zero quantity products will be loaded here -->
-                </tbody>
-              </table>
-            </section>
-          </div>
-        </div>
-      </div>
-
-      <!-- Customer Shopping Screen -->
-      <div id="shopping-screen" role="region" aria-label="Shopping Screen">
-        <div class="card">
-          <h2>Shopping</h2>
-          <div id="shopping-content">
-            <table id="shopping-product-table">
-              <thead>
-                <tr>
-                  <th>Product ID</th>
-                  <th>Product Name</th>
-                  <th>Available</th>
-                  <th>Price ($)</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="shopping-product-list">
-                <!-- Products will be loaded here -->
-              </tbody>
-            </table>
-
-            <br>
-            
-            <div id="cart-summary" style="margin-top: 20px;">
-              <h3>Your Cart</h3>
-              <table id="cart-table">
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody id="cart-items">
-                  <!-- Cart items will be added here -->
-                </tbody>
-              </table>
-              <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                <div>
-                  <strong>Total Amount: $<span id="cart-total">0.00</span></strong>
-                </div>
-                <div class="buttons">
-                  <button id="checkout-btn" type="button">Checkout</button>
-                  <button id="continue-shopping-btn" class="secondary back-btn">Back to Main</button>
-                </div>
+              <div class="project-links">
+                <a href="calculator.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/calculator.html" class="project-link"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github"></i> Source
+                </a>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- View Products Screen -->
-      <div id="view-products-screen" role="region" aria-label="View Products Screen">
-        <div class="card">
-          <h2>Available Products</h2>
-          <table id="view-products-table">
-            <thead>
-              <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Available</th>
-                <th>Price ($)</th>
-              </tr>
-            </thead>
-            <tbody id="view-products-list">
-              <!-- Products will be loaded here -->
-            </tbody>
-          </table>
-          <div class="buttons" style="margin-top: 15px;">
-            <button id="start-shopping-btn" type="button">Start Shopping</button>
-            <button id="view-products-back-btn" class="secondary back-btn">Back to Main</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Receipt Screen -->
-      <div id="receipt-screen" role="region" aria-label="Receipt Screen">
-        <div class="card">
-          <h2>Purchase Complete</h2>
-          <div id="receipt-content" class="receipt">
-            <h3>Purchase Receipt</h3>
-            <table class="receipt-table" id="receipt-table">
-              <thead>
-                <tr>
-                  <th>Product ID</th>
-                  <th>Product Name</th>
-                  <th>Quantity</th>
-                  <th>Unit Price</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody id="receipt-items">
-                <!-- Receipt items will be added here -->
-              </tbody>
-            </table>
-            <div class="receipt-total">
-              Total Amount: $<span id="receipt-total">0.00</span>
+          <!-- Project Card 2 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="Photos/bank.png" alt="Bank image" class="project-image">
             </div>
-            <div class="receipt-footer">
-              Thank you for shopping with SuperShop!
+            <div class="project-content">
+              <h3 class="project-title">Bank Management</h3>
+              <p class="project-description">Bank system layout featuring user account creation, login, secure
+                transactions, and complete account management.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="bank.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/bank.html" class="project-link"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github"></i> Source
+                </a>
+              </div>
             </div>
           </div>
-          <div class="buttons" style="margin-top: 15px;">
-            <button id="new-shopping-btn" type="button">New Shopping</button>
-            <button id="receipt-main-btn" class="secondary back-btn">Back to Main</button>
+
+
+
+          <!-- Project Card 3 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="Photos/supershop.png" alt="supershop image" class="project-image">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Supershop Management</h3>
+              <p class="project-description">Supershop system layout featuring admin control, product management, and
+                user access for shopping and viewing.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="supershop.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/supershop.html" class="project-link"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github"></i> Source
+                </a>
+              </div>
+            </div>
           </div>
+
+          <!-- Project Card 4 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="Photos/tictactoe.png" alt="Tic Tac Toe" class="project-image">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Tic-Tac-Toe</h3>
+              <p class="project-description">A simple yet engaging strategy game where two players take
+                turns marking spaces to form a winning line.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="tictactoe.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/tictactoe.html" class="project-link"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github"></i> Source
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 5 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="Photos/snake.png" alt="Snake image" class="project-image">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Snake Game</h3>
+              <p class="project-description">a classic arcade game where you guide a growing snake to eat
+                food while avoiding walls and itself.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="snake.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/snake.html" class="project-link"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github"></i> Source
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 6 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="Photos/gridRunner.png" alt="Line Flux" class="project-image">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Grid Runner </h3>
+              <p class="project-description">Grid Runner is a fast-paced lane-shifting arcade game where your glowing
+                block dodges obstacles in a stylish cyber grid.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="gridRunner.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/gridRunner.html" class="project-link"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github"></i> Source
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 7 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="Photos/mineweeper.png" alt="Minesweeper" class="project-image">
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Minesweeper</h3>
+              <p class="project-description">Minesweeper is a logic-based puzzle game where you uncover
+                tiles and avoid hidden mines to clear the board.</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="mineGame.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/mineGame.html" class="project-link"
+                  target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github"></i> Source
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div class="project-card">
+                        <div class="project-image-container">
+                            <img src="Photos/facebook.png" alt="Facebook image" class="project-image">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Facebook Login: Clone</h3>
+                            <p class="project-description">Facebook Login Clone is a replica interface mimicking the
+                                Facebook login page for practice or UI demo.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="facebook.html" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt"></i> Live
+                                </a>
+                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/facebook.html"
+                                    class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github"></i> Source
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
+
+        </div>
+
+        <div class="more-projects">
+          <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer" class="more-projects-btn">
+            View More on GitHub <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
       </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <p class="contact-pre-heading">What's Next?</p>
+        <h2 class="contact-heading">Get In Touch</h2>
+        <p class="contact-description">
+          I'm always learning—feel free to share your feedback or ideas!
+        </p>
+
+        <form id="contact-form" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" id="name" name="name" placeholder="Name" required class="form-input">
+              <span class="error-message" id="name-error"></span>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="_replyto" placeholder="Email" required class="form-input">
+              <span class="error-message" id="email-error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" id="subject" name="subject" placeholder="Subject" required class="form-input">
+            <span class="error-message" id="subject-error"></span>
+          </div>
+          <div class="form-group">
+            <textarea id="message" name="message" placeholder="Message" rows="5" required
+              class="form-textarea"></textarea>
+            <span class="error-message" id="message-error"></span>
+          </div>
+          <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
+          <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
+        </form>
+
+        <div class="social-links">
+          <a href="mailto:ahnaftajwarsuchak@gmail.com" class="social-link">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/atsuchak" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://twitter.com/atsuchak" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="copyright">
+        Designed & Built by atsuchak &copy; <span id="current-year"></span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scroll to top button -->
+  <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Success modal -->
+  <div id="success-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="modal-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Message Sent!</h3>
+      <p>Thank you for your message. I'll get back to you soon.</p>
     </div>
   </div>
 
   <script>
-    class SuperShopApp {
-      constructor() {
-        this.products = [];
-        this.cart = [];
-        this.adminCredentials = { username: "Admin", password: "Admin123" };
-
-        // Load data from localStorage if available
-        this.loadData();
-
-        // Initialize the app
-        this.init();
-      }
-
-      init() {
-        // Attach event listeners for navigation
-        this.attachEventListeners();
-
-        // Show main screen by default
-        this.showScreen('main-screen');
-      }
-
-      attachEventListeners() {
-        // Main screen buttons
-        document.getElementById('admin-login-btn').addEventListener('click', () => this.showScreen('admin-login-screen'));
-        document.getElementById('shopping-btn').addEventListener('click', () => {
-          this.loadShoppingProducts();
-          this.showScreen('shopping-screen');
-        });
-        document.getElementById('view-products-btn').addEventListener('click', () => {
-          this.loadViewProducts();
-          this.showScreen('view-products-screen');
-        });
-
-        // Back buttons
-        document.querySelectorAll('.back-btn').forEach(btn => {
-          btn.addEventListener('click', () => this.showScreen('main-screen'));
-        });
-
-        // Admin login form
-        document.getElementById('admin-login-form').addEventListener('submit', (e) => this.handleAdminLogin(e));
-
-        // Admin dashboard tabs
-        document.querySelectorAll('.nav-tab').forEach(tab => {
-          tab.addEventListener('click', () => {
-            const tabId = tab.getAttribute('data-tab');
-            this.switchAdminTab(tabId);
-          });
-        });
-
-        // Admin logout button
-        document.getElementById('admin-logout-btn').addEventListener('click', () => this.showScreen('main-screen'));
-
-        // Add product form
-        document.getElementById('add-product-form').addEventListener('submit', (e) => this.handleAddProduct(e));
-
-        // Remove product button
-        document.getElementById('remove-product-btn').addEventListener('click', () => this.handleRemoveProduct());
-
-        // Cleanup button
-        document.getElementById('cleanup-btn').addEventListener('click', () => this.handleCleanup());
-
-        // Shopping screen buttons
-        document.getElementById('continue-shopping-btn').addEventListener('click', () => this.showScreen('main-screen'));
-        document.getElementById('checkout-btn').addEventListener('click', () => this.handleCheckout());
-
-        // View products screen buttons
-        document.getElementById('start-shopping-btn').addEventListener('click', () => {
-          this.loadShoppingProducts();
-          this.showScreen('shopping-screen');
-        });
-        document.getElementById('view-products-back-btn').addEventListener('click', () => this.showScreen('main-screen'));
-
-        // Receipt screen buttons
-        document.getElementById('new-shopping-btn').addEventListener('click', () => {
-          this.cart = [];
-          this.loadShoppingProducts();
-          this.showScreen('shopping-screen');
-        });
-        document.getElementById('receipt-main-btn').addEventListener('click', () => this.showScreen('main-screen'));
-      }
-
-      showScreen(screenId) {
-        // Hide all screens
-        document.querySelectorAll('.screens > div').forEach(screen => {
-          screen.classList.remove('active');
-        });
-
-        // Show the selected screen
-        document.getElementById(screenId).classList.add('active');
-
-        // Clear message area when switching screens
-        document.getElementById('message-area').innerHTML = '';
-
-        // Additional actions when switching to specific screens
-        if (screenId === 'admin-dashboard-screen') {
-          this.switchAdminTab('add-product');
-          this.loadAdminProducts();
-        }
-      }
-
-      switchAdminTab(tabId) {
-        // Update tab styling
-        document.querySelectorAll('.nav-tab').forEach(tab => {
-          if (tab.getAttribute('data-tab') === tabId) {
-            tab.classList.add('active');
-          } else {
-            tab.classList.remove('active');
-          }
-        });
-
-        // Hide all tab content
-        document.querySelectorAll('#admin-tab-content > section').forEach(section => {
-          section.classList.remove('active');
-        });
-
-        // Show the selected tab content
-        document.getElementById(`${tabId}-tab`).classList.add('active');
-
-        // Load data for specific tabs
-        if (tabId === 'view-product' || tabId === 'remove-product') {
-          this.loadAdminProducts();
-        } else if (tabId === 'cleanup') {
-          this.loadZeroQuantityProducts();
-        }
-      }
-
-      showMessage(message, isError = false) {
-        const messageArea = document.getElementById('message-area');
-        messageArea.textContent = message;
-        messageArea.style.color = isError ? '#ff8585' : '#18ffff';
-
-        // Auto-hide message after 5 seconds
-        setTimeout(() => {
-          if (messageArea.textContent === message) {
-            messageArea.textContent = '';
-          }
-        }, 5000);
-      }
-
-      showPopup(title, message, isError = false) {
-        // Create overlay
-        const overlay = document.createElement('div');
-        overlay.className = 'popup-overlay';
-
-        // Create popup content
-        const content = document.createElement('div');
-        content.className = isError ? 'popup-content error' : 'popup-content';
-
-        content.innerHTML = `
-                    <h3>${title}</h3>
-                    <p>${message}</p>
-                    <button class="close-popup">OK</button>
-                `;
-
-        overlay.appendChild(content);
-        document.body.appendChild(overlay);
-
-        // Add event listener to close button
-        const closeButton = content.querySelector('.close-popup');
-        closeButton.addEventListener('click', () => {
-          document.body.removeChild(overlay);
-        });
-
-        return new Promise(resolve => {
-          closeButton.addEventListener('click', () => {
-            resolve();
-          });
-        });
-      }
-
-      // Admin functions
-      handleAdminLogin(e) {
-        e.preventDefault();
-
-        const username = document.getElementById('admin-username').value;
-        const password = document.getElementById('admin-password').value;
-
-        if (username === this.adminCredentials.username && password === this.adminCredentials.password) {
-          document.getElementById('admin-login-form').reset();
-          this.showScreen('admin-dashboard-screen');
-        } else {
-          this.showMessage('Invalid username or password!', true);
-        }
-      }
-
-      handleAddProduct(e) {
-        e.preventDefault();
-
-        const productId = document.getElementById('product-id').value;
-        const productName = document.getElementById('product-name').value;
-        const quantity = parseInt(document.getElementById('product-quantity').value);
-        const price = parseFloat(document.getElementById('product-price').value);
-
-        // Check if product ID already exists
-        const existingProduct = this.products.find(p => p.id === productId);
-        if (existingProduct) {
-          this.showMessage('Product ID already exists!', true);
-          return;
-        }
-
-        // Add the product
-        this.products.push({
-          id: productId,
-          name: productName,
-          quantity: quantity,
-          price: price
-        });
-
-        // Save data to localStorage
-        this.saveData();
-
-        // Clear the form
-        document.getElementById('add-product-form').reset();
-
-        // Show success message
-        this.showMessage('Product added successfully!');
-      }
-
-      loadAdminProducts() {
-        // Load products for admin view
-        const adminProductList = document.getElementById('admin-product-list');
-        const removeProductList = document.getElementById('remove-product-list');
-
-        adminProductList.innerHTML = '';
-        removeProductList.innerHTML = '';
-
-        if (this.products.length === 0) {
-          const emptyRow = `<tr><td colspan="4" style="text-align: center;">No products available</td></tr>`;
-          adminProductList.innerHTML = emptyRow;
-          removeProductList.innerHTML = emptyRow;
-          return
-
-        }
-
-        this.products.forEach(product => {
-          const row = `
-        <tr>
-            <td>${product.id}</td>
-            <td>${product.name}</td>
-            <td>${product.quantity}</td>
-            <td>$${product.price.toFixed(2)}</td>
-        </tr>
-    `;
-          adminProductList.innerHTML += row;
-          removeProductList.innerHTML += row;
-        });
-      }
-
-      handleRemoveProduct() {
-        const productId = document.getElementById('remove-product-id').value.trim();
-
-        if (!productId) {
-          this.showMessage('Please enter a product ID!', true);
-          return;
-        }
-
-        const index = this.products.findIndex(p => p.id === productId);
-
-        if (index === -1) {
-          this.showMessage('Product not found!', true);
-          return;
-        }
-
-        // Remove the product
-        this.products.splice(index, 1);
-
-        // Save data to localStorage
-        this.saveData();
-
-        // Clear the input
-        document.getElementById('remove-product-id').value = '';
-
-        // Reload product lists
-        this.loadAdminProducts();
-        this.loadZeroQuantityProducts();
-
-        // Show success message
-        this.showMessage('Product removed successfully!');
-      }
-
-      loadZeroQuantityProducts() {
-        const zeroQuantityList = document.getElementById('zero-quantity-list');
-        zeroQuantityList.innerHTML = '';
-
-        const zeroQuantityProducts = this.products.filter(p => p.quantity === 0);
-
-        if (zeroQuantityProducts.length === 0) {
-          zeroQuantityList.innerHTML = `
-        <tr>
-            <td colspan="4" style="text-align: center;">No zero quantity products</td>
-        </tr>
-    `;
-          return;
-        }
-
-        zeroQuantityProducts.forEach(product => {
-          zeroQuantityList.innerHTML += `
-        <tr>
-            <td>${product.id}</td>
-            <td>${product.name}</td>
-            <td>${product.quantity}</td>
-            <td>$${product.price.toFixed(2)}</td>
-        </tr>
-    `;
-        });
-      }
-
-      handleCleanup() {
-        const initialCount = this.products.length;
-        this.products = this.products.filter(p => p.quantity > 0);
-        const removedCount = initialCount - this.products.length;
-
-        if (removedCount > 0) {
-          // Save data to localStorage
-          this.saveData();
-
-          // Reload product lists
-          this.loadAdminProducts();
-          this.loadZeroQuantityProducts();
-
-          // Show success message
-          this.showMessage(`Removed ${removedCount} zero quantity products.`);
-        } else {
-          this.showMessage('No zero quantity products to remove.');
-        }
-      }
-
-      // Shopping functions
-      loadShoppingProducts() {
-        const shoppingProductList = document.getElementById('shopping-product-list');
-        shoppingProductList.innerHTML = '';
-
-        if (this.products.length === 0) {
-          shoppingProductList.innerHTML = `
-        <tr>
-            <td colspan="5" style="text-align: center;">No products available</td>
-        </tr>
-    `;
-          return;
-        }
-
-        this.products.forEach(product => {
-          const row = `
-        <tr>
-            <td>${product.id}</td>
-            <td>${product.name}</td>
-            <td>${product.quantity}</td>
-            <td>$${product.price.toFixed(2)}</td>
-            <td>
-                <button class="add-to-cart-btn" data-id="${product.id}">Add</button>
-            </td>
-        </tr>
-    `;
-          shoppingProductList.innerHTML += row;
-        });
-
-        // Attach event listeners to add-to-cart buttons
-        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const productId = e.target.getAttribute('data-id');
-            this.showAddToCartDialog(productId);
-          });
-        });
-      }
-
-      showAddToCartDialog(productId) {
-        const product = this.products.find(p => p.id === productId);
-
-        if (!product) {
-          this.showMessage('Product not found!', true);
-          return;
-        }
-
-        // Create overlay
-        const overlay = document.createElement('div');
-        overlay.className = 'popup-overlay';
-
-        // Create popup content
-        const content = document.createElement('div');
-        content.className = 'popup-content';
-
-        content.innerHTML = `
-    <h3>Add to Cart</h3>
-    <p>Product: ${product.name}</p>
-    <p>Available: ${product.quantity}</p>
-    <p>Price: $${product.price.toFixed(2)}</p>
-    <div class="form-group">
-        <label for="cart-quantity">Quantity:</label>
-        <input type="number" id="cart-quantity" min="1" max="${product.quantity}" value="1">
-    </div>
-    <div class="buttons">
-        <button class="confirm-add-to-cart" data-id="${product.id}">Add to Cart</button>
-        <button class="close-popup">Cancel</button>
-    </div>
-`;
-
-        overlay.appendChild(content);
-        document.body.appendChild(overlay);
-
-        // Add event listener to close button
-        const closeButton = content.querySelector('.close-popup');
-        closeButton.addEventListener('click', () => {
-          document.body.removeChild(overlay);
-        });
-
-        // Add event listener to confirm button
-        const confirmButton = content.querySelector('.confirm-add-to-cart');
-        confirmButton.addEventListener('click', () => {
-          const quantity = parseInt(document.getElementById('cart-quantity').value);
-          this.addToCart(productId, quantity);
-          document.body.removeChild(overlay);
-        });
-      }
-
-      addToCart(productId, quantity) {
-        const product = this.products.find(p => p.id === productId);
-
-        if (!product) {
-          this.showMessage('Product not found!', true);
-          return;
-        }
-
-        if (quantity > product.quantity) {
-          this.showMessage(`Only ${product.quantity} available!`, true);
-          return;
-        }
-
-        // Check if product is already in cart
-        const existingCartItem = this.cart.find(item => item.id === productId);
-
-        if (existingCartItem) {
-          existingCartItem.quantity += quantity;
-        } else {
-          this.cart.push({
-            id: productId,
-            name: product.name,
-            quantity: quantity,
-            price: product.price
-          });
-        }
-
-        // Update cart display
-        this.updateCartDisplay();
-
-        // Show success message
-        this.showMessage(`Added ${quantity} ${product.name}(s) to cart!`);
-      }
-
-      updateCartDisplay() {
-        const cartItems = document.getElementById('cart-items');
-        cartItems.innerHTML = '';
-
-        let total = 0;
-
-        this.cart.forEach(item => {
-          const itemTotal = item.quantity * item.price;
-          total += itemTotal;
-
-          cartItems.innerHTML += `
-        <tr>
-            <td>${item.name}</td>
-            <td>${item.quantity}</td>
-            <td>$${item.price.toFixed(2)}</td>
-            <td>$${itemTotal.toFixed(2)}</td>
-            <td>
-                <button class="remove-from-cart-btn" data-id="${item.id}">Remove</button>
-            </td>
-        </tr>
-    `;
-        });
-
-        // Update total
-        document.getElementById('cart-total').textContent = total.toFixed(2);
-
-        // Attach event listeners to remove buttons
-        document.querySelectorAll('.remove-from-cart-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const productId = e.target.getAttribute('data-id');
-            this.removeFromCart(productId);
-          });
-        });
-      }
-
-      removeFromCart(productId) {
-        const index = this.cart.findIndex(item => item.id === productId);
-
-        if (index !== -1) {
-          this.cart.splice(index, 1);
-          this.updateCartDisplay();
-          this.showMessage('Item removed from cart.');
-        }
-      }
-
-      handleCheckout() {
-        if (this.cart.length === 0) {
-          this.showMessage('Your cart is empty!', true);
-          return;
-        }
-
-        // Generate receipt
-        this.generateReceipt();
-
-        // Update product quantities
-        this.updateProductQuantities();
-
-        // Clear the cart
-        this.cart = [];
-
-        // Show receipt screen
-        this.showScreen('receipt-screen');
-      }
-
-      generateReceipt() {
-        const receiptItems = document.getElementById('receipt-items');
-        receiptItems.innerHTML = '';
-
-        let total = 0;
-
-        this.cart.forEach(item => {
-          const itemTotal = item.quantity * item.price;
-          total += itemTotal;
-
-          receiptItems.innerHTML += `
-        <tr>
-            <td>${item.id}</td>
-            <td>${item.name}</td>
-            <td>${item.quantity}</td>
-            <td>$${item.price.toFixed(2)}</td>
-            <td>$${itemTotal.toFixed(2)}</td>
-        </tr>
-    `;
-        });
-
-        // Update total
-        document.getElementById('receipt-total').textContent = total.toFixed(2);
-      }
-
-      updateProductQuantities() {
-        this.cart.forEach(cartItem => {
-          const product = this.products.find(p => p.id === cartItem.id);
-
-          if (product) {
-            product.quantity -= cartItem.quantity;
-
-            // Remove product if quantity reaches zero
-            if (product.quantity <= 0) {
-              const index = this.products.findIndex(p => p.id === product.id);
-              if (index !== -1) {
-                this.products.splice(index, 1);
-              }
-            }
-          }
-        });
-
-        // Save updated data
-        this.saveData();
-      }
-
-      loadViewProducts() {
-        const viewProductsList = document.getElementById('view-products-list');
-        viewProductsList.innerHTML = '';
-
-        if (this.products.length === 0) {
-          viewProductsList.innerHTML = `
-        <tr>
-            <td colspan="4" style="text-align: center;">No products available</td>
-        </tr>
-    `;
-          return;
-        }
-
-        this.products.forEach(product => {
-          viewProductsList.innerHTML += `
-        <tr>
-            <td>${product.id}</td>
-            <td>${product.name}</td>
-            <td>${product.quantity}</td>
-            <td>$${product.price.toFixed(2)}</td>
-        </tr>
-    `;
-        });
-      }
-
-      // Data persistence
-      saveData() {
-        localStorage.setItem('superShopProducts', JSON.stringify(this.products));
-      }
-
-      loadData() {
-        const savedProducts = localStorage.getItem('superShopProducts');
-
-        if (savedProducts) {
-          this.products = JSON.parse(savedProducts);
-        } else {
-          // Initialize with some sample products if no data exists
-          this.products = [
-            { id: 'P001', name: 'Rice(1kg)', quantity: 50, price: 80 },
-            { id: 'P002', name: 'Flour(1kg)', quantity: 45, price: 60 },
-            { id: 'P003', name: 'Suger(1kg)', quantity: 30, price: 65 },
-            { id: 'P004', name: 'Oil(1L)', quantity: 35, price: 180}
-          ];
-          this.saveData();
-        }
-      }
+    // DOM elements
+    const header = document.getElementById('header');
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    const contactForm = document.getElementById('contact-form');
+    const successModal = document.getElementById('success-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const currentYearSpan = document.getElementById('current-year');
+
+    // Set current year in footer
+    if (currentYearSpan) {
+      currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // Initialize the application when the DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      const superShopApp = new SuperShopApp();
+    // Header scroll effect
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Add/remove scrolled class
+      if (scrollTop > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      // Hide/show header on scroll direction
+      if (scrollTop > lastScrollTop && scrollTop > 300) {
+        // Scrolling down
+        header.classList.add('hide');
+      } else {
+        // Scrolling up
+        header.classList.remove('hide');
+      }
+
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+      // Show/hide scroll to top button
+      if (scrollTop > 500) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+
+    // // Mobile menu toggle
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('open');
+        document.body.classList.toggle('no-scroll');
+      });
+    }
+
+    // Close mobile menu when clicking on a mobile menu link
+    if (mobileNavLinks.length > 0) {
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileNav.classList.remove('open');
+          document.body.classList.remove('no-scroll');
+        });
+      });
+    }
+
+    // Scroll to top functionality
+    if (scrollTopBtn) {
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+
+    // Form validation
+    const validateForm = () => {
+      let isValid = true;
+      const name = document.getElementById('name');
+      const nameError = document.getElementById('name-error');
+      const email = document.getElementById('email');
+      const emailError = document.getElementById('email-error');
+      const subject = document.getElementById('subject');
+      const subjectError = document.getElementById('subject-error');
+      const message = document.getElementById('message');
+      const messageError = document.getElementById('message-error');
+
+      // Reset errors
+      nameError.textContent = '';
+      emailError.textContent = '';
+      subjectError.textContent = '';
+      messageError.textContent = '';
+
+      // Validate name
+      if (name.value.trim().length < 2) {
+        nameError.textContent = 'Name must be at least 2 characters.';
+        isValid = false;
+      }
+
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value)) {
+        emailError.textContent = 'Please enter a valid email address.';
+        isValid = false;
+      }
+
+      // Validate subject
+      if (subject.value.trim().length < 5) {
+        subjectError.textContent = 'Subject must be at least 5 characters.';
+        isValid = false;
+      }
+
+      // Validate message
+      if (message.value.trim().length < 10) {
+        messageError.textContent = 'Message must be at least 10 characters.';
+        isValid = false;
+      }
+
+      return isValid;
+    };
+
+    // Handle form submission
+    // Handle form submission using Formspree
+    if (contactForm) {
+      contactForm.action = "https://formspree.io/f/xanolyyq"; // Replace with your Formspree ID
+      contactForm.method = "POST";
+
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+          const submitBtn = document.getElementById('submit-btn');
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+
+          // Form data to send
+          const formData = new FormData(contactForm);
+
+          // Send form data to Formspree
+          fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          })
+            .then(response => {
+              if (response.ok) {
+                // Show success modal
+                successModal.classList.add('show');
+                // Reset form
+                contactForm.reset();
+              } else {
+                throw new Error('Form submission failed');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Sorry, there was a problem sending your message. Please try again later.');
+            })
+            .finally(() => {
+              // Reset button
+              submitBtn.textContent = 'Send Message';
+              submitBtn.disabled = false;
+            });
+        }
+      });
+    }
+
+    // Close modal
+    if (closeModal) {
+      closeModal.addEventListener('click', () => {
+        successModal.classList.remove('show');
+      });
+    }
+
+    // Close modal when clicking outside
+    if (successModal) {
+      window.addEventListener('click', (e) => {
+        if (e.target === successModal) {
+          successModal.classList.remove('show');
+        }
+      });
+    }
+
+    // Add smooth scrolling to all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const headerHeight = document.getElementById('header')?.offsetHeight || 0;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Add animations to elements when they enter the viewport
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.skill-card, .project-card, .section-heading, .about-image-container');
+
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (elementPosition < windowHeight - 100) {
+          element.classList.add('fadeIn');
+        }
+      });
+    };
+
+    // Run animation check on scroll
+    window.addEventListener('scroll', animateOnScroll);
+
+    // Run animation check on page load
+    window.addEventListener('load', () => {
+      animateOnScroll();
     });
   </script>
+
+  <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
 </body>
 
 </html>
