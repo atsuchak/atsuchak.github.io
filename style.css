@@ -539,6 +539,12 @@ textarea::-webkit-scrollbar-thumb {
 
 /* media */
 
+@media (max-width: 1125px) {
+  .input-form {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   html,
   body {
