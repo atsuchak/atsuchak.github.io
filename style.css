@@ -8,9 +8,22 @@
 }
 
 :root {
-  --theme: rgb(215, 255, 250);
+  --theme: rgb(255, 255, 255);
   --nav: rgb(210, 240, 240);
-  --font: rgb(35, 35, 35);
+  --font: rgb(45, 45, 45);
+}
+
+.dark-mode {
+  --theme: rgb(18, 18, 18);
+  --font: #ffffff;
+}
+
+#moon-icon {
+  display: none;
+}
+
+.dark-mode #sum-icon {
+  display: none;
 }
 
 html {
@@ -19,6 +32,8 @@ html {
 
 body {
   background-color: var(--theme);
+  color: var(--font);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 [hidden] {
@@ -27,7 +42,7 @@ body {
 
 i {
   color: transparent;
-  -webkit-text-stroke: 2.5px black;
+  -webkit-text-stroke: 2.5px var(--font);
 }
 
 .nav {
@@ -37,7 +52,7 @@ i {
   transform: translateX(-50%);
   max-width: 30rem;
   width: 100%;
-  background: linear-gradient(to top, rgb(210, 240, 240), gainsboro);
+  background: linear-gradient(to bottom, var(--theme), gainsboro);
   padding: 1.5rem 0;
   border-radius: 5rem;
   z-index: 100;
@@ -45,8 +60,8 @@ i {
 }
 
 .nav:hover {
-  background: linear-gradient(to bottom, rgb(210, 240, 240), gainsboro);
-  box-shadow: 5px 3px 5px var(--nav);
+  background: linear-gradient(to top, var(--theme), gainsboro);
+  box-shadow: 0 0 5px var(--nav);
 }
 
 .nav-list {
@@ -57,6 +72,7 @@ i {
 }
 
 .nav-list li {
+  color: var(--font);
   display: flex;
   position: relative;
   font-size: 2rem;
@@ -66,7 +82,7 @@ i {
 
 i:hover,
 .active {
-  font-size: 2.1rem;
+  font-size: 2rem;
   color: var(--theme);
 }
 
@@ -75,10 +91,10 @@ i:hover,
   top: -4rem;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 0.4rem;
-  background: gainsboro;
-  font-size: 1.2rem;
+  background: grey;
+  font-size: 1rem;
   font-weight: bold;
   visibility: hidden;
   opacity: 1;
@@ -86,11 +102,15 @@ i:hover,
 }
 
 .nav-list li:hover .tooltip {
+  color: var(--font);
   visibility: visible;
   opacity: 1;
 }
 
 .icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem 5rem;
   font-weight: bolder;
   font-size: 1.5rem;
@@ -105,9 +125,9 @@ i:hover,
   gap: 5rem;
   margin: 1rem auto 1rem auto;
   padding: 1.5rem 3rem;
-  border: 1px solid grey;
+  border: none;
   border-radius: 10px;
-  box-shadow: 2px 2px 20px black;
+  box-shadow: 0 0 10px var(--font);
 }
 
 .content {
@@ -124,14 +144,13 @@ i:hover,
 
 .name h1 span {
   font-size: 2.8rem;
-  color: rgb(45, 45, 45);
+  color: var(--font);
   padding: 0 1rem 0 0;
-  box-shadow: 5px 5px 25px var(--nav);
 }
 
 .content h2 {
   font-size: 2.3rem;
-  color: rgb(45, 45, 45);
+  color: var(--font);
 }
 
 .content p {
@@ -145,17 +164,16 @@ button {
   margin: 1rem 0;
   border-radius: 15px;
   border: 3px solid gray;
+  color: var(--font);
   background: var(--theme);
   opacity: 70%;
   border-style: double;
-  box-shadow: 2px 2px 20px gainsboro;
   transition: 0.3s;
 }
 
 button:hover {
-  font-size: 1.3rem;
-  background-color: white;
-  box-shadow: 2px 2px 20px gray;
+  background-color: var(--theme);
+  box-shadow: 0 0 10px var(--font);
   cursor: pointer;
 }
 
@@ -169,8 +187,8 @@ button:hover {
 .image img {
   border-radius: 20%;
   max-width: 22rem;
-  border: 1px solid gray;
-  box-shadow: 2px 2px 40px gainsboro;
+  border: none;
+  box-shadow: 0 0 10px gainsboro;
 }
 
 .about,
@@ -192,16 +210,15 @@ button:hover {
 .heading {
   text-align: center;
   font-size: 2.5rem;
-  color: rgb(45, 45, 45);
+  color: var(--font);
   width: 90%;
   margin: 0 auto;
 }
 
 .heading h1 span {
-  box-shadow: 2px 2px 10px gainsboro;
   border-radius: 20px 20px 0 0;
   padding: 0 2rem;
-  box-shadow: 0.2px 0.2px 10px black;
+  box-shadow: 0 0 5px var(--font);
 }
 
 .about-box,
@@ -214,10 +231,10 @@ button:hover {
   width: 90%;
   height: 90%;
   margin: 0 auto;
-  border: 1px solid grey;
+  border: none;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0.2px 0.2px 10px black;
+  box-shadow: 0 0 10px var(--font);
 }
 
 .card {
@@ -228,20 +245,19 @@ button:hover {
   width: 60%;
   margin: 0 auto;
   padding: 1rem 2rem;
-  border: 1px solid grey;
+  border: none;
   border-radius: 10px;
-  box-shadow: 2px 2px 20px grey;
+  box-shadow: 0 0 10px gray;
   transition: 0.3s;
 }
 
 .card:hover {
-  width: 61%;
-  box-shadow: 2px 2px 20px black;
+  box-shadow: 0 0 10px var(--font);
 }
 
 .card h1 {
   font-size: 2rem;
-  color: rgb(45, 45, 45);
+  color: var(--font);
 }
 
 .card p {
@@ -282,8 +298,8 @@ button:hover {
 }
 
 .card-lebel h5 {
-  border: 1px solid grey;
-  box-shadow: 2px 2px 2px gainsboro;
+  border: none;
+  box-shadow: 0 0 5px gainsboro;
   border-radius: 40px;
   padding: 0.2rem 0.5rem;
 }
@@ -296,9 +312,9 @@ button:hover {
   align-items: center;
   display: flex;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px solid var(--font);
   border-radius: 10px;
-  padding: 5px;
+  padding: 0.5rem;
   margin: 0 2rem;
   height: 70%;
 }
@@ -306,7 +322,8 @@ button:hover {
 .card-image img {
   max-width: 100%;
   border-radius: 10px;
-  box-shadow: 2px 2px 2px gainsboro;
+  border: none;
+  box-shadow: 0 0 5px gainsboro;
 }
 
 .project-box .card {
@@ -336,17 +353,22 @@ button:hover {
 .link a,
 .contact-details a {
   text-decoration: none;
-  color: rgb(45, 45, 45);
+  color: var(--font);
   transition: 0.3s;
 }
 
-.link .live:hover,
-.link .source:hover,
 .link i {
-  font-size: 1.6rem;
-  box-shadow: 2px 2px 2px gainsboro;
+  font-size: 1.5rem;
+}
+
+.link .live:hover,
+.link .source:hover{
+  box-shadow: 0 0 5px gainsboro;
+  border-radius: 20px;
+  padding: 0 0.5rem;
   cursor: pointer;
 }
+
 
 .contact-box {
   flex-direction: row;
@@ -366,7 +388,7 @@ button:hover {
 
 .contact-box h1 {
   font-size: 2.5rem;
-  color: rgb(45, 45, 45);
+  color: var(--font);
   text-align: center;
 }
 
@@ -379,15 +401,16 @@ button:hover {
   align-items: center;
   border: none;
   border-radius: 20px;
-  box-shadow: 1px 1px 10px gainsboro;
+  box-shadow: 0 0 10px gray;
   transition: 0.3s;
 }
 
 .address a:hover,
 .mobile a:hover,
 .email a:hover {
-  background: linear-gradient(90deg, var(--nav), var(--theme));
-  box-shadow: 1px 1px 20px gainsboro;
+  background: linear-gradient(to top, grey, var(--theme));
+  font-weight: bold;
+  box-shadow: 0 0 10px var(--font);
 }
 
 .social-icon {
@@ -426,7 +449,7 @@ button:hover {
 
 .input-form:hover {
   border-radius: 20px;
-  border: 2px solid rgb(45, 45, 45);
+  border: 2px solid var(--font);
   border-bottom: none;
 }
 
@@ -437,10 +460,10 @@ button:hover {
   padding: 1rem;
   background-color: var(--theme);
   border: none;
-  border-bottom: 2px solid rgb(45, 45, 45);
+  border-bottom: 2px solid var(--font);
   outline: none;
   border-radius: 20px;
-  box-shadow: 3px 3px 30px gainsboro;
+  box-shadow: 0 0 5px gray;
 }
 
 .input-form label {
@@ -485,7 +508,7 @@ textarea::-webkit-scrollbar-thumb {
 
 .message-form .button {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   width: 100%;
 }
 
@@ -501,8 +524,8 @@ textarea::-webkit-scrollbar-thumb {
   background: none;
   font-size: 1.2rem;
   box-shadow: none;
-  border: 3px solid rgb(45, 45, 45);
-  border-style: dashed;
+  border: 3px solid var(--font);
+  box-shadow: 0 0 5px var(--theme);
 }
 
 .message-form .button button:active {
@@ -511,7 +534,7 @@ textarea::-webkit-scrollbar-thumb {
 
 /* media */
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   html,
   body {
     width: 100%;
@@ -666,7 +689,7 @@ textarea::-webkit-scrollbar-thumb {
   .project-box .card-content .card-lebel {
     margin: 0.8rem 0;
   }
-  .project-box .card-content .link{
+  .project-box .card-content .link {
     margin: 0;
   }
 
@@ -792,7 +815,7 @@ textarea::-webkit-scrollbar-thumb {
 
   .icon {
     padding: 0;
-    margin: 0 0 1.7rem 0;
+    margin: 0;
   }
 
   .home-box {
@@ -932,14 +955,13 @@ textarea::-webkit-scrollbar-thumb {
 
   .social-icon {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
   }
 
   .social-icon a {
     align-items: center;
     text-align: center;
-    font-size: 2.2rem;
   }
 
   .form {
@@ -966,7 +988,6 @@ textarea::-webkit-scrollbar-thumb {
 
   .message-form .button button {
     margin: 2rem 0 0 0;
-    /* padding: 0; */
   }
 
   .input-form input {
@@ -978,5 +999,3 @@ textarea::-webkit-scrollbar-thumb {
     max-height: 6rem;
   }
 }
-
-
