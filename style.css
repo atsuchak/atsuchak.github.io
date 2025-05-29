@@ -22,7 +22,7 @@
   display: none;
 }
 
-.dark-mode #sum-icon {
+.dark-mode #sun-icon {
   display: none;
 }
 
@@ -83,7 +83,7 @@ i {
 i:hover,
 .active {
   font-size: 2rem;
-  color: var(--theme);
+  color: var(--font);
 }
 
 .tooltip {
@@ -362,13 +362,12 @@ button:hover {
 }
 
 .link .live:hover,
-.link .source:hover{
+.link .source:hover {
   box-shadow: 0 0 5px gainsboro;
   border-radius: 20px;
   padding: 0 0.5rem;
   cursor: pointer;
 }
-
 
 .contact-box {
   flex-direction: row;
@@ -487,6 +486,12 @@ button:hover {
   resize: none;
   height: 10rem;
   display: block;
+}
+
+.dark-mode .message-form input,
+.dark-mode .message-form textarea {
+  color: var(--font);
+  background-color: var(--theme);
 }
 
 textarea::-webkit-scrollbar {
