@@ -3,557 +3,324 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" , maximum-scale=1.0, user-scalable=no">
     <meta name="description"
         content="Ahnaf Tajwar Suchak is a Computer Science student at United International University. Passionate about software development, machine learning, and robotics. Explore his portfolio, projects, resume, and contact details.">
     <meta name="keywords"
         content="Ahnaf Tajwar Suchak, atsuchak, CSE, UIU, machine learning, software developer, portfolio, student portfolio, ahnaf portfolio, robotics, programming">
     <meta name="author" content="Ahnaf Tajwar Suchak">
     <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <meta name="google-site-verification" content="zwjdEiJwszMmT55Mu6acBytEkdbiRacshKRwZxAaB8I">
-    <link rel="icon" type="image/png" href="Photos/image.ico">
+    <title>Suchak</title>
 
-    <title>Ahnaf Tajwar Suchak</title>
-    <meta property="og:title" content="Ahnaf Tajwar Suchak">
-    <meta property="og:url" content="https://atsuchak.github.io">
-    <meta property="og:description" content="Computer Science student at United International University.">
-    <link rel="stylesheet" href="CSS/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Header -->
-    <header id="header" class="header">
-        <div class="container">
-            <nav class="nav">
-                <!-- Logo -->
-                <a href="#hero" class="logo">atsuchak<span>.</span></a>
-
-                <!-- Desktop Navigation -->
-                <div class="nav-links">
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                    <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer" class="nav-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/atsuchak" target="_blank" rel="noopener noreferrer"
-                        class="nav-link">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                </div>
-
-                <!-- Resume Button -->
-                <a href="https://drive.google.com/file/d/1wrmO6KsKze0oVv3mDUcrNDHsKKKAmRrB/view?usp=sharing"
-                    class="resume-btn">Resume</a>
-
-                <!-- Mobile menu button -->
-                <div class="hamburger">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </nav>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div class="mobile-nav">
-            <div class="mobile-nav-links">
-                <a href="#about" class="mobile-nav-link">About</a>
-                <a href="#skills" class="mobile-nav-link">Skills</a>
-                <a href="#projects" class="mobile-nav-link">Projects</a>
-                <a href="#contact" class="mobile-nav-link">Contact</a>
-                <div class="mobile-social-links">
-                    <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                </div>
-                <a href="https://drive.google.com/uc?export=view&id=1hVFpEtWldRS7z6uAFUNOGgY3eXQdf8UB"
-                    class="mobile-resume-btn">Resume</a>
-            </div>
-        </div>
-    </header>
-
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <div class="container">
-                <div class="hero-content">
-                    <p class="intro-text">Hi, my name is </p>
-                    <h1 class="name">Suchak.</h1>
-                    <h2 class="headline">CSE student passionate about software development</h2>
-                    <p class="description">
-                        I'm a Computer Science student at United International University, passionate about software
-                        development and problem-solving.
-                    </p>
-                    <a href="#projects" class="cta-button">Check out my work!</a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="#home"><i class="fa-solid fa-house"></i></a>
+                    <span class="tooltip">Home</span>
+                </li>
+                <li>
+                    <a href="#about"><i class="fa-solid fa-user"></i></a>
+                    <span class="tooltip">About</span>
+                </li>
+                <li hidden>
+                    <a href="#work"><i class="fa-solid fa-briefcase"></i></a>
+                    <span class="tooltip">Work Experience</span>
+                </li>
+                <li>
+                    <a href="#skill"><i class="fa-solid fa-file"></i></a>
+                    <span class="tooltip">Skills</span>
+                </li>
+                <li>
+                    <a href="#project"><i class="fa-solid fa-puzzle-piece"></i></a>
+                    <span class="tooltip">Projects</span>
+                </li>
+                <li>
+                    <a href="#contact"><i class="fa-solid fa-envelope"></i></a>
+                    <span class="tooltip">Contact</span>
+                </li>
+            </ul>
+        </nav>
+
+        <section id="home">
+            <div class="icon">
+                <h1>atsuchak.</h1>
+            </div>
+            <div class="home-box">
+                <div class="content">
+                    <div class="name">
+                        <p>Hi, my name is</p>
+                        <h1><span>Suchak</span></h1>
+                    </div>
+                    <h2>CSE student passionate about software development</h2>
+                    <p>I'm a Computer Science student at United International University, passionate about software
+                        development and problem-solving.</p>
+                    <div class="button">
+                        <a href="image/resume.pdf" download="Suchak_Resume.pdf"><button>Download Resume</button></a>
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="image/hero-image.jpg" alt="Profile Photo">
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <div class="container">
-                <div class="about-grid">
-                    <div class="about-content">
-                        <h2 class="section-heading">About Me</h2>
-                        <div class="about-text">
+        <section id="about">
+            <div class="about">
+                <div class="heading">
+                    <h1><span>About Me</span></h1>
+                </div>
+                <div class="about-box">
+                    <div class="card">
+                        <h1>Education</h1>
+                        <p>
+                            I’m pursuing a BSc in Computer Science and Engineering at United International University,
+                            where I’ve built a solid foundation in software development and computer science
+                            fundamentals. I’ve competed in competitive programming contests, sharpening my analytical
+                            skills, and completed courses in Structured Programming Language and Object-Oriented
+                            Programming in Java. My academic journey has fueled my passion for creating innovative
+                            solutions and exploring the vast possibilities in tech.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h1>Skills and Projects</h1>
+                        <p>
+                            I’m an intermediate web developer and problem-solver, passionate about crafting
+                            user-friendly solutions and tackling challenging problems. I built my own portfolio website
+                            to showcase my work and have worked on simple university projects that deepened my
+                            understanding of development. Whether designing intuitive interfaces or solving logical
+                            puzzles, I enjoy both creating and analyzing to bring ideas to life.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h1>Interests and Aspirations</h1>
+                        <p>
+                            Outside of academics, I’m an avid cuber, solving Rubik’s cubes and diving into
+                            problem-solving challenges similar to competitive programming. My curiosity drives me to
+                            explore real-world problems and experiment with solutions, particularly in computer science.
+                            I’m excited to try every field in the discipline, from AI to systems design, and if nothing
+                            else stands out, I’ll happily stick with software development and problem-solving, where my
+                            passion thrives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section hidden class="work">
+
+        </section>
+
+        <section id="skill">
+            <div class="skill">
+                <div class="heading">
+                    <h1><span>Skills & Expertise</span></h1>
+                </div>
+                <div class="skill-box">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <div class="card-content">
+                            <h2>Frontend Development</h2>
+                            <div class="card-lebel">
+                                <h5>HTML</h5>
+                                <h5>CSS</h5>
+                                <h5>JavaScript</h5>
+                            </div>
                             <p>
-                                Hi! I’m Ahnaf Tajwar Suchak, a CSE student passionate about software development. I
-                                started exploring web development by playing around with HTML and CSS, and quickly grew
-                                to love building clean, responsive, and user-friendly websites.
+                                Exploring and growing skills in modern frontend tools and technologies
                             </p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="card-content">
+                            <h2>Programming Languages</h2>
+                            <div class="card-lebel">
+                                <h5>JavaScript</h5>
+                                <h5>Java</h5>
+                                <h5>C++</h5>
+                                <h5>C</h5>
+                            </div>
                             <p>
-                                These days, I’m focused on building accessible and inclusive web projects while
-                                continuously learning and growing as a developer.
+                                Learning various programming languages and excited to explore diverse software
+                                development projects
                             </p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-chess"></i>
+                        </div>
+                        <div class="card-content">
+                            <h2>Problem Solving</h2>
+                            <div class="card-lebel">
+                                <h5>Codeforces</h5>
+                                <h5>CodeChef</h5>
+                                <h5>LeetCode</h5>
+                                <h5>HackerRank</h5>
+                            </div>
                             <p>
-                                Here are a few technologies I've been working with recently:
+                                Solving algorithmic challenges and coding contests to grow problem-solving skills
                             </p>
-                            <ul class="skills-list">
-                                <li>JavaScript (ES6+)</li>
-                                <li>HTML</li>
-                                <li>Python</li>
-                                <li>CSS</li>
-                                <li>JAVA</li>
-                                <li>C</li>
-                            </ul>
                         </div>
                     </div>
-                    <div class="about-image-container">
-                        <div class="image-frame">
-                            <img src="Photos/suchak.jpg" alt="Suchak" class="about-image">
+
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-tools"></i>
+                        </div>
+                        <div class="card-content">
+                            <h2>Tools & Version Control</h2>
+                            <div class="card-lebel">
+                                <h5>Ms Office</h5>
+                                <h5>GitHub</h5>
+                                <h5>Git</h5>
+                                <h5>VsCode</h5>
+                            </div>
+                            <p>
+                                Using key tools for smooth development, version control, and teamwork.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div hidden class="card">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-tools"></i>
+                        </div>
+                        <div class="card-content">
+                            <h2>Frontend Development</h2>
+                            <div class="card-lebel">
+                                <h5>Ms Office</h5>
+                                <h5>GitHub</h5>
+                                <h5>Git</h5>
+                                <h5>VsCode</h5>
+                            </div>
+                            <p>
+                                Using key tools for smooth development, version control, and teamwork.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="skills-section">
-            <div class="container">
-                <h2 class="section-heading">Skills & Expertise</h2>
-                <div class="skills-grid">
-                    <!-- Skill Card 1 -->
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                            <i class="fas fa-laptop-code"></i>
+        <section id="project">
+            <div class="project">
+                <div class="heading">
+                    <h1><span>Things I've Made</span></h1>
+                </div>
+                <div class="project-box">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="image/calculator.png" alt="Calculator image">
                         </div>
-                        <h3 class="skill-title">Frontend Development</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">HTML</span>
-                            <span class="skill-tag">CSS</span>
-                            <span class="skill-tag">JavaScript</span>
-                        </div>
-                        <p class="skill-description">Continually expanding proficiency in modern frontend tools and
-                            technologies</p>
-                    </div>
+                        <div class="card-content">
+                            <h2>Calculator</h2>
+                            <p>
+                                A basic tool for quick and easy arithmetic calculations, designed for simplicity and
+                                efficiency.
+                            </p>
+                            <div class="card-lebel">
+                                <h5>HTMl</h5>
+                                <h5>CSS</h5>
+                                <h5>JavaScript</h5>
+                            </div>
+                            <div class="link">
+                                <div class="live">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    <a target="_blank" href="https://atsuchak.github.io/SimpleCalculator">Live</a>
+                                </div>
 
-                    <!-- Skill Card 2 -->
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                            <i class="fas fa-code"></i>
+                                <div class="source">
+                                    <i class="fa-brands fa-github"></i>
+                                    <a target="_blank" href="https://github.com/atsuchak/SimpleCalculator.git">Source</a>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="skill-title">Programming Languages</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Java</span>
-                            <span class="skill-tag">C</span>
-                            <span class="skill-tag">C++</span>
-                        </div>
-                        <p class="skill-description">Proficient in multiple programming languages for diverse software
-                            development needs</p>
                     </div>
-
-                    <!-- Skill Card 3 -->
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                            <i class="fas fa-chess"></i>
-                        </div>
-                        <h3 class="skill-title">Competitive Programming</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Problem Solving</span>
-                            <span class="skill-tag">Codeforces</span>
-                            <span class="skill-tag">Codechef</span>
-                            <span class="skill-tag">LeetCode</span>
-                            <span class="skill-tag">HackerRank</span>
-                        </div>
-                        <p class="skill-description">Sharpening problem-solving skills through algorithmic challenges
-                            and coding contests</p>
-                    </div>
-
-                    <!-- Skill Card 4 -->
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <h3 class="skill-title">Tools & Version Control</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">GitHub</span>
-                            <span class="skill-tag">VS Code</span>
-                            <span class="skill-tag">IntelliJ IDEA</span>
-                        </div>
-                        <p class="skill-description">Using essential tools for efficient development, version control,
-                            and collaboration</p>
-                    </div>
-
-                    <!-- Skill Card 5 -->
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3 class="skill-title">Soft Skills / Other Tech</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Team Collaboration</span>
-                            <span class="skill-tag">Documentation</span>
-                            <span class="skill-tag">Debugging</span>
-                            <span class="skill-tag">Communication</span>
-                        </div>
-                        <p class="skill-description">Effective communication, debugging, and teamwork in collaborative
-                            and agile environments</p>
-                    </div>
-
-                    <!-- Skill Card 6  -->
-                    <!-- <div class="skill-card">
-                        <div class="skill-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <h3 class="skill-title">Skillset under development</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Agile</span>
-                            <span class="skill-tag">Scrum</span>
-                            <span class="skill-tag">Jira</span>
-                            <span class="skill-tag">Trello</span>
-                        </div>
-                        <p class="skill-description">Leading teams with agile methodologies, user stories, and sprint
-                            planning.</p>
-                    </div> -->
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="projects-section">
-            <div class="container">
-                <h2 class="section-heading">Some Things I've Built</h2>
-                <div class="projects-grid">
-                    <!-- Project Card 1 -->
-                    <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/calculator.png" alt="Calculator" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Calculator</h3>
-                            <p class="project-description">A basic tool for quick and easy arithmetic calculations,
-                                designed for simplicity and efficiency.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="calculator.html" class="project-link" target="_blank"
-                                    rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/calculator.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 2 -->
-                    <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/bank.png" alt="Bank image" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Bank Management</h3>
-                            <p class="project-description">Bank system layout featuring user account creation, login,
-                                secure transactions, and complete account management.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="bank.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/bank.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Project Card 3 -->
-                    <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/supershop.png" alt="supershop image" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Supershop Management</h3>
-                            <p class="project-description">Supershop system layout featuring admin control, product
-                                management, and user access for shopping and viewing.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="supershop.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/supershop.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 4 -->
-                    <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/tictactoe.png" alt="Tic Tac Toe" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Tic-Tac-Toe</h3>
-                            <p class="project-description">A simple yet engaging strategy game where two players take
-                                turns marking spaces to form a winning line.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="tictactoe.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/tictactoe.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 5 -->
-                    <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/snake.png" alt="Snake image" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Snake Game</h3>
-                            <p class="project-description">a classic arcade game where you guide a growing snake to eat
-                                food while avoiding walls and itself.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="snake.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/snake.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 6 -->
-                    <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/gridRunner.png" alt="Line Flux" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Grid Runner </h3>
-                            <p class="project-description">Grid Runner is a fast-paced lane-shifting arcade game where
-                                your glowing block dodges obstacles in a stylish cyber grid.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="gridRunner.html" class="project-link" target="_blank"
-                                    rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/gridRunner.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 7 -->
-                    <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/mineweeper.png" alt="Minesweeper" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Minesweeper</h3>
-                            <p class="project-description">Minesweeper is a logic-based puzzle game where you uncover
-                                tiles and avoid hidden mines to clear the board.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="mineGame.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/mineGame.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- <div class="project-card">
-                        <div class="project-image-container">
-                            <img src="Photos/facebook.png" alt="Facebook image" class="project-image">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Facebook Login: Clone</h3>
-                            <p class="project-description">Facebook Login Clone is a replica interface mimicking the
-                                Facebook login page for practice or UI demo.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">HTML</span>
-                                <span class="tech-tag">CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="facebook.html" class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> Live
-                                </a>
-                                <a href="https://github.com/atsuchak/atsuchak.github.io/blob/main/facebook.html"
-                                    class="project-link" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-github"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div> -->
-
+        <section id="contact">
+            <div class="contact">
+                <div class="heading">
+                    <h1><span>Get in Touch</span></h1>
                 </div>
-
-                <div class="more-projects">
-                    <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer"
-                        class="more-projects-btn">
-                        View More on GitHub <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section">
-            <div class="container">
-                <p class="contact-pre-heading">What's Next?</p>
-                <h2 class="contact-heading">Get In Touch</h2>
-                <p class="contact-description">
-                    I'm always learning—feel free to share your feedback or ideas!
-                </p>
-
-                <form id="contact-form" class="contact-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Name" required class="form-input">
-                            <span class="error-message" id="name-error"></span>
+                <div class="contact-box">
+                    <div class="contact-details">
+                        <h1>Ahnaf Tajwar Suchak</h1>
+                        <div class="address">
+                            <a target="_blank" href="https://maps.app.goo.gl/14dHBdaDKvxfNhh58">
+                                <i class="fa-solid fa-location-dot"></i>
+                                West Agargaon, Dhaka-1207
+                            </a>
                         </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="_replyto" placeholder="Email" required
-                                class="form-input">
-                            <span class="error-message" id="email-error"></span>
+                        <div class="mobile">
+                            <a target="_blank" href="https://wa.me/+8801301085365">
+                                <i class="fa-solid fa-phone"></i>
+                                +88 01301085365
+                            </a>
+                        </div>
+                        <div class="email">
+                            <a target="_blank" href="mailto:ahnaftajwarsuchak@gmail.com">
+                                <i class="fa-solid fa-envelope"></i>
+                                ahnaftajwarsuchak@gmail.com
+                            </a>
+                        </div>
+                        <div class="social-icon">
+                            <a target="_blank" href="https://github.com/atsuchak"><i class="fa-brands fa-github"></i></a>
+                            <a target="_blank" href="https://www.linkedin.com/in/atsuchak/"><i class="fa-brands fa-linkedin"></i></a>
+                            <a target="_blank" href="https://www.facebook.com/atsuchak"><i class="fa-brands fa-facebook"></i></a>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" name="subject" placeholder="Subject" required
-                            class="form-input">
-                        <span class="error-message" id="subject-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Message" rows="5" required
-                            class="form-textarea"></textarea>
-                        <span class="error-message" id="message-error"></span>
-                    </div>
-                    <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
-                    <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
-                </form>
+                    <div class="form">
+                        <!-- <div class="message-form"> -->
+                        <form action="https://formspree.io/f/manorzew" method="POST" class="message-form">
+                            <div class="input-form halfWidth">
+                                <input type="text" name="name" required="required">
+                                <label>Name</label>
+                            </div>
 
-                <div class="social-links">
-                    <a href="mailto:ahnaftajwarsuchak@gmail.com" class="social-link">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="https://github.com/atsuchak" target="_blank" rel="noopener noreferrer" class="social-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/atsuchak" target="_blank" rel="noopener noreferrer"
-                        class="social-link">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://twitter.com/atsuchak" target="_blank" rel="noopener noreferrer"
-                        class="social-link">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+                            <div class="input-form halfWidth">
+                                <input type="email" name="_replyto" required="required">
+                                <label>Email</label>
+                            </div>
+
+                            <div class="input-form fullWidth">
+                                <input type="text" name="_subject" required="required">
+                                <label>Subject</label>
+                            </div>
+
+                            <div class="input-form fullWidth">
+                                <textarea name="message" required="required"></textarea>
+                                <label>Message</label>
+                            </div>
+
+                            <div class="button">
+                                <button>Submit</button>
+                            </div>
+                        </form>
+                        <!-- </div> -->
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="copyright">
-                Designed & Built by atsuchak &copy; <span id="current-year"></span>
-            </p>
-        </div>
-    </footer>
-
-    <!-- Scroll to top button -->
-    <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Scroll to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Success modal -->
-    <div id="success-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>Message Sent!</h3>
-            <p>Thank you for your message. I'll get back to you soon.</p>
-        </div>
-    </div>
-
     <script src="script.js"></script>
-
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
 </body>
 
 </html>
