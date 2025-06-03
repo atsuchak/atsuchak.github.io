@@ -588,7 +588,6 @@ textarea::-webkit-scrollbar-thumb {
     font-size: 1.8rem;
   }
 
-  
   .contact-box {
     flex-direction: column-reverse;
     align-items: center;
@@ -616,7 +615,6 @@ textarea::-webkit-scrollbar-thumb {
     gap: 7rem;
     width: 100%;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -643,7 +641,6 @@ textarea::-webkit-scrollbar-thumb {
     max-width: 14rem;
   }
 
-
   .about-box {
     gap: 1.5rem;
     align-items: center;
@@ -661,7 +658,7 @@ textarea::-webkit-scrollbar-thumb {
     padding: 1rem;
     gap: 2rem;
   }
-  
+
   .card .card-content {
     gap: 2rem;
     align-items: center;
@@ -751,7 +748,6 @@ textarea::-webkit-scrollbar-thumb {
   }
   p {
     font-size: 0.8rem;
-
   }
   .content p {
     text-align: center;
@@ -769,7 +765,7 @@ textarea::-webkit-scrollbar-thumb {
     margin: 0 0 5rem 0;
   }
 
-  .about-box  {
+  .about-box {
     padding: 1rem;
     gap: 0;
   }
@@ -794,7 +790,7 @@ textarea::-webkit-scrollbar-thumb {
     margin: 1rem 0;
     padding: 1rem;
   }
-  
+
   .contact-box h1 {
     font-size: 1.4rem;
   }
