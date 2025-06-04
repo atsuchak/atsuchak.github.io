@@ -362,11 +362,16 @@ button:hover {
   font-size: 1.5rem;
 }
 
+.live, .source {
+  padding: 0 0.5rem;
+  transition: 0.3s;
+}
+
 .link .live:hover,
 .link .source:hover {
-  box-shadow: 0 0 5px gainsboro;
+  box-shadow: 0 0 10px gainsboro;
   border-radius: 20px;
-  padding: 0 0.5rem;
+  border-bottom: 1px solid gray;
   cursor: pointer;
 }
 
