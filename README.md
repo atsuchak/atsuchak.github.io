@@ -2,10 +2,9 @@
 
 A sleek, responsive personal portfolio showcasing my skills and passion for software development and problem-solving. This site serves as a dynamic resume and a hub for my creative endeavors.
 
-\<div align="center"\>
-\<img src="image/atsuchak.github.io_screenshot.png" alt="Portfolio Demo" style="width: 700px; max-width: 100%; height: auto;" /\>
-\<br\>
-\</div\>
+<div align="center">
+    <img src="./image/atsuchak.github.io_screenshot.png" alt="Portfolio Demo" style="width: 700px; max-width: 100%; height: auto;" />
+</div>
 
 [](https://www.google.com/search?q=https://atsuchak.github.io/atsuchak.github.io/)
 [](https://www.google.com/search?q=https://github.com/atsuchak/atsuchak.github.io)
