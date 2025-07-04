@@ -116,6 +116,16 @@ i:hover,
   font-size: 1.5rem;
 }
 
+.logo {
+  content: url("image/logoWhite.png");
+  max-height: 3.5rem;
+}
+
+.dark-mode .logo {
+  content: url("image/logoBlack.png");
+  max-height: 3.5rem;
+}
+
 .home-box {
   display: flex;
   justify-content: space-between;
