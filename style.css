@@ -637,6 +637,14 @@ textarea::-webkit-scrollbar-thumb {
     padding: 0 2rem;
   }
 
+  .logo {
+  max-height: 2.5rem;
+}
+
+.dark-mode .logo {
+  max-height: 2.5rem;
+}
+
   .home-box {
     padding: 1rem;
     flex-direction: column-reverse;
