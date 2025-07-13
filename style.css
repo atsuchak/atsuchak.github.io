@@ -167,6 +167,12 @@ i:hover,
   opacity: 70%;
 }
 
+.button a button {
+   background-color: rgb(255, 100, 0);
+   color: black;
+   font-weight: bold;
+}
+
 button {
   font-size: 1.2rem;
   font-weight: bold;
