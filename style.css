@@ -9,13 +9,13 @@
 
 :root {
   --theme: rgb(255, 255, 255);
-  --nav: rgb(210, 240, 240);
+  --nav: rgb(140, 255, 255);
   --font: rgb(45, 45, 45);
 }
 
 .dark-mode {
   --theme: rgb(18, 18, 18);
-  --font: #ffffff;
+  --font: rgb(210, 210, 210);
 }
 
 #moon-icon {
@@ -52,16 +52,17 @@ i {
   transform: translateX(-50%);
   max-width: 30rem;
   width: 100%;
-  background: linear-gradient(to bottom, var(--theme), gainsboro);
-  padding: 1.5rem 0;
+  background: linear-gradient(to bottom, var(--theme), var(--font));
+  padding: 1.2rem 0;
   border-radius: 5rem;
   z-index: 100;
   transition: 0.3s;
 }
 
 .nav:hover {
-  background: linear-gradient(to top, var(--theme), gainsboro);
-  box-shadow: 0 0 5px var(--nav);
+  /* background: linear-gradient(to top, var(--theme), gainsboro); */
+  box-shadow: 0 0 5px var(--font);
+  /* box-shadow: 0 0 10px var(--font); */
 }
 
 .nav-list {
@@ -83,7 +84,7 @@ i {
 i:hover,
 .active {
   font-size: 2rem;
-  color: var(--font);
+  color: var(--nav);
 }
 
 .tooltip {
@@ -111,7 +112,7 @@ i:hover,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5rem;
+  padding: 0 5rem;
   font-weight: bolder;
   font-size: 1.5rem;
 }
@@ -148,7 +149,7 @@ i:hover,
   width: 60%;
 }
 
-.name p {
+.name h3 {
   opacity: 70%;
 }
 
@@ -251,6 +252,7 @@ button:hover {
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 10px var(--font);
+
 }
 
 .card {
@@ -429,8 +431,9 @@ button:hover {
 .address a:hover,
 .mobile a:hover,
 .email a:hover {
-  background: linear-gradient(to top, grey, var(--theme));
-  font-weight: bold;
+  /* background: linear-gradient(to top, grey, var(--theme)); */
+  /* font-weight: bold; */
+  /* box-shadow: 0 0 10px var(--font); */
   box-shadow: 0 0 10px var(--font);
 }
 
@@ -639,6 +642,11 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 768px) {
+  .home-box h3 {
+    text-align: center;
+    padding: 0.2rem;
+  }
+
   .icon {
     padding: 0 2rem;
   }
