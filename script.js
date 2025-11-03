@@ -4,7 +4,7 @@ const projects = [
         title: 'Personal Portfolio', 
         description: 'The portfolio site you are currently visiting, built to showcase my projects and skills', 
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
-        image: './asstes/portfolio_image.png', 
+        image: './assets/portfolio_image.png', 
         githubLink: 'https://github.com/atsuchak/portfolio', 
         liveLink: 'https://atsuchak.github.io/portfolio/' 
     },
@@ -12,7 +12,7 @@ const projects = [
         title: 'Link Saver', 
         description: 'A simple web app for saving, organizing, and searching your personal links.', 
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
-        image: './asstes/link_saver_image.png', 
+        image: './assets/link_saver_image.png', 
         githubLink: 'https://github.com/atsuchak/LinkVault', 
         liveLink: 'https://atsuchak.github.io/LinkVault/' 
     },
@@ -20,7 +20,7 @@ const projects = [
         title: 'QR Generator', 
         description: 'A simple web app that generates a QR code from any text or URL.', 
         techStack: ['HTML', 'CSS', 'JavaScript'],
-        image: './asstes/qr_image.png', 
+        image: './assets/qr_image.png', 
         githubLink: 'https://github.com/atsuchak/QrGenerator', 
         liveLink: 'https://atsuchak.github.io/QrGenerator/' 
     },
@@ -28,7 +28,7 @@ const projects = [
         title: 'Weather Dashboard', 
         description: 'A dashboard that displays real-time weather forecasts, searchable by city.', 
         techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
-        image: './asstes/weather_image.png', 
+        image: './assets/weather_image.png', 
         githubLink: 'https://github.com/atsuchak/Weather-Dashboard', 
         liveLink: 'https://atsuchak.github.io/Weather-Dashboard/' 
     },
@@ -36,7 +36,7 @@ const projects = [
         title: 'Code Sheet', 
         description: 'A personal, searchable cheatsheet for code, algorithms, and commands.', 
         techStack: ['HTML', 'CSS', 'API', 'JavaScript'],
-        image: './asstes/codeSheet_image.png', 
+        image: './assets/codeSheet_image.png', 
         githubLink: 'https://github.com/atsuchak/CodeSheet', 
         liveLink: 'https://atsuchak.github.io/CodeSheet/' 
     },
