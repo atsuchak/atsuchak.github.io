@@ -42,7 +42,7 @@ const projects = [
     },
 ];
 
-let currentIndex = 0; // This will now track position, e.g., 0-9
+let currentIndex = 0; 
 let cardsPerView = 3;
 let isPaused = false;
 let autoSlideInterval;
@@ -196,7 +196,6 @@ function updateSliderPosition(withAnimation = true) {
     const cardWidth = card.offsetWidth;
     const gap = 24; // This is your 'gap-6'
     
-    // const slideDistance = cardsPerView === 1 ? cardWidth : cardWidth + gap;
     const slideDistance = cardWidth + gap;
     const translateX = -currentIndex * slideDistance;
     
@@ -229,22 +228,21 @@ function renderDots() {
 // **CHANGED** New logic for 'next' with looping
 // ---
 function goToNext() {
-    if (isJumping) return; // Don't do anything if we're in the middle of a jump
+    if (isJumping) return; 
     
     currentIndex++;
-    updateSliderPosition(true); // Move with animation
+    updateSliderPosition(true);
     
-    // Check if we've moved to the first "cloned" card
+    // Check if moved to the first "cloned" card
     if (currentIndex === projects.length) {
         isJumping = true; // Disable clicks
         const slider = document.getElementById('projectsSlider');
         
-        // Listen for the animation to end
         slider.addEventListener('transitionend', () => {
-            currentIndex = 0; // Jump back to the real first card
-            updateSliderPosition(false); // Move with NO animation
-            isJumping = false; // Re-enable clicks
-        }, { once: true }); // Automatically remove this listener after it runs
+            currentIndex = 0; 
+            updateSliderPosition(false); 
+            isJumping = false; 
+        }, { once: true }); 
     }
     
     renderDots();
@@ -263,12 +261,11 @@ function goToPrevious() {
         currentIndex = projects.length; 
         updateSliderPosition(false); // No animation
 
-        // We need a tiny delay (one frame) for the browser to register the jump
-        // before we ask it to animate again.
+        // Delay (one frame) for the browser to register the jump
+        // before ask it to animate again.
         requestAnimationFrame(() => {
-            // Now, slide to the *real* last card
             currentIndex = projects.length - 1;
-            updateSliderPosition(true); // Animate
+            updateSliderPosition(true); 
             renderDots();
             isJumping = false;
         });
@@ -308,14 +305,18 @@ document.getElementById('projectsContainer').addEventListener('mouseleave', () =
 });
 
 // Contact Form Validation
-function handleSubmit() {
+function handleSubmit(event) {
+    event.preventDefault(); 
+
+    const form = event.target;
     const name = document.getElementById('contactName').value;
     const email = document.getElementById('contactEmail').value;
     const message = document.getElementById('contactMessage').value;
+    const submitButton = form.querySelector('button[type="submit"]'); 
 
     let hasError = false;
 
-    // Clear previous errors
+    // --- validation code ---
     document.getElementById('nameError').classList.add('hidden');
     document.getElementById('emailError').classList.add('hidden');
     document.getElementById('messageError').classList.add('hidden');
@@ -341,16 +342,45 @@ function handleSubmit() {
         document.getElementById('messageError').classList.remove('hidden');
         hasError = true;
     }
+    // --- End of validation code ---
 
     if (!hasError) {
-        alert('Message sent successfully!');
-        document.getElementById('contactName').value = '';
-        document.getElementById('contactEmail').value = '';
-        document.getElementById('contactMessage').value = '';
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+
+        const data = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                alert('Message sent successfully!');
+                form.reset(); 
+            } else {
+                response.json().then(data => {
+                    if (data.errors) {
+                        alert(data.errors.map(error => error.message).join(", "));
+                    } else {
+                        alert('Oops! There was a problem submitting your form.');
+                    }
+                });
+            }
+        }).catch(error => {
+            // Network errors
+            alert('Oops! There was a network error.');
+        }).finally(() => {
+            // Re-enable the button and set text back
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+        });
     }
 }
 
 // Initialize
 window.addEventListener('resize', updateCardsPerView);
-updateCardsPerView(); // This will build the doubled-up slider and render dots
+updateCardsPerView(); 
 startAutoSlide();
