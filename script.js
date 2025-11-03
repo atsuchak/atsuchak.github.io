@@ -196,7 +196,8 @@ function updateSliderPosition(withAnimation = true) {
     const cardWidth = card.offsetWidth;
     const gap = 24; // This is your 'gap-6'
     
-    const slideDistance = cardsPerView === 1 ? cardWidth : cardWidth + gap;
+    // const slideDistance = cardsPerView === 1 ? cardWidth : cardWidth + gap;
+    const slideDistance = cardWidth + gap;
     const translateX = -currentIndex * slideDistance;
     
     slider.style.transform = `translateX(${translateX}px)`;
