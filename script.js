@@ -55,8 +55,8 @@ const projects = [
         description: 'A dashboard that displays real-time weather forecasts, searchable by city.', 
         techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
         image: './assets/weather_image.png', 
-        githubLink: 'https://github.com/atsuchak/Weather-Dashboard', 
-        liveLink: 'https://atsuchak.github.io/Weather-Dashboard/' 
+        githubLink: 'https://github.com/atsuchak/WeatherNow', 
+        liveLink: 'https://atsuchak.github.io/WeatherNow/' 
     },
     { 
         title: 'Code Sheet', 
