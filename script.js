@@ -1,20 +1,16 @@
 // Theme management
-document.addEventListener('DOMContentLoaded', function() {
-    // Check for saved theme preference, otherwise use system preference
-    const darkMode = localStorage.getItem('darkMode') === 'true' || 
-                    (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    
-    // Set initial theme
+document.addEventListener('DOMContentLoaded', function () {
+    const darkMode = localStorage.getItem('darkMode') === 'true' ||
+        (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
     if (darkMode) {
         document.documentElement.classList.add('dark');
     }
 });
 
 function toggleTheme() {
-    // Get the html element
     const html = document.documentElement;
-    
-    // Toggle dark mode
+
     if (html.classList.contains('dark')) {
         html.classList.remove('dark');
         localStorage.setItem('darkMode', 'false');
@@ -26,74 +22,102 @@ function toggleTheme() {
 
 // Projects Data
 const projects = [
-    { 
-        title: 'Personal Portfolio', 
-        description: 'The portfolio site you are currently visiting, built to showcase my projects and skills', 
+    {
+        title: 'Personal Portfolio',
+        description: 'The portfolio site you are currently visiting, built to showcase my projects and skills',
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
-        image: './assets/portfolio_image.png', 
-        githubLink: 'https://github.com/atsuchak/portfolio', 
-        liveLink: 'https://atsuchak.github.io/portfolio/' 
+        image: './assets/portfolio_image.png',
+        githubLink: 'https://github.com/atsuchak/portfolio',
+        liveLink: 'https://atsuchak.github.io/portfolio/'
     },
-    { 
-        title: 'Link Saver', 
-        description: 'A simple web app for saving, organizing, and searching your personal links.', 
+    {
+        title: 'Link Saver',
+        description: 'A simple web app for saving, organizing, and searching your personal links.',
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
-        image: './assets/link_saver_image.png', 
-        githubLink: 'https://github.com/atsuchak/LinkVault', 
-        liveLink: 'https://atsuchak.github.io/LinkVault/' 
+        image: './assets/link_saver_image.png',
+        githubLink: 'https://github.com/atsuchak/LinkVault',
+        liveLink: 'https://atsuchak.github.io/LinkVault/'
     },
-    { 
-        title: 'QR Generator', 
-        description: 'A simple web app that generates a QR code from any text or URL.', 
+    {
+        title: 'QR Generator',
+        description: 'A simple web app that generates a QR code from any text or URL.',
         techStack: ['HTML', 'CSS', 'JavaScript'],
-        image: './assets/qr_image.png', 
-        githubLink: 'https://github.com/atsuchak/QrGenerator', 
-        liveLink: 'https://atsuchak.github.io/QrGenerator/' 
+        image: './assets/qr_image.png',
+        githubLink: 'https://github.com/atsuchak/QrGenerator',
+        liveLink: 'https://atsuchak.github.io/QrGenerator/'
     },
-    { 
-        title: 'Weather Dashboard', 
-        description: 'A dashboard that displays real-time weather forecasts, searchable by city.', 
+    {
+        title: 'Weather Dashboard',
+        description: 'A dashboard that displays real-time weather forecasts, searchable by city.',
         techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
-        image: './assets/weather_image.png', 
-        githubLink: 'https://github.com/atsuchak/WeatherNow', 
-        liveLink: 'https://atsuchak.github.io/WeatherNow/' 
+        image: './assets/weather_image.png',
+        githubLink: 'https://github.com/atsuchak/WeatherNow',
+        liveLink: 'https://atsuchak.github.io/WeatherNow/'
     },
-    { 
-        title: 'Code Sheet', 
-        description: 'A personal, searchable cheatsheet for code, algorithms, and commands.', 
+    {
+        title: 'Code Sheet',
+        description: 'A personal, searchable cheatsheet for code, algorithms, and commands.',
         techStack: ['HTML', 'CSS', 'API', 'JavaScript'],
-        image: './assets/codeSheet_image.png', 
-        githubLink: 'https://github.com/atsuchak/CodeSheet', 
-        liveLink: 'https://atsuchak.github.io/CodeSheet/' 
+        image: './assets/codeSheet_image.png',
+        githubLink: 'https://github.com/atsuchak/CodeSheet',
+        liveLink: 'https://atsuchak.github.io/CodeSheet/'
     },
 ];
 
-let currentIndex = 0; 
+let currentIndex = 0;
 let cardsPerView = 3;
 let isPaused = false;
 let autoSlideInterval;
-let isJumping = false; 
+let isJumping = false;
 
 // Typing Animation
-const fullText = 'A problem solver driven by curiosity and creativity';
-let textIndex = 0;
-function typeText() {
-    if (textIndex <= fullText.length) {
-        document.getElementById('typingText').textContent = fullText.slice(0, textIndex);
-        textIndex++;
-        setTimeout(typeText, 50);
+const sentences = [
+    'A problem solver driven by curiosity and creativity',
+    'A learner exploring new technologies',
+    'Passionate about learning and solving problems'
+];
+let sentenceIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typingSpeed = 45; 
+const deletingSpeed = 25; 
+const pauseTime = 1500; 
+const typingTextElement = document.getElementById('typingText');
+
+function typeLoop() {
+    if (!typingTextElement) return;
+
+    const currentSentence = sentences[sentenceIndex];
+
+    if (isDeleting) {
+        typingTextElement.textContent = currentSentence.slice(0, charIndex--);
+    } else {
+        typingTextElement.textContent = currentSentence.slice(0, charIndex++);
+    }
+
+
+    if (!isDeleting && charIndex > currentSentence.length) {
+        isDeleting = true;
+        setTimeout(typeLoop, pauseTime);
+    } else if (isDeleting && charIndex < 0) {
+        isDeleting = false;
+        sentenceIndex = (sentenceIndex + 1) % sentences.length; 
+        charIndex = 0; 
+        setTimeout(typeLoop, 500); 
+    } else {
+        setTimeout(typeLoop, isDeleting ? deletingSpeed : typingSpeed);
     }
 }
-typeText();
 
-// Mobile Menu Toggle
+typeLoop();
+
+
 function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
     const icon = document.getElementById('menuIcon');
     menu.classList.toggle('hidden');
 }
 
-// Scroll to Section
 function scrollToSection(id) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
@@ -106,7 +130,6 @@ const userTheme = localStorage.getItem('theme');
 // Check if system is set to dark mode
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-// Initial theme setup function
 function setTheme(theme) {
     if (theme === 'dark') {
         document.documentElement.classList.add('dark');
@@ -116,27 +139,23 @@ function setTheme(theme) {
     localStorage.setItem('theme', theme);
 }
 
-// Initialize theme
 if (userTheme === 'dark' || (!userTheme && systemTheme)) {
     setTheme('dark');
 } else {
     setTheme('light');
 }
 
-// Theme toggle function
 function toggleTheme() {
     const isDark = document.documentElement.classList.contains('dark');
     setTheme(isDark ? 'light' : 'dark');
 }
 
-// Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('theme')) {
         setTheme(e.matches ? 'dark' : 'light');
     }
 });
 
-// Intersection Observer for Animations
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -155,30 +174,26 @@ const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const id = entry.target.id;
-            // Update *all* nav links (desktop and mobile)
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.dataset.section === id) {
-                    // Set active link to blue
                     link.classList.remove('text-zinc-600', 'hover:text-zinc-900', 'dark:text-gray-300', 'dark:hover:text-white');
                     link.classList.add('text-blue-400');
                 } else {
-                    // Reset inactive links to their default light/dark colors
                     link.classList.remove('text-blue-400');
                     link.classList.add('text-zinc-600', 'hover:text-zinc-900', 'dark:text-gray-300', 'dark:hover:text-white');
                 }
             });
         }
     });
-}, { threshold: 0.5 }); // 0.5 threshold is good for this
+}, { threshold: 0.5 }); 
 
 document.querySelectorAll('section[id]').forEach(section => sectionObserver.observe(section));
 
-// Update Cards Per View
 function updateCardsPerView() {
     if (window.innerWidth < 640) cardsPerView = 1;
     else if (window.innerWidth < 1024) cardsPerView = 2;
     else cardsPerView = 3;
-    
+
     initializeSlider();
     currentIndex = 0;
     updateSliderPosition(false);
@@ -190,17 +205,16 @@ function updateCardsPerView() {
 // ===================================
 function initializeSlider() {
     const slider = document.getElementById('projectsSlider');
-    slider.innerHTML = ''; 
+    slider.innerHTML = '';
 
     const allCards = [...projects, ...projects];
 
     allCards.forEach(project => {
         const widthClass = cardsPerView === 1 ? 'w-full' : cardsPerView === 2 ? 'w-[calc(50%-12px)]' : 'w-[calc(33.333%-16px)]';
-        
+
         const card = document.createElement('div');
-        card.className = `${widthClass} flex-shrink-0`; 
-        
-        // Added all the light-mode and dark: prefix classes to the card HTML
+        card.className = `${widthClass} flex-shrink-0`;
+
         card.innerHTML = `
             <div class="bg-white dark:bg-zinc-900 rounded-xl overflow-hidden border border-gray-200 dark:border-zinc-700 transition-all hover:border-blue-500 h-full flex flex-col">
                 
@@ -242,7 +256,7 @@ function initializeSlider() {
 
 function updateSliderPosition(withAnimation = true) {
     const slider = document.getElementById('projectsSlider');
-    if (!slider.children.length) return; 
+    if (!slider.children.length) return;
 
     if (withAnimation) {
         slider.style.transition = 'transform 700ms ease-in-out';
@@ -253,11 +267,10 @@ function updateSliderPosition(withAnimation = true) {
     const card = slider.children[0];
     const cardWidth = card.offsetWidth;
     const gap = 24;
-    
-    // This is the fixed logic for sliding that works on mobile and desktop
+
     const slideDistance = cardWidth + gap;
     const translateX = -currentIndex * slideDistance;
-    
+
     slider.style.transform = `translateX(${translateX}px)`;
 }
 
@@ -273,31 +286,29 @@ function renderDots() {
     projects.forEach((_, index) => {
         const dot = document.createElement('button');
         const isActive = index === activeIndex;
-        // Added light-mode and dark: prefix classes to the dots
         dot.className = `transition-all ${isActive ? 'w-3 h-3 bg-blue-500 animate-pulse' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400 dark:bg-zinc-600 dark:hover:bg-zinc-500'} rounded-full`;
         dot.onclick = () => goToProject(index);
         dots.appendChild(dot);
     });
 }
 
-// --- All slider navigation functions are unchanged ---
 function goToNext() {
-    if (isJumping) return; 
-    
+    if (isJumping) return;
+
     currentIndex++;
     updateSliderPosition(true);
-    
+
     if (currentIndex === projects.length) {
         isJumping = true;
         const slider = document.getElementById('projectsSlider');
-        
+
         slider.addEventListener('transitionend', () => {
-            currentIndex = 0; 
-            updateSliderPosition(false); 
-            isJumping = false; 
-        }, { once: true }); 
+            currentIndex = 0;
+            updateSliderPosition(false);
+            isJumping = false;
+        }, { once: true });
     }
-    
+
     renderDots();
 }
 
@@ -306,13 +317,13 @@ function goToPrevious() {
 
     if (currentIndex === 0) {
         isJumping = true;
-        
-        currentIndex = projects.length; 
-        updateSliderPosition(false); 
+
+        currentIndex = projects.length;
+        updateSliderPosition(false);
 
         requestAnimationFrame(() => {
             currentIndex = projects.length - 1;
-            updateSliderPosition(true); 
+            updateSliderPosition(true);
             renderDots();
             isJumping = false;
         });
@@ -330,7 +341,6 @@ function goToProject(index) {
     renderDots();
 }
 
-// Auto Slide
 function startAutoSlide() {
     autoSlideInterval = setInterval(() => {
         if (!isPaused) {
@@ -339,7 +349,6 @@ function startAutoSlide() {
     }, 4000);
 }
 
-// Pause on Hover
 document.getElementById('projectsContainer').addEventListener('mouseenter', () => {
     isPaused = true;
 });
@@ -348,15 +357,14 @@ document.getElementById('projectsContainer').addEventListener('mouseleave', () =
     isPaused = false;
 });
 
-// Contact Form Validation (Unchanged)
 function handleSubmit(event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const form = event.target;
     const name = document.getElementById('contactName').value;
     const email = document.getElementById('contactEmail').value;
     const message = document.getElementById('contactMessage').value;
-    const submitButton = form.querySelector('button[type="submit"]'); 
+    const submitButton = form.querySelector('button[type="submit"]');
 
     let hasError = false;
 
@@ -401,7 +409,7 @@ function handleSubmit(event) {
         }).then(response => {
             if (response.ok) {
                 alert('Message sent successfully!');
-                form.reset(); 
+                form.reset();
             } else {
                 response.json().then(data => {
                     if (data.errors) {
@@ -422,6 +430,6 @@ function handleSubmit(event) {
 
 // Initialize
 window.addEventListener('resize', updateCardsPerView);
-updateCardsPerView(); 
+updateCardsPerView();
 startAutoSlide();
 initializeTheme(); 
