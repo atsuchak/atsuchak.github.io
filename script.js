@@ -64,7 +64,7 @@ const projects = [
     },
 ];
 
-// New Data: Code Solutions (Non-Web Projects)
+// Solutions (Non-Web Projects)
 const codeSolutions = [
     {
         title: 'Competitive Programming Solutions',
@@ -97,12 +97,10 @@ let cardsPerView = 3;
 let isPaused = false;
 let autoSlideInterval;
 let isJumping = false;
-
-// NEW CODE SOLUTION SLIDER VARIABLES
 let currentCodeIndex = 0;
-let codeCardsPerView = 2; 
+let codeCardsPerView = 2;
 let isCodeJumping = false;
-let codeAutoSlideInterval; // NEW VARIABLE FOR CODE SLIDER AUTOSLIDE
+let codeAutoSlideInterval;
 
 // Typing Animation
 const sentences = [
@@ -113,9 +111,9 @@ const sentences = [
 let sentenceIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
-const typingSpeed = 45; 
-const deletingSpeed = 25; 
-const pauseTime = 1500; 
+const typingSpeed = 45;
+const deletingSpeed = 25;
+const pauseTime = 1500;
 const typingTextElement = document.getElementById('typingText');
 
 function typeLoop() {
@@ -135,16 +133,15 @@ function typeLoop() {
         setTimeout(typeLoop, pauseTime);
     } else if (isDeleting && charIndex < 0) {
         isDeleting = false;
-        sentenceIndex = (sentenceIndex + 1) % sentences.length; 
-        charIndex = 0; 
-        setTimeout(typeLoop, 500); 
+        sentenceIndex = (sentenceIndex + 1) % sentences.length;
+        charIndex = 0;
+        setTimeout(typeLoop, 500);
     } else {
         setTimeout(typeLoop, isDeleting ? deletingSpeed : typingSpeed);
     }
 }
 
 typeLoop();
-
 
 function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
@@ -156,12 +153,8 @@ function scrollToSection(id) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
-// ===================================
 // Theme Toggle Function and Initialization
-// ===================================
-// Check if user has a saved theme preference
 const userTheme = localStorage.getItem('theme');
-// Check if system is set to dark mode
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 function setTheme(theme) {
@@ -201,9 +194,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
-// ===================================
 // Active Section Observer
-// ===================================
 const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -219,7 +210,7 @@ const sectionObserver = new IntersectionObserver((entries) => {
             });
         }
     });
-}, { threshold: 0.5 }); 
+}, { threshold: 0.5 });
 
 document.querySelectorAll('section[id]').forEach(section => sectionObserver.observe(section));
 
@@ -234,9 +225,7 @@ function updateCardsPerView() {
     renderDots();
 }
 
-// ===================================
 // initializeSlider
-// ===================================
 function initializeSlider() {
     const slider = document.getElementById('projectsSlider');
     slider.innerHTML = '';
@@ -287,9 +276,9 @@ function initializeSlider() {
     });
 }
 
-// ===================================
-// Toggle Competitive Profiles Visibility (FIXED FOR SMOOTH COLLAPSE)
-// ===================================
+// Toggle Competitive Profiles Visibility (FINAL SMOOTH COLLAPSE FIX)
+const COLLAPSED_HEIGHT = '208px';
+
 function toggleProfiles() {
     const container = document.getElementById('profilesGridContainer');
     const buttonText = document.getElementById('buttonText');
@@ -298,64 +287,42 @@ function toggleProfiles() {
 
     if (!container || !buttonText || !buttonIcon || !overlay) return;
 
-    // Check if currently collapsed (max-h-52 is the key class for collapsed state on mobile)
-    const isCollapsed = container.classList.contains('max-h-52');
+    const isExpanded = container.classList.contains('is-expanded');
 
-    if (isCollapsed) {
-        // --- SHOW MORE (Expand Operation) ---
-
-        // 1. Temporarily remove height limit to calculate the full height
-        container.classList.remove('max-h-52');
+    if (!isExpanded) {
         container.style.maxHeight = container.scrollHeight + 'px';
-        
-        // 2. Set the content for the button
+        container.classList.add('is-expanded');
+
         buttonText.textContent = 'Show Less';
         buttonIcon.classList.add('rotate-180');
-        
-        // 3. Hide the overlay immediately
+
         overlay.classList.add('hidden');
 
-        // 4. After the transition, clean up the height property
         container.addEventListener('transitionend', function handler() {
-            // Revert max-height to a safe value for desktop view consistency
-            container.style.maxHeight = 'initial'; 
-            container.classList.remove('max-h-52'); 
+            container.style.maxHeight = 'initial';
             container.removeEventListener('transitionend', handler);
         }, { once: true });
 
     } else {
-        // --- SHOW LESS (Collapse Operation - The part that was laggy) ---
-        
-        // 1. Force the current full height as an inline style.
-        // This ensures the browser transitions from a known fixed height.
         container.style.maxHeight = container.scrollHeight + 'px';
-        
-        // 2. Use a slight delay (requestAnimationFrame or setTimeout) 
-        // before applying the collapse class. This guarantees the browser 
-        // registers the current max-height before starting the transition.
+
         requestAnimationFrame(() => {
-             // 3. Set the target collapsed height (max-h-52 translates roughly to 208px)
-            container.style.maxHeight = '208px'; 
-            
-            // 4. Re-apply the Tailwind class to maintain the mobile state
-            container.classList.add('max-h-52');
-            
-            // 5. Update the button text
+            container.style.maxHeight = COLLAPSED_HEIGHT;
+            container.classList.remove('is-expanded');
+
             buttonText.textContent = 'Show More';
             buttonIcon.classList.remove('rotate-180');
-            
-            // 6. Show overlay and scroll to section after collapse animation completes
+
             setTimeout(() => {
                 overlay.classList.remove('hidden');
-                 const profilesSection = document.getElementById('code-solutions');
-                 if (profilesSection) {
-                     profilesSection.scrollIntoView({ behavior: 'smooth' });
-                 }
-            }, 500); // Match transition duration (duration-500)
+                const profilesSection = document.getElementById('code-solutions');
+                if (profilesSection) {
+                    profilesSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 500);
         });
     }
 }
-
 
 function updateSliderPosition(withAnimation = true) {
     const slider = document.getElementById('projectsSlider');
@@ -377,9 +344,7 @@ function updateSliderPosition(withAnimation = true) {
     slider.style.transform = `translateX(${translateX}px)`;
 }
 
-// ===================================
 // renderDots
-// ===================================
 function renderDots() {
     const dots = document.getElementById('dotIndicators');
     dots.innerHTML = '';
@@ -461,29 +426,22 @@ document.getElementById('projectsContainer').addEventListener('mouseleave', () =
 });
 
 
-// ===================================
 // Code Solutions Slider Logic
-// ===================================
-
 function updateCodeCardsPerView() {
-    // 1 card on small screen, 2 cards on medium/large screen
-    if (window.innerWidth < 640) codeCardsPerView = 1; 
+    if (window.innerWidth < 640) codeCardsPerView = 1;
     else codeCardsPerView = 2;
 
     initializeCodeSlider();
     currentCodeIndex = 0;
     updateCodeSliderPosition(false);
-    
-    // Hide buttons/show grid based on screen size
+
     const prevButton = document.querySelector('#codeSolutionsContainer [onclick="goToPreviousCode()"]');
     const nextButton = document.querySelector('#codeSolutionsContainer [onclick="goToNextCode()"]');
 
     if (window.innerWidth < 640) {
-        // Mobile view: show buttons
         if (prevButton) prevButton.classList.remove('hidden');
         if (nextButton) nextButton.classList.remove('hidden');
     } else {
-        // PC view: hide buttons (grid is active)
         if (prevButton) prevButton.classList.add('hidden');
         if (nextButton) nextButton.classList.add('hidden');
     }
@@ -491,44 +449,35 @@ function updateCodeCardsPerView() {
 
 function initializeCodeSlider() {
     const slider = document.getElementById('codeSolutionsSlider');
-    const container = document.getElementById('codeSliderContainer'); 
-    
+    const container = document.getElementById('codeSliderContainer');
+
     if (!slider || !container) return;
-    
-    // 1. Reset and determine mode
-    container.style.height = ''; 
+
+    container.style.height = '';
     container.style.transition = 'none';
     slider.innerHTML = '';
-    
+
     const isMobile = window.innerWidth < 640;
     const cardsToRender = isMobile ? [...codeSolutions, ...codeSolutions] : codeSolutions;
 
-    // Determine the width class for mobile layout
-    const widthClass = codeCardsPerView === 1 ? 'w-full' : 'w-[calc(50%-12px)]'; 
+    const widthClass = codeCardsPerView === 1 ? 'w-full' : 'w-[calc(50%-12px)]';
 
-    
-    // 2. Set up initial grid/flex layout
+
     if (isMobile) {
-        // Mobile: Flex and items-stretch to make children match height
         slider.classList.remove('grid', 'sm:grid-cols-2');
-        slider.classList.add('flex', 'items-stretch'); 
+        slider.classList.add('flex', 'items-stretch');
     } else {
-        // PC: Grid
         slider.classList.add('grid', 'sm:grid-cols-2');
         slider.classList.remove('flex', 'items-stretch');
     }
 
     let tempMaxHeight = 0;
 
-    // 3. Inject cards
     cardsToRender.forEach((solution, index) => {
         const card = document.createElement('div');
-        
-        // Apply class for layout (slider on mobile, grid on PC)
-        // Ensure the card itself uses full height logic
-        card.className = isMobile ? `${widthClass} flex-shrink-0 h-full` : 'sm:col-span-1 h-full'; 
 
-        // Card HTML content (Uses flex-grow on inner elements)
+        card.className = isMobile ? `${widthClass} flex-shrink-0 h-full` : 'sm:col-span-1 h-full';
+
         card.innerHTML = `
             <div class="bg-white dark:bg-zinc-800 rounded-xl p-6 border border-gray-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all transform hover:shadow-lg flex flex-col justify-between h-full">
                 
@@ -554,38 +503,30 @@ function initializeCodeSlider() {
         `;
         slider.appendChild(card);
 
-        // 4. Force synchronous layout check (Fixes 3rd card delay)
         if (isMobile && index < codeSolutions.length) {
-            void card.offsetHeight; 
-            
-            // Measure height for fixed container height
-            const innerCard = card.querySelector('div'); // Get the inner card div
+            void card.offsetHeight;
+
+            const innerCard = card.querySelector('div');
             if (innerCard) {
                 tempMaxHeight = Math.max(tempMaxHeight, innerCard.offsetHeight);
             }
         }
     });
 
-    // 5. Apply the calculated max height on mobile only
     if (isMobile && tempMaxHeight > 0) {
-        container.style.height = `${tempMaxHeight}px`; 
+        container.style.height = `${tempMaxHeight}px`;
         container.style.transition = 'height 0.3s ease-in-out';
     } else {
         container.style.height = 'initial';
         container.style.transition = 'none';
     }
 
-
-    // 6. Re-observe elements for animation (using the original data-animate attribute on the card itself)
-    // NOTE: If you removed data-animate from the inner HTML, ensure you check the correct selector here.
     document.querySelectorAll('#codeSolutionsContainer [data-animate]').forEach(el => observer.observe(el));
 }
 
-
 function updateCodeSliderPosition(withAnimation = true) {
     const slider = document.getElementById('codeSolutionsSlider');
-    // Check for children length to prevent errors during initial load
-    if (!slider || window.innerWidth >= 640 || !slider.children.length) return; 
+    if (!slider || window.innerWidth >= 640 || !slider.children.length) return;
 
     if (withAnimation) {
         slider.style.transition = 'transform 700ms ease-in-out';
@@ -595,8 +536,7 @@ function updateCodeSliderPosition(withAnimation = true) {
 
     const card = slider.children[0];
     const cardWidth = card.offsetWidth;
-    // Tailwind gap-6 is 24px
-    const gap = 24; 
+    const gap = 24;
 
     const slideDistance = cardWidth + gap;
     const translateX = -currentCodeIndex * slideDistance;
@@ -610,17 +550,14 @@ function goToNextCode() {
     currentCodeIndex++;
     updateCodeSliderPosition(true);
 
-    // If we've hit the clone index (card 5, which is index 4 in a 4-item array)
-    if (currentCodeIndex === codeSolutions.length) { 
+    if (currentCodeIndex === codeSolutions.length) {
         isCodeJumping = true;
-        
+
         const slider = document.getElementById('codeSolutionsSlider');
 
-        // Wait for the smooth transition (to the clone) to finish
         slider.addEventListener('transitionend', function handler() {
-            // Instantly jump back to the original start (Index 0) without animation
             currentCodeIndex = 0;
-            updateCodeSliderPosition(false); 
+            updateCodeSliderPosition(false);
             isCodeJumping = false;
             slider.removeEventListener('transitionend', handler);
         }, { once: true });
@@ -633,11 +570,9 @@ function goToPreviousCode() {
     if (currentCodeIndex === 0) {
         isCodeJumping = true;
 
-        // 1. Instantly jump to the last real card's clone (Index 4)
         currentCodeIndex = codeSolutions.length;
         updateCodeSliderPosition(false);
 
-        // 2. Schedule the smooth transition back to the last real card (Index 3)
         requestAnimationFrame(() => {
             currentCodeIndex = codeSolutions.length - 1;
             updateCodeSliderPosition(true);
@@ -649,16 +584,13 @@ function goToPreviousCode() {
     }
 }
 
-// ===================================
-// Start Code Auto Slide (New Function)
-// ===================================
+// Code Auto Slide
 function startCodeAutoSlide() {
     codeAutoSlideInterval = setInterval(() => {
-        // Only auto-slide if on mobile (slider mode)
-        if (window.innerWidth < 640) { 
+        if (window.innerWidth < 640) {
             goToNextCode();
         }
-    }, 4000); // 4 seconds
+    }, 4000);
 }
 
 
@@ -713,7 +645,6 @@ function handleSubmit(event) {
             }
         }).then(response => {
             if (response.ok) {
-                // IMPORTANT: Replaced alert() with console.log() as alert is forbidden
                 console.log('Message sent successfully!');
                 form.reset();
             } else {
@@ -736,13 +667,18 @@ function handleSubmit(event) {
 
 // Initialize
 window.addEventListener('resize', () => {
-    updateCardsPerView();      // Existing Projects slider update
-    updateCodeCardsPerView();  // New Code Solutions slider update
+    updateCardsPerView();
+    updateCodeCardsPerView();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('profilesGridContainer');
+    if (window.innerWidth < 640 && container) {
+        container.style.maxHeight = '208px';
+    }
 });
 
-// Initial Setup
 updateCardsPerView();
-updateCodeCardsPerView(); 
+updateCodeCardsPerView();
 
-startAutoSlide();      // Start Projects auto-slide (4000ms)
-startCodeAutoSlide();  // Start Code Solutions auto-slide (1500ms)
+startAutoSlide();
+startCodeAutoSlide();  
