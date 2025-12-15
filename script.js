@@ -146,7 +146,19 @@ typeLoop();
 function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
     const icon = document.getElementById('menuIcon');
-    menu.classList.toggle('hidden');
+    
+    // Toggle the 'is-open' class for sliding effect
+    menu.classList.toggle('is-open');
+    
+    // Toggle the 'is-active' class for X animation
+    icon.classList.toggle('is-active');
+
+    // Toggle body scroll lock when the menu is open (UX improvement)
+    if (menu.classList.contains('is-open')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
 }
 
 function scrollToSection(id) {
@@ -315,11 +327,42 @@ function toggleProfiles() {
 
             setTimeout(() => {
                 overlay.classList.remove('hidden');
-                const profilesSection = document.getElementById('code-solutions');
+                // *** SCROLL CHANGE: Scroll to the 'about' section now ***
+                const profilesSection = document.getElementById('about'); 
                 if (profilesSection) {
                     profilesSection.scrollIntoView({ behavior: 'smooth' });
                 }
             }, 500);
+        });
+    }
+}
+
+// Function to toggle the description on mobile cards
+function toggleDescription(button) {
+    const cardBody = button.closest('.code-card-body');
+    if (!cardBody) return;
+
+    const descriptionWrapper = cardBody.querySelector('.description-wrapper');
+    const descriptionText = cardBody.querySelector('.description-text');
+    const isExpanded = descriptionWrapper.classList.contains('is-expanded');
+
+    if (isExpanded) {
+        // Collapse
+        descriptionWrapper.style.maxHeight = '2.5rem'; // Set to 1-2 line height
+        button.textContent = '...See More';
+        descriptionWrapper.classList.remove('is-expanded');
+    } else {
+        // Expand
+        // Temporarily set height to 'initial' to measure full scrollHeight
+        descriptionWrapper.style.maxHeight = 'initial'; 
+        const scrollHeight = descriptionText.offsetHeight;
+
+        descriptionWrapper.style.maxHeight = '2.5rem'; // Reset back to collapsed size for smooth animation start
+        
+        requestAnimationFrame(() => {
+            descriptionWrapper.style.maxHeight = scrollHeight + 'px';
+            button.textContent = 'See Less';
+            descriptionWrapper.classList.add('is-expanded');
         });
     }
 }
@@ -428,68 +471,51 @@ document.getElementById('projectsContainer').addEventListener('mouseleave', () =
 
 // Code Solutions Slider Logic
 function updateCodeCardsPerView() {
-    if (window.innerWidth < 640) codeCardsPerView = 1;
-    else codeCardsPerView = 2;
-
+    // This function is simplified to just trigger the card initialization.
     initializeCodeSlider();
-    currentCodeIndex = 0;
-    updateCodeSliderPosition(false);
-
-    const prevButton = document.querySelector('#codeSolutionsContainer [onclick="goToPreviousCode()"]');
-    const nextButton = document.querySelector('#codeSolutionsContainer [onclick="goToNextCode()"]');
-
-    if (window.innerWidth < 640) {
-        if (prevButton) prevButton.classList.remove('hidden');
-        if (nextButton) nextButton.classList.remove('hidden');
-    } else {
-        if (prevButton) prevButton.classList.add('hidden');
-        if (nextButton) nextButton.classList.add('hidden');
-    }
 }
 
 function initializeCodeSlider() {
     const slider = document.getElementById('codeSolutionsSlider');
-    const container = document.getElementById('codeSliderContainer');
-
+    const container = document.getElementById('codeSolutionsContainer');
+    
     if (!slider || !container) return;
 
-    container.style.height = '';
-    container.style.transition = 'none';
+    // Reset properties previously used for mobile slider mode
+    slider.style.transform = '';
     slider.innerHTML = '';
+    
+    const cardsToRender = codeSolutions; 
+    
+    // Use the 'contents' class in HTML for the wrapper, and apply card styling directly.
+    slider.classList.add('sm:grid-cols-2', 'gap-6');
+    slider.classList.remove('flex', 'is-expanded', 'items-stretch'); 
 
-    const isMobile = window.innerWidth < 640;
-    const cardsToRender = isMobile ? [...codeSolutions, ...codeSolutions] : codeSolutions;
-
-    const widthClass = codeCardsPerView === 1 ? 'w-full' : 'w-[calc(50%-12px)]';
-
-
-    if (isMobile) {
-        slider.classList.remove('grid', 'sm:grid-cols-2');
-        slider.classList.add('flex', 'items-stretch');
-    } else {
-        slider.classList.add('grid', 'sm:grid-cols-2');
-        slider.classList.remove('flex', 'items-stretch');
-    }
-
-    let tempMaxHeight = 0;
-
-    cardsToRender.forEach((solution, index) => {
+    cardsToRender.forEach((solution) => {
         const card = document.createElement('div');
 
-        card.className = isMobile ? `${widthClass} flex-shrink-0 h-full` : 'sm:col-span-1 h-full';
+        card.className = 'sm:col-span-1 h-full'; 
 
         card.innerHTML = `
-            <div class="bg-white dark:bg-zinc-800 rounded-xl p-6 border border-gray-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all transform hover:shadow-lg flex flex-col justify-between h-full">
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl p-6 border border-gray-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all transform hover:shadow-lg flex flex-col justify-between h-full">
                 
-                <div class="flex flex-col flex-grow"> 
-    <h4 class="text-xl font-semibold text-zinc-900 dark:text-white mb-2">${solution.title}</h4>
-    
-    <p class="text-zinc-600 dark:text-gray-400 mb-4 text-sm flex-grow">${solution.description}</p>
-    
-    <div class="flex flex-wrap gap-2 mb-4">
-        ${solution.techStack.map(tech => `<span class="px-3 py-1 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-full text-xs border border-gray-200 dark:border-zinc-700">${tech}</span>`).join('')}
-    </div>
-</div>
+                <div class="flex flex-col flex-grow code-card-body"> 
+                    <h4 class="text-xl font-semibold text-zinc-900 dark:text-white mb-2">${solution.title}</h4>
+                    
+                    <p class="text-zinc-600 dark:text-gray-400 mb-4 text-sm flex-grow hidden sm:block">${solution.description}</p>
+                    
+                    <div class="sm:hidden text-zinc-600 dark:text-gray-400 mb-2 text-sm overflow-hidden relative description-wrapper transition-[max-height] duration-500" style="max-height: 2.5rem;">
+                         <p class="description-text">${solution.description}</p>
+                    </div>
+
+                    <button onclick="toggleDescription(this)" class="sm:hidden text-blue-500 hover:text-blue-600 text-sm font-medium mb-3 self-start">
+                        ...See More
+                    </button>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${solution.techStack.map(tech => `<span class="px-3 py-1 bg-gray-200 text-zinc-700 dark:bg-zinc-800 dark:text-gray-300 rounded-full text-xs border border-gray-300 dark:border-zinc-700">${tech}</span>`).join('')}
+                    </div>
+                </div>
                 
                 <div class="mt-4">
                     <a href="${solution.githubLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 transition-colors text-sm font-medium group">
@@ -502,26 +528,7 @@ function initializeCodeSlider() {
             </div>
         `;
         slider.appendChild(card);
-
-        if (isMobile && index < codeSolutions.length) {
-            void card.offsetHeight;
-
-            const innerCard = card.querySelector('div');
-            if (innerCard) {
-                tempMaxHeight = Math.max(tempMaxHeight, innerCard.offsetHeight);
-            }
-        }
     });
-
-    if (isMobile && tempMaxHeight > 0) {
-        container.style.height = `${tempMaxHeight}px`;
-        container.style.transition = 'height 0.3s ease-in-out';
-    } else {
-        container.style.height = 'initial';
-        container.style.transition = 'none';
-    }
-
-    document.querySelectorAll('#codeSolutionsContainer [data-animate]').forEach(el => observer.observe(el));
 }
 
 function updateCodeSliderPosition(withAnimation = true) {
@@ -668,7 +675,7 @@ function handleSubmit(event) {
 // Initialize
 window.addEventListener('resize', () => {
     updateCardsPerView();
-    updateCodeCardsPerView();
+    updateCodeCardsPerView(); // Keep this for responsive rendering between slider/grid
 });
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('profilesGridContainer');
@@ -681,4 +688,3 @@ updateCardsPerView();
 updateCodeCardsPerView();
 
 startAutoSlide();
-startCodeAutoSlide();  

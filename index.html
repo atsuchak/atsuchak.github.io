@@ -56,6 +56,7 @@
     </script>
 
     <style>
+        /* Existing Pulse animation for the cursor */
         @keyframes pulse {
 
             0%,
@@ -71,6 +72,101 @@
         .animate-pulse {
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
+
+        /* New: Background Grid Pattern Definition */
+        @keyframes move-grid {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        @keyframes bounce-scroll {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .animate-bounce-scroll {
+            animation: bounce-scroll 1.5s infinite;
+        }
+
+        .animated-grid-bg {
+            /* Grid Pattern Definition (Light Mode) */
+            background-image: linear-gradient(to right, rgba(100, 100, 100, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(100, 100, 100, 0.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-color: #f3f4f6;
+            /* Base color for Light Mode (gray-100) */
+            animation: move-grid 120s linear infinite;
+        }
+
+        /* Dark mode adjustments for the grid */
+        .dark .animated-grid-bg {
+            /* REVERTED OPACITY BACK TO SUBTLE 0.03 */
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-color: #0c0d12;
+            /* Base color for Dark Mode (zinc-950) */
+            /* NEW: Apply a very subtle blue glowing drop shadow */
+            filter: drop-shadow(0 0 1px rgba(59, 130, 246, 0.5));
+            /* Blue-500 with high transparency */
+        }
+
+        /* New: Background Fixed Effect (Crucial for parallax) */
+        .bg-fixed-attachment {
+            background-attachment: fixed !important;
+            background-position: center !important;
+        }
+
+        /* Ensure smooth scrolling across all browsers */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile Menu Styles (KEEP AS IS) */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 100%;
+            max-width: 320px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        #mobileMenu.is-open {
+            transform: translateX(0);
+        }
+
+        .dark #mobileMenu {
+            box-shadow: -4px 0 10px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Icon X animation (KEEP AS IS) */
+        #menuIcon.is-active .line:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        #menuIcon.is-active .line:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menuIcon.is-active .line:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
     </style>
 </head>
 
@@ -81,7 +177,8 @@
         class="fixed top-0 left-0 right-0 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-sm z-50 border-b border-gray-200 dark:border-zinc-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="text-xl font-bold text-zinc-900 dark:text-white">atsuchak</div>
+                <a href="#home" onclick="scrollToSection('home')" class="transition-opacity hover:opacity-80">
+                    <img src="./assets/nav2.png" alt="Ahnaf Tajwar Suchak Logo" class="h-10 w-auto"></a>
 
                 <div class="hidden md:flex space-x-8 items-center" id="navLinks">
                     <button onclick="scrollToSection('home')"
@@ -92,9 +189,6 @@
                     <button onclick="scrollToSection('projects')"
                         class="nav-link capitalize transition-colors text-zinc-600 hover:text-zinc-900 dark:text-gray-300 dark:hover:text-white"
                         data-section="projects">projects</button>
-                    <button onclick="scrollToSection('code-solutions')"
-                        class="nav-link capitalize transition-colors text-zinc-600 hover:text-zinc-900 dark:text-gray-300 dark:hover:text-white"
-                        data-section="code-solutions">Codebase</button>
                     <button onclick="scrollToSection('contact')"
                         class="nav-link capitalize transition-colors text-zinc-600 hover:text-zinc-900 dark:text-gray-300 dark:hover:text-white"
                         data-section="contact">contact</button>
@@ -137,12 +231,15 @@
                     </button>
 
                     <!-- Menu button -->
-                    <button class="text-zinc-900 dark:text-white" onclick="toggleMenu()">
+                    <button class="text-zinc-900 dark:text-white relative z-50" onclick="toggleMenu()">
                         <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <line x1="3" y1="12" x2="21" y2="12"></line>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                            stroke-width="2" class="transition-transform duration-300">
+                            <line class="line" x1="3" y1="12" x2="21" y2="12" stroke-linecap="round"
+                                style="transition: transform 0.3s, opacity 0.3s;"></line>
+                            <line class="line" x1="3" y1="6" x2="21" y2="6" stroke-linecap="round"
+                                style="transition: transform 0.3s, opacity 0.3s;"></line>
+                            <line class="line" x1="3" y1="18" x2="21" y2="18" stroke-linecap="round"
+                                style="transition: transform 0.3s, opacity 0.3s;"></line>
                         </svg>
                     </button>
                 </div>
@@ -150,71 +247,160 @@
         </div>
 
         <div id="mobileMenu"
-            class="hidden md:hidden bg-white dark:bg-zinc-900 border-t border-gray-200 dark:border-zinc-800">
-            <div class="px-4 py-4 space-y-3">
+            class="md:hidden bg-white dark:bg-zinc-900 border-l border-gray-200 dark:border-zinc-800 flex flex-col justify-between">
+
+            <div class="p-8 pt-24 space-y-4">
                 <button onclick="scrollToSection('home'); toggleMenu();"
-                    class="block w-full text-left capitalize py-2 text-zinc-600 dark:text-gray-300 nav-link"
+                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
                     data-section="home">home</button>
 
                 <button onclick="scrollToSection('about'); toggleMenu();"
-                    class="block w-full text-left capitalize py-2 text-zinc-600 dark:text-gray-300 nav-link"
+                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
                     data-section="about">about</button>
 
                 <button onclick="scrollToSection('projects'); toggleMenu();"
-                    class="block w-full text-left capitalize py-2 text-zinc-600 dark:text-gray-300 nav-link"
+                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
                     data-section="projects">projects</button>
 
-                <button onclick="scrollToSection('code-solutions'); toggleMenu();"
-                    class="block w-full text-left capitalize py-2 text-zinc-600 dark:text-gray-300 nav-link"
-                    data-section="code-solutions">Codebase</button>
-
                 <button onclick="scrollToSection('contact'); toggleMenu();"
-                    class="block w-full text-left capitalize py-2 text-zinc-600 dark:text-gray-300 nav-link"
+                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
                     data-section="contact">contact</button>
+            </div>
+
+            <div class="p-8 pb-12 text-center border-t border-gray-200 dark:border-zinc-700">
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a target="_blank" href="https://github.com/atsuchak"
+                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 transition-colors">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                            </path>
+                        </svg>
+                    </a>
+                    <a target="_blank" href="https://www.linkedin.com/in/atsuchak/"
+                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 transition-colors">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a target="_blank" href="mailto:ahnaftajwarsuchak@gmail.com"
+                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 transition-colors">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </a>
+                </div>
+                <a target="_blank" href="./assets/Resume.pdf" class="inline-block resume-icon-group w-full">
+                    <button
+                        class="w-full bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                        Download Resume
+                        <svg class="w-5 h-5 resume-icon transition-transform duration-300" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m-4-4l4 4 4-4">
+                            </path>
+                        </svg>
+                    </button>
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- home -->
-    <section id="home"
-        class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-zinc-950 pt-16 transition-colors duration-200">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-zinc-900 dark:text-white mb-4">
+    <section id="home" class="min-h-screen flex items-center justify-center pt-16 transition-colors duration-200 relative overflow-hidden
+               animated-grid-bg bg-fixed-attachment">
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-zinc-900 dark:text-white mb-2">
                 Ahnaf Tajwar Suchak
             </h1>
-            <p class="text-xl sm:text-2xl text-zinc-600 dark:text-gray-400 mb-8 h-8">
-                <span id="typingText"></span><span class="animate-pulse">|</span>
+            <p class="text-xl sm:text-2xl text-blue-500 font-semibold mb-6">
+                Future Software Engineer | Algorithm Enthusiast
             </p>
-            <a target="_blank" href="./assets/Resume.pdf"><button
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition-all transform hover:scale-105">
+
+            <p class="text-xl sm:text-2xl text-zinc-600 dark:text-gray-400 mb-8 h-8">
+                <span id="typingText"></span><span class="animate-pulse text-blue-400">|</span>
+            </p>
+            <a target="_blank" href="./assets/Resume.pdf" class="inline-block resume-icon-group">
+                <button
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition-all transform hover:scale-105 flex items-center gap-2 mx-auto">
                     Download Resume
-                </button></a>
+                    <svg class="w-5 h-5 resume-icon transition-transform duration-300" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m-4-4l4 4 4-4">
+                        </path>
+                    </svg>
+                </button>
+            </a>
+
             <div class="flex justify-center space-x-6 mt-12">
                 <a target="_blank" href="https://github.com/atsuchak"
-                    class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                    class="social-link-icon text-zinc-500 dark:text-gray-400 transition-all duration-200 group relative"
+                    title="GitHub">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path
                             d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
                         </path>
                     </svg>
+                    <span
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden sm:block">GitHub</span>
                 </a>
                 <a target="_blank" href="https://www.linkedin.com/in/atsuchak/"
-                    class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                    class="social-link-icon text-zinc-500 dark:text-gray-400 transition-all duration-200 group relative"
+                    title="LinkedIn">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                         <rect x="2" y="9" width="4" height="12"></rect>
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
+                    <span
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden sm:block">LinkedIn</span>
                 </a>
                 <a target="_blank" href="mailto:ahnaftajwarsuchak@gmail.com"
-                    class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                    class="social-link-icon text-zinc-500 dark:text-gray-400 transition-all duration-200 group relative"
+                    title="Email">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
                     </svg>
+                    <span
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden sm:block">Email</span>
                 </a>
             </div>
         </div>
+
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center z-20">
+
+            <button onclick="scrollToSection('about')" class="
+                    /* Subtly faded white text/color (minimal look) */
+                    text-white/50 dark:text-gray-300/50 hover:text-white dark:hover:text-white 
+                    transition-colors animate-bounce-scroll
+                    
+                    /* Minimal Border & Background (NOW DOTTED) */
+                    py-2 px-6 rounded-xl border **border-dashed** border-white/20 dark:border-gray-400/20
+                    bg-white/5 dark:bg-zinc-800/10 backdrop-blur-[1px]
+                    
+                    text-sm font-light tracking-widest uppercase flex items-center gap-2"
+                title="Scroll to About Section">
+
+                <span>SWIPE DOWN</span>
+
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="7 13 12 18 17 13"></polyline>
+                </svg>
+            </button>
+
+        </div>
+
     </section>
 
     <!-- about -->
@@ -276,6 +462,7 @@
                 </div>
 
                 <div class="lg:col-span-2 space-y-8">
+
                     <div
                         class="bg-white dark:bg-zinc-800 rounded-xl p-6 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all">
                         <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-4 flex items-center">
@@ -286,36 +473,215 @@
                             "I'm fascinated by the problem-solving aspect of programming. I'm currently learning the
                             core concepts of software development and data structures. I focus on analyzing complex
                             problems and building functional solutions from the ground up. I'm eager to keep learning
-                            and explore what's possible with technology
+                            and explore what's possible with technology"
                         </p>
                     </div>
 
                     <div
                         class="bg-white dark:bg-zinc-800 rounded-xl p-6 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all">
-                        <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-4 flex items-center">
+                        <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
                             <span class="w-1 h-6 bg-blue-500 mr-3 rounded"></span>
                             Technical Skills
                         </h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span
-                                class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">C++</span>
-                            <span
-                                class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Java</span>
-                            <span
-                                class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Python</span>
-                            <span
-                                class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Tailwind
-                                CSS</span>
-                            <span
-                                class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">SQL</span>
-                            <span
-                                class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Git</span>
-                            <span
-                                class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Ms
-                                Office</span>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h4
+                                    class="text-lg font-medium text-zinc-900 dark:text-white mb-3 flex items-center gap-2">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" class="text-blue-500">
+                                        <polyline points="16 18 22 12 16 6"></polyline>
+                                        <polyline points="8 6 2 12 8 18"></polyline>
+                                    </svg>
+                                    Languages & Core
+                                </h4>
+                                <div class="flex flex-wrap gap-3">
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">C++</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Java</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Python</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Data
+                                        Structures</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Algorithms</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4
+                                    class="text-lg font-medium text-zinc-900 dark:text-white mb-3 flex items-center gap-2">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" class="text-blue-500">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                                    </svg>
+                                    Web & Frontend
+                                </h4>
+                                <div class="flex flex-wrap gap-3">
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">HTML</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Tailwind
+                                        CSS</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">JavaScript</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4
+                                    class="text-lg font-medium text-zinc-900 dark:text-white mb-3 flex items-center gap-2">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" class="text-blue-500">
+                                        <path d="M12 2v10M18 10l-6 6-6-6"></path>
+                                    </svg>
+                                    Tools & Database
+                                </h4>
+                                <div class="flex flex-wrap gap-3">
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">SQL</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Git</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">VS
+                                        Code</span>
+                                    <span
+                                        class="px-4 py-2 bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:text-gray-300 rounded-lg text-sm border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-colors">Ms
+                                        Office</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <div
+                        class="bg-white dark:bg-zinc-800 rounded-xl p-6 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all">
+                        <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
+                            <span class="w-1 h-6 bg-blue-500 mr-3 rounded"></span>
+                            Competitive Profiles
+                        </h3>
+                        <p class="text-zinc-700 dark:text-gray-300 mb-6">
+                            My ongoing commitment to enhancing problem-solving and algorithmic skills across competitive
+                            platforms.
+                        </p>
+
+                        <div id="profilesGridContainer"
+                            class="sm:max-h-full overflow-hidden relative transition-[max-height] duration-500"
+                            style="max-height: 208px;">
+                            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+                                <a target="_blank" href="https://codeforces.com/profile/atsuchak"
+                                    class="group flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2"
+                                        class="text-blue-500 group-hover:text-blue-600 transition-colors">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-lg font-medium text-zinc-900 dark:text-white">Codeforces</p>
+                                        <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">
+                                            View
+                                            Profile</p>
+                                    </div>
+                                </a>
+                                <a target="_blank" href="https://www.codechef.com/users/atsuchak"
+                                    class="group flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2"
+                                        class="text-blue-500 group-hover:text-blue-600 transition-colors">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="6"></circle>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                    </svg>
+                                    <div>
+                                        <p class="text-lg font-medium text-zinc-900 dark:text-white">Codechef</p>
+                                        <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">
+                                            View
+                                            Profile</p>
+                                    </div>
+                                </a>
+                                <a target="_blank" href="https://atcoder.jp/users/atsuchak"
+                                    class="group flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2"
+                                        class="text-blue-500 group-hover:text-blue-600 transition-colors">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <div>
+                                        <p class="text-lg font-medium text-zinc-900 dark:text-white">AtCoder</p>
+                                        <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">
+                                            View
+                                            Profile</p>
+                                    </div>
+                                </a>
+                                <a target="_blank" href="https://vjudge.net/user/atsuchak"
+                                    class="group flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2"
+                                        class="text-blue-500 group-hover:text-blue-600 transition-colors">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <div>
+                                        <p class="text-lg font-medium text-zinc-900 dark:text-white">VJudge</p>
+                                        <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">
+                                            View
+                                            Profile</p>
+                                    </div>
+                                </a>
+                                <a target="_blank" href="https://leetcode.com/u/atsuchak/"
+                                    class="group flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2"
+                                        class="text-blue-500 group-hover:text-blue-600 transition-colors">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <path d="M7 7h10v10H7z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-lg font-medium text-zinc-900 dark:text-white">LeetCode</p>
+                                        <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">
+                                            View
+                                            Profile</p>
+                                    </div>
+                                </a>
+                                <a target="_blank" href="https://www.hackerrank.com/profile/atsuchak"
+                                    class="group flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2"
+                                        class="text-blue-500 group-hover:text-blue-600 transition-colors">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 2a10 10 0 0 0 0 20zM12 22a10 10 0 0 0 0-20z"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-lg font-medium text-zinc-900 dark:text-white">HackerRank</p>
+                                        <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">
+                                            View
+                                            Profile</p>
+                                    </div>
+                                </a>
+
+                                <div id="mobileOverlay"
+                                    class="absolute inset-0 bg-gradient-to-t from-white/90 dark:from-zinc-800/90 to-transparent sm:hidden">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center mt-6 sm:hidden">
+                            <button id="toggleProfilesButton" onclick="toggleProfiles()"
+                                class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 transition-colors font-medium flex items-center gap-2">
+                                <span id="buttonText">Show More</span>
+                                <svg id="buttonIcon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2"
+                                    class="transform transition-transform duration-300">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div
                         class="bg-white dark:bg-zinc-800 rounded-xl p-6 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all">
                         <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
@@ -384,17 +750,26 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
+        </div>
         </div>
     </section>
 
     <!-- projects -->
-    <section id="projects" class="min-h-screen bg-gray-100 dark:bg-zinc-950 py-20 px-4 transition-colors duration-200">
+    <section id="projects" class="min-h-screen py-20 px-4 transition-colors duration-200 
+               animated-grid-bg bg-fixed-attachment">
         <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">My Work</h2>
 
             <div
-                class="bg-white dark:bg-zinc-800 rounded-xl p-8 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all">
+                class="bg-white dark:bg-zinc-800 rounded-xl p-8 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all mb-12">
+                <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
+                    <span class="w-1 h-6 bg-blue-500 mr-3 rounded"></span>
+                    Web & Application Projects
+                </h3>
+
                 <div class="relative">
                     <div class="overflow-hidden" id="projectsContainer">
                         <div id="projectsSlider" class="flex gap-6 transition-transform duration-700 ease-in-out">
@@ -423,197 +798,44 @@
                     <a target="_blank" href="https://github.com/atsuchak">
                         <button
                             class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition-all transform hover:scale-105">
-                            More Projects
+                            View All Repositories
                         </button>
+                    </a>
+                </div>
+            </div>
+
+            <div
+                class="bg-white dark:bg-zinc-800 rounded-xl p-8 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all shadow-inner">
+                <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
+                    <span class="w-1 h-6 bg-blue-500 mr-3 rounded"></span>
+                    Logic & Foundational Code
+                </h3>
+                <p class="text-zinc-700 dark:text-gray-300 mb-8 max-w-2xl">
+                    A collection of solutions and repositories that showcase my command of algorithms, data structures,
+                    and core programming concepts.
+                </p>
+
+                <div id="codeSolutionsContainer" class="flex flex-col sm:grid sm:grid-cols-2 gap-6">
+                    <div id="codeSolutionsSlider" class="contents">
+                    </div>
+                </div>
+
+                <div class="flex justify-center mt-10">
+                    <a target="_blank" href="https://github.com/atsuchak?tab=repositories"
+                        class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 transition-colors font-medium flex items-center gap-2">
+                        See All Code Repositories
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- New Section: Code & Problem Solving -->
-    <section id="code-solutions"
-        class="min-h-screen bg-white dark:bg-zinc-900 py-20 px-4 transition-colors duration-200">
-        <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
-            <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">Code & Problem
-                Solving</h2>
-
-            <div class="space-y-12">
-                <!-- Competitive Programming Profiles Card -->
-                <div
-                    class="bg-gray-50 dark:bg-zinc-800 rounded-xl p-8 border-l-4 border-blue-500 dark:border-blue-400 shadow-lg dark:shadow-xl">
-                    <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" class="text-blue-500 mr-3">
-                            <path
-                                d="M14.5 10c-.83 1.25-2 2-2 2s-.875.75-2 2c-.938 1.125-1.5 2.25-1.5 3.5 0 2.25 1.75 4.5 5.5 4.5 3.75 0 5.5-2.25 5.5-4.5 0-1.25-.562-2.375-1.5-3.5-1.125-1.25-2-2-2-2s-.875-.75-2-2c-.938-1.125-1.5-2.25-1.5-3.5 0-2.25 1.75-4.5 5.5-4.5 3.75 0 5.5 2.25 5.5 4.5 0 1.25-.562 2.375-1.5 3.5-1.125 1.25-2 2-2 2z">
-                            </path>
-                            <path d="M10 20v-2.78A5.4 5.4 0 0 1 12 18c1.61 0 3.03-.68 4-1.7V17c0-2.76-2.24-5-5-5H7.1">
-                            </path>
-                        </svg>
-                        Competitive Profiles
-                    </h3>
-                    <p class="text-zinc-700 dark:text-gray-300 mb-8 max-w-2xl">
-                        Showcasing my ongoing effort to enhance problem-solving and algorithmic skills across
-                        competitive platforms.
-                    </p>
-
-                    <div id="profilesGridContainer"
-                        class="sm:max-h-full overflow-hidden relative transition-[max-height] duration-500"
-                        style="max-height: 208px;">
-                        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-
-                            <a target="_blank" href="https://codeforces.com/profile/atsuchak"
-                                class="group flex items-center gap-3 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" class="text-blue-500 group-hover:text-blue-600 transition-colors">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-lg font-medium text-zinc-900 dark:text-white">Codeforces</p>
-                                    <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">View
-                                        Profile</p>
-                                </div>
-                            </a>
-                            <a target="_blank" href="https://www.codechef.com/users/atsuchak"
-                                class="group flex items-center gap-3 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" class="text-blue-500 group-hover:text-blue-600 transition-colors">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-lg font-medium text-zinc-900 dark:text-white">Codechef</p>
-                                    <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">View
-                                        Profile</p>
-                                </div>
-                            </a>
-                            <a target="_blank" href="https://atcoder.jp/users/atsuchak"
-                                class="group flex items-center gap-3 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" class="text-blue-500 group-hover:text-blue-600 transition-colors">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-lg font-medium text-zinc-900 dark:text-white">AtCoder</p>
-                                    <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">View
-                                        Profile</p>
-                                </div>
-                            </a>
-                            <a target="_blank" href="https://vjudge.net/user/atsuchak"
-                                class="group flex items-center gap-3 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" class="text-blue-500 group-hover:text-blue-600 transition-colors">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-lg font-medium text-zinc-900 dark:text-white">VJudge</p>
-                                    <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">View
-                                        Profile</p>
-                                </div>
-                            </a>
-                            <a target="_blank" href="https://leetcode.com/u/atsuchak/"
-                                class="group flex items-center gap-3 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" class="text-blue-500 group-hover:text-blue-600 transition-colors">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                    <path d="M7 7h10v10H7z"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-lg font-medium text-zinc-900 dark:text-white">LeetCode</p>
-                                    <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">View
-                                        Profile</p>
-                                </div>
-                            </a>
-                            <a target="_blank" href="https://www.hackerrank.com/profile/atsuchak"
-                                class="group flex items-center gap-3 p-4 bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all transform hover:scale-[1.02]">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" class="text-blue-500 group-hover:text-blue-600 transition-colors">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M12 2a10 10 0 0 0 0 20zM12 22a10 10 0 0 0 0-20z"></path>
-                                </svg>
-                                <div>
-                                    <p class="text-lg font-medium text-zinc-900 dark:text-white">HackerRank</p>
-                                    <p class="text-sm text-zinc-500 dark:text-gray-400 group-hover:text-blue-500">View
-                                        Profile</p>
-                                </div>
-                            </a>
-
-                            <div id="mobileOverlay"
-                                class="absolute inset-0 bg-gradient-to-t from-gray-50/90 dark:from-zinc-800/90 to-transparent sm:hidden">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-center mt-6 sm:hidden">
-                        <button id="toggleProfilesButton" onclick="toggleProfiles()"
-                            class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 transition-colors font-medium flex items-center gap-2">
-                            <span id="buttonText">Show More</span>
-                            <svg id="buttonIcon" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2"
-                                class="transform transition-transform duration-300">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Code Solutions List -->
-                <div
-                    class="bg-gray-100 dark:bg-zinc-950 rounded-xl p-8 border border-gray-200 dark:border-zinc-700 shadow-inner">
-                    <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" class="text-blue-500 mr-3">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                        </svg>
-                        Logic & Code
-                    </h3>
-                    <p class="text-zinc-700 dark:text-gray-300 mb-8 max-w-2xl">
-                        A collection of completed projects and code-based solutions that showcase my practical skills
-                        and command of various technical topics
-                    </p>
-
-                    <div id="codeSolutionsContainer" class="relative">
-                        <div class="overflow-hidden" id="codeSliderContainer">
-                            <div id="codeSolutionsSlider"
-                                class="flex gap-6 transition-transform duration-700 ease-in-out">
-                            </div>
-                        </div>
-
-                        <button onclick="goToPreviousCode()"
-                            class="sm:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-700 dark:text-white p-3 rounded-full border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all z-10">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <polyline points="15 18 9 12 15 6"></polyline>
-                            </svg>
-                        </button>
-                        <button onclick="goToNextCode()"
-                            class="sm:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-100 text-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-700 dark:text-white p-3 rounded-full border border-gray-200 dark:border-zinc-700 hover:border-blue-500 transition-all z-10">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <div class="flex justify-center mt-10">
-                        <a target="_blank" href="https://github.com/atsuchak"
-                            class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 transition-colors font-medium flex items-center gap-2">
-                            View All Repositories
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
     <!-- contact -->
-    <section id="contact" class="min-h-screen bg-gray-100 dark:bg-zinc-950 py-20 px-4 transition-colors duration-200">
+    <section id="contact" class="min-h-screen bg-white dark:bg-zinc-900 py-20 px-4 transition-colors duration-200">
         <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">Get In Touch</h2>
 
