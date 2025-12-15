@@ -326,13 +326,16 @@ function toggleProfiles() {
             buttonIcon.classList.remove('rotate-180');
 
             setTimeout(() => {
-                overlay.classList.remove('hidden');
-                // *** SCROLL CHANGE: Scroll to the 'about' section now ***
-                const profilesSection = document.getElementById('about'); 
-                if (profilesSection) {
-                    profilesSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 500);
+            overlay.classList.remove('hidden');
+            // *** FIX: Scroll to the Competitive Profiles heading instead of the whole About section ***
+            const profilesHeading = document.getElementById('competitiveProfilesHeading'); 
+            if (profilesHeading) {
+                profilesHeading.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Fallback to the top of the About section if the specific ID is missing
+                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 500);
         });
     }
 }
