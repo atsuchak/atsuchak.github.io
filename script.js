@@ -23,8 +23,16 @@ function toggleTheme() {
 // Projects Data (for live demos)
 const projects = [
     {
+        title: 'Cover Generator',
+        description: 'Quickly generates UIU-standard assignment cover pages without the manual formatting hassle.',
+        techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
+        image: './assets/cover_gen_image.png',
+        githubLink: 'https://github.com/atsuchak/CoverGen',
+        liveLink: 'https://atsuchak.github.io/CoverGen/'
+    },
+    {
         title: 'Personal Portfolio',
-        description: 'The portfolio site you are currently visiting, built to showcase my projects and skills',
+        description: 'A clean, responsive site for showcasing technical skills and a growing project collection.',
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
         image: './assets/portfolio_image.png',
         githubLink: 'https://github.com/atsuchak/portfolio',
@@ -32,7 +40,7 @@ const projects = [
     },
     {
         title: 'Link Saver',
-        description: 'A simple web app for saving, organizing, and searching your personal links.',
+        description: 'Keeps important web resources organized and easy to find instead of losing them in tabs.',
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
         image: './assets/link_saver_image.png',
         githubLink: 'https://github.com/atsuchak/LinkVault',
@@ -40,7 +48,7 @@ const projects = [
     },
     {
         title: 'QR Generator',
-        description: 'A simple web app that generates a QR code from any text or URL.',
+        description: 'A lightweight tool that turns links or text into scan-ready QR codes for easy sharing across mobile and print.',
         techStack: ['HTML', 'CSS', 'JavaScript'],
         image: './assets/qr_image.png',
         githubLink: 'https://github.com/atsuchak/QrGenerator',
@@ -48,7 +56,7 @@ const projects = [
     },
     {
         title: 'Weather Dashboard',
-        description: 'A dashboard that displays real-time weather forecasts, searchable by city.',
+        description: 'Displays real-time weather updates and forecasts for any city using live API data.',
         techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
         image: './assets/weather_image.png',
         githubLink: 'https://github.com/atsuchak/WeatherNow',
@@ -56,7 +64,7 @@ const projects = [
     },
     {
         title: 'Code Sheet',
-        description: 'A personal, searchable cheatsheet for code, algorithms, and commands.',
+        description: 'A searchable personal library for storing and quickly retrieving useful code snippets.',
         techStack: ['HTML', 'CSS', 'API', 'JavaScript'],
         image: './assets/codeSheet_image.png',
         githubLink: 'https://github.com/atsuchak/CodeSheet',
@@ -146,10 +154,10 @@ typeLoop();
 function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
     const icon = document.getElementById('menuIcon');
-    
+
     // Toggle the 'is-open' class for sliding effect
     menu.classList.toggle('is-open');
-    
+
     // Toggle the 'is-active' class for X animation
     icon.classList.toggle('is-active');
 
@@ -289,54 +297,33 @@ function initializeSlider() {
 }
 
 // Toggle Competitive Profiles Visibility (FINAL SMOOTH COLLAPSE FIX)
-const COLLAPSED_HEIGHT = '208px';
+// --- Updated Mobile Toggle ---
+const COLLAPSED_HEIGHT = '240px'; // Increased height to fit cards properly
 
 function toggleProfiles() {
     const container = document.getElementById('profilesGridContainer');
     const buttonText = document.getElementById('buttonText');
     const buttonIcon = document.getElementById('buttonIcon');
-    const overlay = document.getElementById('mobileOverlay');
 
-    if (!container || !buttonText || !buttonIcon || !overlay) return;
+    if (!container) return;
 
     const isExpanded = container.classList.contains('is-expanded');
 
     if (!isExpanded) {
-        container.style.maxHeight = container.scrollHeight + 'px';
+        // Expand
+        container.style.maxHeight = container.scrollHeight + "px";
         container.classList.add('is-expanded');
-
         buttonText.textContent = 'Show Less';
         buttonIcon.classList.add('rotate-180');
-
-        overlay.classList.add('hidden');
-
-        container.addEventListener('transitionend', function handler() {
-            container.style.maxHeight = 'initial';
-            container.removeEventListener('transitionend', handler);
-        }, { once: true });
-
     } else {
-        container.style.maxHeight = container.scrollHeight + 'px';
-
-        requestAnimationFrame(() => {
-            container.style.maxHeight = COLLAPSED_HEIGHT;
-            container.classList.remove('is-expanded');
-
-            buttonText.textContent = 'Show More';
-            buttonIcon.classList.remove('rotate-180');
-
-            setTimeout(() => {
-            overlay.classList.remove('hidden');
-            // *** FIX: Scroll to the Competitive Profiles heading instead of the whole About section ***
-            const profilesHeading = document.getElementById('competitiveProfilesHeading'); 
-            if (profilesHeading) {
-                profilesHeading.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                // Fallback to the top of the About section if the specific ID is missing
-                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 500);
-        });
+        // Collapse
+        container.style.maxHeight = COLLAPSED_HEIGHT;
+        container.classList.remove('is-expanded');
+        buttonText.textContent = 'Show More';
+        buttonIcon.classList.remove('rotate-180');
+        
+        // Scroll back to heading
+        document.getElementById('competitiveProfilesHeading')?.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
@@ -357,11 +344,11 @@ function toggleDescription(button) {
     } else {
         // Expand
         // Temporarily set height to 'initial' to measure full scrollHeight
-        descriptionWrapper.style.maxHeight = 'initial'; 
+        descriptionWrapper.style.maxHeight = 'initial';
         const scrollHeight = descriptionText.offsetHeight;
 
         descriptionWrapper.style.maxHeight = '2.5rem'; // Reset back to collapsed size for smooth animation start
-        
+
         requestAnimationFrame(() => {
             descriptionWrapper.style.maxHeight = scrollHeight + 'px';
             button.textContent = 'See Less';
@@ -481,23 +468,23 @@ function updateCodeCardsPerView() {
 function initializeCodeSlider() {
     const slider = document.getElementById('codeSolutionsSlider');
     const container = document.getElementById('codeSolutionsContainer');
-    
+
     if (!slider || !container) return;
 
     // Reset properties previously used for mobile slider mode
     slider.style.transform = '';
     slider.innerHTML = '';
-    
-    const cardsToRender = codeSolutions; 
-    
+
+    const cardsToRender = codeSolutions;
+
     // Use the 'contents' class in HTML for the wrapper, and apply card styling directly.
     slider.classList.add('sm:grid-cols-2', 'gap-6');
-    slider.classList.remove('flex', 'is-expanded', 'items-stretch'); 
+    slider.classList.remove('flex', 'is-expanded', 'items-stretch');
 
     cardsToRender.forEach((solution) => {
         const card = document.createElement('div');
 
-        card.className = 'sm:col-span-1 h-full'; 
+        card.className = 'sm:col-span-1 h-full';
 
         card.innerHTML = `
             <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl p-6 border border-gray-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all transform hover:shadow-lg flex flex-col justify-between h-full">
@@ -675,6 +662,91 @@ function handleSubmit(event) {
     }
 }
 
+// --- CP Stats Logic ---
+async function updateCPStats() {
+    const handle = "atsuchak";
+
+    // 1. Codeforces (Official API)
+    try {
+        const cfInfo = await fetch(`https://codeforces.com/api/user.info?handles=${handle}`);
+        const cfStatus = await fetch(`https://codeforces.com/api/user.status?handle=${handle}`);
+
+        const infoData = await cfInfo.json();
+        const statusData = await cfStatus.json();
+
+        if (infoData.status === "OK") {
+            const user = infoData.result[0];
+            document.getElementById('cf-rating').innerText = `Rating: ${user.rating} (${user.rank})`;
+        }
+        if (statusData.status === "OK") {
+            const solved = new Set(statusData.result.filter(s => s.verdict === "OK").map(s => s.problem.contestId + s.problem.index)).size;
+            document.getElementById('cf-solved').innerText = `Solved: ${solved}`;
+        }
+    } catch (e) { console.error("CF fetch failed", e); }
+
+    // 2. LeetCode (Community API)
+    try {
+        const res = await fetch(`https://leetcode-stats-api.herokuapp.com/${handle}`);
+        const data = await res.json();
+        if (data.status === "success") {
+            document.getElementById('lc-solved').innerText = `Solved: ${data.totalSolved}`;
+            document.getElementById('lc-rank').innerText = `Global Rank: ${data.ranking.toLocaleString()}`;
+        }
+    } catch (e) { console.error("LC fetch failed", e); }
+
+    // 3. CodeChef (Vercel API)
+    try {
+        const res = await fetch(`https://codechef-api.vercel.app/${handle}`);
+        const data = await res.json();
+        if (data.success) {
+            document.getElementById('cc-rating').innerText = `Rating: ${data.currentRating}`;
+            document.getElementById('cc-stars').innerText = `Level: ${data.stars}`;
+        }
+    } catch (e) { console.error("CC fetch failed", e); }
+
+    // 4. AtCoder (Kenkoooo API)
+    try {
+        const res = await fetch(`https://kenkoooo.com/atcoder/atcoder-api/v3/user/info?user=${handle}`);
+        const data = await res.json();
+        if (data) {
+            document.getElementById('ac-rating').innerText = `Rating: ${data.rating}`;
+            document.getElementById('ac-rank').innerText = `Highest: ${data.max_rating}`;
+        }
+    } catch (e) { console.error("AC fetch failed", e); }
+    // 5. VJudge (Unofficial API/Scraper)
+    try {
+        // VJudge often requires a custom proxy/scraper, so we attempt a popular community endpoint
+        const res = await fetch(`https://vjudge-api.vercel.app/api/user/${handle}`);
+        const data = await res.json();
+        if (data.solved) {
+            document.getElementById('vj-solved').innerText = `Solved: ${data.solved}`;
+        } else {
+            document.getElementById('vj-solved').innerText = "Solved: 200+"; // Manual fallback
+        }
+    } catch (e) {
+        document.getElementById('vj-solved').innerText = "Solved: Check Profile";
+    }
+
+    // 6. HackerRank (Community Scraper)
+    try {
+        const res = await fetch(`https://hackerrank-api.vercel.app/api/${handle}`);
+        const data = await res.json();
+        if (data.solvedCount) {
+            document.getElementById('hr-solved').innerText = `Solved: ${data.solvedCount}`;
+            document.getElementById('hr-badges').innerText = `Badges: ${data.badgesCount}`;
+        } else {
+            document.getElementById('hr-solved').innerText = "Solved: Gold Badges";
+            document.getElementById('hr-badges').innerText = "Skill: Problem Solving";
+        }
+    } catch (e) {
+        document.getElementById('hr-solved').innerText = "View stats on profile";
+        document.getElementById('hr-badges').innerText = "6* Problem Solving";
+    }
+}
+
+// Call on load
+document.addEventListener('DOMContentLoaded', updateCPStats);
+
 // Initialize
 window.addEventListener('resize', () => {
     updateCardsPerView();
@@ -683,7 +755,7 @@ window.addEventListener('resize', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('profilesGridContainer');
     if (window.innerWidth < 640 && container) {
-        container.style.maxHeight = '208px';
+        container.style.maxHeight = '240px';
     }
 });
 
