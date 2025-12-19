@@ -13,19 +13,19 @@
         content="Ahnaf Tajwar Suchak, Suchak, programmer, problem solver, software developer, coding, portfolio, tech projects">
     <meta name="author" content="Ahnaf Tajwar Suchak">
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://suchak.github.io/" />
+    <link rel="canonical" href="https://atsuchak.me/" />
 
     <meta property="og:title" content="Ahnaf Tajwar Suchak | Programmer & Problem Solver" />
     <meta property="og:description"
         content="Welcome to my portfolio — explore my work, coding journey, and tech passion." />
-    <meta property="og:image" content="https://atsuchak.github.io/assets/profile_image.jpg" />
-    <meta property="og:url" content="https://suchak.github.io/" />
+    <meta property="og:image" content="https://atsuchak.me/assets/profile_image.jpg" />
+    <meta property="og:url" content="https://atsuchak.me/" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ahnaf Tajwar Suchak | Programmer & Problem Solver" />
     <meta name="twitter:description" content="Discover my coding journey, projects, and achievements." />
-    <meta name="twitter:image" content="https://atsuchak.github.io/assets/profile_image.jpg" />
+    <meta name="twitter:image" content="https://atsuchak.me/assets/profile_image.jpg" />
 
     <link rel="icon" href="./assets/favicon_image.png" type="image/x-icon" />
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon_image.png">
@@ -37,7 +37,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Ahnaf Tajwar Suchak",
-    "url": "https://suchak.github.io/",
+    "url": "https://atsuchak.me/",
     "sameAs": [
       "https://github.com/atsuchak",
       "https://www.linkedin.com/in/atsuchak"
@@ -101,34 +101,25 @@
         }
 
         .animated-grid-bg {
-            /* Grid Pattern Definition (Light Mode) */
             background-image: linear-gradient(to right, rgba(100, 100, 100, 0.08) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(100, 100, 100, 0.08) 1px, transparent 1px);
             background-size: 50px 50px;
             background-color: #f3f4f6;
-            /* Base color for Light Mode (gray-100) */
             animation: move-grid 120s linear infinite;
         }
 
-        /* Dark mode adjustments for the grid */
         .dark .animated-grid-bg {
-            /* REVERTED OPACITY BACK TO SUBTLE 0.03 */
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-color: #0c0d12;
-            /* Base color for Dark Mode (zinc-950) */
-            /* NEW: Apply a very subtle blue glowing drop shadow */
             filter: drop-shadow(0 0 1px rgba(59, 130, 246, 0.5));
-            /* Blue-500 with high transparency */
         }
 
-        /* New: Background Fixed Effect (Crucial for parallax) */
         .bg-fixed-attachment {
             background-attachment: fixed !important;
             background-position: center !important;
         }
 
-        /* Ensure smooth scrolling across all browsers */
         html {
             scroll-behavior: smooth;
         }
