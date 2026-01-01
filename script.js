@@ -70,6 +70,22 @@ const projects = [
         githubLink: 'https://github.com/atsuchak/CodeSheet',
         liveLink: 'https://atsuchak.github.io/CodeSheet/'
     },
+    {
+        title: 'Pomodoro Timer',
+        description: 'A versatile productivity suite for managing focus sessions with a timer, stopwatch, and clock',
+        techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
+        image: './assets/timer_image.png',
+        githubLink: 'https://github.com/atsuchak/study-timer',
+        liveLink: 'https://atsuchak.github.io/study-timer/'
+    },
+    {
+        title: 'CP Tracker',
+        description: 'A streamlined dashboard for monitoring competitive programming progress and problem-solving statistics.',
+        techStack: ['HTML', 'CSS', 'API', 'JavaScript', 'Firebase'],
+        image: './assets/cp_tracker_image.png',
+        githubLink: 'https://github.com/atsuchak/cp-tracker',
+        liveLink: 'https://atsuchak.github.io/cp-tracker/'
+    },
 ];
 
 // Solutions (Non-Web Projects)
