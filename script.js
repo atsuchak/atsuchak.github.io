@@ -23,69 +23,61 @@ function toggleTheme() {
 // Projects Data (for live demos)
 const projects = [
     {
+        title: 'Code Progress',
+        description: 'A simple dashboard to track competitive programming progress and solved problems easily every day, helping you stay organized and focused on improvement.',
+        techStack: ['HTML', 'CSS', 'API', 'JavaScript', 'Firebase'],
+        image: './assets/code-progress.png',
+        githubLink: 'private',
+        liveLink: 'https://code-progress.vercel.app/'
+    },
+    {
+        title: 'Timer Lab',
+        description: 'A versatile productivity suite that helps you manage focus sessions with a timer, stopwatch, and clock, keeping your work organized and on track.',
+        techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
+        image: './assets/timer_image.png',
+        githubLink: 'https://github.com/atsuchak/timer-lab',
+        liveLink: 'https://timer-lab.vercel.app/'
+    },
+    {
         title: 'Cover Generator',
-        description: 'Quickly generates UIU-standard assignment cover pages without the manual formatting hassle.',
+        description: 'A handy tool that quickly generates UIU-standard assignment cover pages, saving time and effort by removing the need for manual formatting.',
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
-        image: './assets/cover_gen_image.png',
+        image: './assets/cover-generator.png',
         githubLink: 'https://github.com/atsuchak/CoverGen',
         liveLink: 'https://atsuchak.github.io/CoverGen/'
     },
     {
-        title: 'Personal Portfolio',
-        description: 'A clean, responsive site for showcasing technical skills and a growing project collection.',
+        title: 'Linked Draft',
+        description: 'A web app that organizes important web resources in one place, making them easy to find instead of getting lost among browser tabs.',
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
-        image: './assets/portfolio_image.png',
-        githubLink: 'https://github.com/atsuchak/portfolio',
-        liveLink: 'https://atsuchak.github.io/portfolio/'
+        image: './assets/link-draft.png',
+        githubLink: 'https://github.com/atsuchak/linked-draft',
+        liveLink: 'https://linked-draft.vercel.app/'
     },
     {
-        title: 'Link Saver',
-        description: 'Keeps important web resources organized and easy to find instead of losing them in tabs.',
-        techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
-        image: './assets/link_saver_image.png',
-        githubLink: 'https://github.com/atsuchak/LinkVault',
-        liveLink: 'https://atsuchak.github.io/LinkVault/'
+        title: 'Sky Thread',
+        description: 'A web app that provides real-time weather updates and forecasts for any city, using live API data to deliver accurate and up-to-date information.',
+        techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
+        image: './assets/weather_image.png',
+        githubLink: 'https://github.com/atsuchak/skythread',
+        liveLink: 'https://skythread.vercel.app/'
     },
     {
         title: 'QR Generator',
-        description: 'A lightweight tool that turns links or text into scan-ready QR codes for easy sharing across mobile and print.',
+        description: 'A simple and efficient tool for generating QR codes from any text or link, designed for quick sharing and easy scanning on mobile and printed materials.',
         techStack: ['HTML', 'CSS', 'JavaScript'],
         image: './assets/qr_image.png',
         githubLink: 'https://github.com/atsuchak/QrGenerator',
         liveLink: 'https://atsuchak.github.io/QrGenerator/'
     },
     {
-        title: 'Weather Dashboard',
-        description: 'Displays real-time weather updates and forecasts for any city using live API data.',
-        techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
-        image: './assets/weather_image.png',
-        githubLink: 'https://github.com/atsuchak/WeatherNow',
-        liveLink: 'https://atsuchak.github.io/WeatherNow/'
-    },
-    {
         title: 'Code Sheet',
-        description: 'A searchable personal library for storing and quickly retrieving useful code snippets.',
+        description: 'A web app that serves as a personal library for storing, organizing, and quickly retrieving useful code snippets, making coding references accessible in one place.',
         techStack: ['HTML', 'CSS', 'API', 'JavaScript'],
-        image: './assets/codeSheet_image.png',
+        image: './assets/code-sheet.png',
         githubLink: 'https://github.com/atsuchak/CodeSheet',
         liveLink: 'https://atsuchak.github.io/CodeSheet/'
-    },
-    {
-        title: 'Pomodoro Timer',
-        description: 'A versatile productivity suite for managing focus sessions with a timer, stopwatch, and clock',
-        techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
-        image: './assets/timer_image.png',
-        githubLink: 'https://github.com/atsuchak/study-timer',
-        liveLink: 'https://atsuchak.github.io/study-timer/'
-    },
-    {
-        title: 'CP Tracker',
-        description: 'A streamlined dashboard for monitoring competitive programming progress and problem-solving statistics.',
-        techStack: ['HTML', 'CSS', 'API', 'JavaScript', 'Firebase'],
-        image: './assets/cp_tracker_image.png',
-        githubLink: 'https://github.com/atsuchak/cp-tracker',
-        liveLink: 'https://atsuchak.github.io/cp-tracker/'
-    },
+    }
 ];
 
 // Solutions (Non-Web Projects)
@@ -288,11 +280,15 @@ function initializeSlider() {
                     
                     <div class="flex space-x-4 mt-auto"> 
                         ${project.githubLink ? `
-                        <a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors" title="View source on GitHub">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                            </svg>
-                        </a>
+                            <a ${project.githubLink === 'private' ? 
+                                'href="javascript:void(0)" onclick="showPrivateRepoPopup()"' : 
+                                `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"`} 
+                                class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors" 
+                                title="View source on GitHub">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                            </a>
                         ` : ''}
 
                         ${project.liveLink ? `
@@ -473,6 +469,86 @@ document.getElementById('projectsContainer').addEventListener('mouseenter', () =
 document.getElementById('projectsContainer').addEventListener('mouseleave', () => {
     isPaused = false;
 });
+
+// Function to render vertical project cards below the slider
+function renderVerticalProjects() {
+    const listContainer = document.getElementById('projectsListView');
+    if (!listContainer) return;
+    
+    listContainer.innerHTML = '';
+    const isMobile = window.innerWidth < 768; // Tailwind's md breakpoint
+    
+    projects.slice(0, 5).forEach((project, index) => {
+        const card = document.createElement('div');
+
+        if (isMobile) {
+            // MOBILE DESIGN: Mirroring the Slider Card layout
+            card.className = "bg-white dark:bg-zinc-900 rounded-xl overflow-hidden border border-gray-200 dark:border-zinc-700 transition-all hover:border-blue-500 flex flex-col mb-4";
+            card.innerHTML = `
+                <img src="${project.image}" alt="${project.title}" class="h-48 w-full object-cover">
+                <div class="p-6 flex flex-col flex-grow"> 
+                    <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">${project.title}</h3>
+                    <p class="text-zinc-600 dark:text-gray-400 mb-4 text-sm">${project.description}</p> 
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        ${project.techStack.map(tech => `<span class="px-3 py-1 bg-gray-100 text-zinc-700 dark:bg-zinc-800 dark:text-gray-300 rounded-lg text-xs border border-gray-200 dark:border-zinc-700">${tech}</span>`).join('')}
+                    </div>
+                    
+                    <div class="flex space-x-6 mt-auto"> 
+                        ${project.githubLink ? `
+                            <a ${project.githubLink === 'private' ? 
+                                'href="javascript:void(0)" onclick="showPrivateRepoPopup()"' : 
+                                `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"`} 
+                                class="cursor-pointer text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors" 
+                                title="View source on GitHub">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                            </a>
+                        ` : ''}
+
+                        ${project.liveLink ? `
+                        <a href="${project.liveLink}" target="_blank" class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            <span class="text-xs font-bold">Live</span>
+                        </a>` : ''}
+                    </div>
+                </div>`;
+        } else {
+            // PC DESIGN: Compact Horizontal layout
+            card.className = "group flex flex-row bg-white dark:bg-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-800 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm max-w-4xl mx-auto h-[140px]";
+            card.innerHTML = `
+                <div class="w-3/12 h-full overflow-hidden">
+                    <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-4 w-9/12 flex flex-col justify-center relative">
+                    <div class="absolute top-3 right-4 flex gap-2">
+                        ${project.githubLink ? `
+                            <a ${project.githubLink === 'private' ? 
+                                'href="javascript:void(0)" onclick="showPrivateRepoPopup()"' : 
+                                `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"`} 
+                                class="p-1.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white rounded-md border border-zinc-200 dark:border-zinc-700">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                            </a>
+                        ` : ''}
+                        ${project.liveLink ? `<a href="${project.liveLink}" target="_blank" class="p-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded-md shadow-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>` : ''}
+                    </div>
+                    <div class="pr-20">
+                        <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-0.5">${project.title}</h3>
+                        <p class="text-zinc-600 dark:text-gray-400 text-xs line-clamp-2 mb-2">${project.description}</p>
+                        <div class="flex flex-wrap gap-1">
+                            ${project.techStack.map(tech => `<span class="px-1.5 py-0.5 bg-gray-100 dark:bg-zinc-800 text-zinc-500 dark:text-gray-400 rounded text-[9px] uppercase font-medium border border-gray-200 dark:border-zinc-700">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>`;
+        }
+        listContainer.appendChild(card);
+    });
+}
+
+// Ensure the function runs when the page loads
+renderVerticalProjects();
 
 
 // Code Solutions Slider Logic
@@ -760,13 +836,27 @@ async function updateCPStats() {
     }
 }
 
+// Popup Control Functions
+function showPrivateRepoPopup() {
+    document.getElementById('privateRepoPopup').classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+function closePrivateRepoPopup() {
+    document.getElementById('privateRepoPopup').classList.remove('show');
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+}
+
+
+
 // Call on load
 document.addEventListener('DOMContentLoaded', updateCPStats);
 
 // Initialize
 window.addEventListener('resize', () => {
     updateCardsPerView();
-    updateCodeCardsPerView(); // Keep this for responsive rendering between slider/grid
+    updateCodeCardsPerView(); 
+    renderVerticalProjects();
 });
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('profilesGridContainer');
