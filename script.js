@@ -39,12 +39,12 @@ const projects = [
         liveLink: 'https://timer-lab.vercel.app/'
     },
     {
-        title: 'Cover Generator',
+        title: 'Assignment Cover Page',
         description: 'A handy tool that quickly generates UIU-standard assignment cover pages, saving time and effort by removing the need for manual formatting.',
         techStack: ['HTML', 'Tailwind CSS', 'JavaScript'],
         image: './assets/cover-generator.png',
-        githubLink: 'https://github.com/atsuchak/CoverGen',
-        liveLink: 'https://atsuchak.github.io/CoverGen/'
+        githubLink: 'https://github.com/atsuchak/uiu-assignment-cover-page-generator',
+        liveLink: 'https://uiu-assignment-cover.vercel.app/'
     },
     {
         title: 'Linked Draft',
