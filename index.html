@@ -188,6 +188,20 @@
             box-shadow: -4px 0 10px rgba(255, 255, 255, 0.05);
         }
 
+        /* Custom scrollbar for the GitHub chart on mobile */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+
         /* Icon X animation (KEEP AS IS) */
         #menuIcon.is-active .line:nth-child(1) {
             transform: translateY(6px) rotate(45deg);
@@ -813,13 +827,12 @@
     </section>
 
     <!-- projects -->
-    <section id="projects" class="min-h-screen py-20 px-4 transition-colors duration-200 
-               animated-grid-bg bg-fixed-attachment">
+    <section id="projects" class="min-h-screen py-20 px-3 sm:px-4 transition-colors duration-200 animated-grid-bg bg-fixed-attachment">
         <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">My Work</h2>
 
             <div
-                class="bg-white dark:bg-zinc-800 rounded-xl p-8 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all mb-12">
+                class="bg-white dark:bg-zinc-800 rounded-xl p-4 sm:p-8 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all mb-12">
                 <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
                     <span class="w-1 h-6 bg-blue-500 mr-3 rounded"></span>
                     Web & Application Projects
@@ -849,7 +862,7 @@
 
                 <div id="dotIndicators" class="flex justify-center gap-2 mt-8">
                 </div>
-                <div id="projectsListView" class="mt-16 space-y-4 max-w-5xl mx-auto"></div>
+
 
                 <div class="flex justify-center mt-12">
                     <a target="_blank" href="https://github.com/atsuchak">
@@ -867,8 +880,10 @@
                 </div>
             </div>
 
+            <div id="projectsListView" class="mt-16 mb-24 space-y-4 max-w-5xl mx-auto"></div>
+
             <div
-                class="bg-white dark:bg-zinc-800 rounded-xl p-8 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all shadow-inner">
+                class="bg-white dark:bg-zinc-800 rounded-xl p-4 sm:p-8 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all shadow-inner">
                 <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-6 flex items-center">
                     <span class="w-1 h-6 bg-blue-500 mr-3 rounded"></span>
                     Logic & Foundational Code
@@ -902,19 +917,21 @@
                         Coding Activity
                     </h3>
 
-                    <div class="w-full max-w-4xl p-2 bg-transparent">
-                        <img src="https://ghchart.rshah.org/3b82f6/atsuchak" alt="Github activity"
-                            class="w-full opacity-90 hover:opacity-100 transition-opacity filter dark:contrast-125 dark:brightness-110" />
+                    <div class="w-full max-w-4xl p-2 bg-transparent overflow-x-auto custom-scrollbar">
+                        <div class="min-w-[600px] sm:min-w-full">
+                            <img src="https://ghchart.rshah.org/3b82f6/atsuchak" alt="Github activity"
+                                class="w-full opacity-90 hover:opacity-100 transition-opacity filter dark:contrast-125 dark:brightness-110" />
 
-                        <div
-                            class="flex justify-between items-center mt-6 text-[10px] text-zinc-400 dark:text-zinc-600 tracking-widest uppercase">
-                            <span>Sparse</span>
-                            <div class="flex gap-1">
-                                <div class="w-2.5 h-2.5 rounded-sm bg-gray-200 dark:bg-zinc-800"></div>
-                                <div class="w-2.5 h-2.5 rounded-sm bg-blue-300 dark:bg-blue-900/40"></div>
-                                <div class="w-2.5 h-2.5 rounded-sm bg-blue-500"></div>
+                            <div
+                                class="flex justify-between items-center mt-6 text-[10px] text-zinc-400 dark:text-zinc-600 tracking-widest uppercase">
+                                <span>Sparse</span>
+                                <div class="flex gap-1">
+                                    <div class="w-2.5 h-2.5 rounded-sm bg-gray-200 dark:bg-zinc-800"></div>
+                                    <div class="w-2.5 h-2.5 rounded-sm bg-blue-300 dark:bg-blue-900/40"></div>
+                                    <div class="w-2.5 h-2.5 rounded-sm bg-blue-500"></div>
+                                </div>
+                                <span>Dense</span>
                             </div>
-                            <span>Dense</span>
                         </div>
                     </div>
 

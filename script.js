@@ -211,6 +211,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
     }
 });
 
+// Update the observer settings to be more forgiving on mobile
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -218,7 +219,10 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.classList.add('opacity-100', 'translate-y-0');
         }
     });
-}, { threshold: 0.2 });
+}, {
+    threshold: 0.05, // Reduced from 0.2 to 0.05 for small screens
+    rootMargin: '50px' // Start animating before the user even reaches the section
+});
 
 document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
@@ -280,9 +284,9 @@ function initializeSlider() {
                     
                     <div class="flex space-x-4 mt-auto"> 
                         ${project.githubLink ? `
-                            <a ${project.githubLink === 'private' ? 
-                                'href="javascript:void(0)" onclick="showPrivateRepoPopup()"' : 
-                                `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"`} 
+                            <a ${project.githubLink === 'private' ?
+                    'href="javascript:void(0)" onclick="showPrivateRepoPopup()"' :
+                    `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"`} 
                                 class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors" 
                                 title="View source on GitHub">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -333,7 +337,7 @@ function toggleProfiles() {
         container.classList.remove('is-expanded');
         buttonText.textContent = 'Show More';
         buttonIcon.classList.remove('rotate-180');
-        
+
         // Scroll back to heading
         document.getElementById('competitiveProfilesHeading')?.scrollIntoView({ behavior: 'smooth' });
     }
@@ -474,75 +478,35 @@ document.getElementById('projectsContainer').addEventListener('mouseleave', () =
 function renderVerticalProjects() {
     const listContainer = document.getElementById('projectsListView');
     if (!listContainer) return;
-    
+
     listContainer.innerHTML = '';
-    const isMobile = window.innerWidth < 768; // Tailwind's md breakpoint
-    
-    projects.slice(0, 5).forEach((project, index) => {
+
+    projects.slice(0, 5).forEach((project) => {
         const card = document.createElement('div');
 
-        if (isMobile) {
-            // MOBILE DESIGN: Mirroring the Slider Card layout
-            card.className = "bg-white dark:bg-zinc-900 rounded-xl overflow-hidden border border-gray-200 dark:border-zinc-700 transition-all hover:border-blue-500 flex flex-col mb-4";
-            card.innerHTML = `
-                <img src="${project.image}" alt="${project.title}" class="h-48 w-full object-cover">
-                <div class="p-6 flex flex-col flex-grow"> 
-                    <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3">${project.title}</h3>
-                    <p class="text-zinc-600 dark:text-gray-400 mb-4 text-sm">${project.description}</p> 
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        ${project.techStack.map(tech => `<span class="px-3 py-1 bg-gray-100 text-zinc-700 dark:bg-zinc-800 dark:text-gray-300 rounded-lg text-xs border border-gray-200 dark:border-zinc-700">${tech}</span>`).join('')}
-                    </div>
-                    
-                    <div class="flex space-x-6 mt-auto"> 
-                        ${project.githubLink ? `
-                            <a ${project.githubLink === 'private' ? 
-                                'href="javascript:void(0)" onclick="showPrivateRepoPopup()"' : 
-                                `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"`} 
-                                class="cursor-pointer text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors" 
-                                title="View source on GitHub">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                                </svg>
-                            </a>
-                        ` : ''}
+        // Added 'w-full' and 'box-border' to prevent the card from expanding past 313px
+        // Changed mb-4 to mb-8 for more margin between items
+        card.className = "group bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 overflow-hidden hover:border-blue-500/50 transition-all duration-300 shadow-sm p-4 mb-8 border-l-4 border-l-blue-500 w-[calc(100%-8px)] mx-auto box-border";
 
-                        ${project.liveLink ? `
-                        <a href="${project.liveLink}" target="_blank" class="text-zinc-500 hover:text-zinc-900 dark:text-gray-400 dark:hover:text-white transition-colors flex items-center gap-2">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            <span class="text-xs font-bold">Live</span>
-                        </a>` : ''}
-                    </div>
-                </div>`;
-        } else {
-            // PC DESIGN: Compact Horizontal layout
-            card.className = "group flex flex-row bg-white dark:bg-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-800 overflow-hidden hover:border-blue-500 transition-all duration-300 shadow-sm max-w-4xl mx-auto h-[140px]";
-            card.innerHTML = `
-                <div class="w-3/12 h-full overflow-hidden">
-                    <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                </div>
-                <div class="p-4 w-9/12 flex flex-col justify-center relative">
-                    <div class="absolute top-3 right-4 flex gap-2">
-                        ${project.githubLink ? `
-                            <a ${project.githubLink === 'private' ? 
-                                'href="javascript:void(0)" onclick="showPrivateRepoPopup()"' : 
-                                `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"`} 
-                                class="p-1.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white rounded-md border border-zinc-200 dark:border-zinc-700">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                                </svg>
-                            </a>
-                        ` : ''}
-                        ${project.liveLink ? `<a href="${project.liveLink}" target="_blank" class="p-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded-md shadow-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>` : ''}
-                    </div>
-                    <div class="pr-20">
-                        <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-0.5">${project.title}</h3>
-                        <p class="text-zinc-600 dark:text-gray-400 text-xs line-clamp-2 mb-2">${project.description}</p>
-                        <div class="flex flex-wrap gap-1">
-                            ${project.techStack.map(tech => `<span class="px-1.5 py-0.5 bg-gray-100 dark:bg-zinc-800 text-zinc-500 dark:text-gray-400 rounded text-[9px] uppercase font-medium border border-gray-200 dark:border-zinc-700">${tech}</span>`).join('')}
+        card.innerHTML = `
+            <div class="flex flex-col gap-3">
+                <div class="w-full">
+                    <div class="flex justify-between items-start mb-1 gap-2">
+                        <h3 class="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white leading-tight">${project.title}</h3>
+                        <div class="flex gap-2 flex-shrink-0">
+                             ${project.githubLink !== 'private' ?
+                `<a href="${project.githubLink}" target="_blank" class="text-zinc-400 hover:text-blue-500"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>` : ''}
+                             ${project.liveLink ?
+                `<a href="${project.liveLink}" target="_blank" class="text-zinc-400 hover:text-blue-500"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>` : ''}
                         </div>
                     </div>
-                </div>`;
-        }
+                    <p class="text-zinc-600 dark:text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed line-clamp-3">${project.description}</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${project.techStack.slice(0, 4).map(tech => `<span class="px-1.5 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded text-[9px] uppercase font-bold border border-zinc-200 dark:border-zinc-700">${tech}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
         listContainer.appendChild(card);
     });
 }
@@ -579,7 +543,7 @@ function initializeCodeSlider() {
         card.className = 'sm:col-span-1 h-full';
 
         card.innerHTML = `
-            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl p-6 border border-gray-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all transform hover:shadow-lg flex flex-col justify-between h-full">
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl p-4 sm:p-6 border border-gray-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all transform hover:shadow-lg flex flex-col justify-between h-full">
                 
                 <div class="flex flex-col flex-grow code-card-body"> 
                     <h4 class="text-xl font-semibold text-zinc-900 dark:text-white mb-2">${solution.title}</h4>
@@ -848,24 +812,39 @@ function closePrivateRepoPopup() {
 }
 
 
-
-// Call on load
-document.addEventListener('DOMContentLoaded', updateCPStats);
-
-// Initialize
-window.addEventListener('resize', () => {
-    updateCardsPerView();
-    updateCodeCardsPerView(); 
+// --- Cleaned up Initialization Section ---
+function initApp() {
+    updateCPStats();
     renderVerticalProjects();
-});
-document.addEventListener('DOMContentLoaded', () => {
+    updateCardsPerView();
+    updateCodeCardsPerView();
+    startAutoSlide();
+
     const container = document.getElementById('profilesGridContainer');
     if (window.innerWidth < 640 && container) {
         container.style.maxHeight = '240px';
     }
+}
+
+window.onload = () => {
+    // A tiny 100ms delay gives the mobile browser time to settle the CSS layout
+    setTimeout(initApp, 100);
+};
+
+// Run everything once the DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
+
+// Handle Resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        updateCardsPerView();
+        updateCodeCardsPerView();
+        renderVerticalProjects();
+    }, 250); // Debounce to prevent performance lag on mobile
 });
-
-updateCardsPerView();
-updateCodeCardsPerView();
-
-startAutoSlide();
