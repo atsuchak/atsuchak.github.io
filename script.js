@@ -55,6 +55,14 @@ const projects = [
         liveLink: 'https://linked-draft.vercel.app/'
     },
     {
+        title: 'Tasked ToDo',
+        description: 'A sleek and efficient to-do list app featuring visual progress tracking, organized task management, and daily session history for sustained productivity',
+        techStack: ['HTML', 'Tailwind CSS', 'JavaScript', 'API'],
+        image: './assets/todo_image.png',
+        githubLink: 'https://github.com/atsuchak/ToDo-list-app',
+        liveLink: 'https://tasked-todo.vercel.app/'
+    },
+    {
         title: 'Sky Thread',
         description: 'A web app that provides real-time weather updates and forecasts for any city, using live API data to deliver accurate and up-to-date information.',
         techStack: ['HTML', 'JavaScript', 'API', 'CSS'],
