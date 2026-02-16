@@ -566,9 +566,9 @@ function renderProjectLibrary() {
 
 // Typing Animation
 const sentences = [
-    'A problem solver driven by curiosity and creativity',
-    'A learner exploring new technologies',
-    'Passionate about learning and solving problems'
+    'Exploring software development concepts',
+    'Solving problems with competitive programming',
+    'Building and testing software solutions'
 ];
 let sentenceIndex = 0;
 let charIndex = 0;
