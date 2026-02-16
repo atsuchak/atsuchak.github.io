@@ -1,10 +1,6 @@
 # Ahnaf Tajwar Suchak 🚀
 
 <p align="center">
-  <img src="https://atsuchak.me/assets/profile_image.jpg" alt="Profile Image" width="200" style="border-radius: 50%"/>
-</p>
-
-<p align="center">
   <strong>CSE Student | Programmer | Problem Solver</strong>
 </p>
 
