@@ -280,8 +280,8 @@
 <body class="bg-gray-100 text-zinc-700 dark:bg-zinc-950 dark:text-gray-300 transition-colors duration-200">
 
     <nav
-        class="fixed top-0 left-0 right-0 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-sm z-50 border-b border-gray-200 dark:border-zinc-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl bg-white/30 dark:bg-zinc-900/40 backdrop-blur-md z-50 border border-white/50 dark:border-zinc-700/50 rounded-2xl shadow-lg transition-all duration-300">
+        <div class="px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <a href="#home" onclick="scrollToSection('home')" class="transition-opacity hover:opacity-80">
                     <img src="./assets/navLogo.png" alt="Ahnaf Tajwar Suchak Logo" class="h-10 w-auto"></a>
@@ -429,85 +429,197 @@
         <div class="glow-blob glow-blob-2 bottom-[10%] right-[-10%]"></div>
         <div class="glow-blob glow-blob-3 top-[40%] left-[60%]"></div>
 
-        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <h1
-                class="text-4xl sm:text-7xl lg:text-8xl font-bold text-zinc-900 dark:text-white mb-4 sm:mb-8 tracking-tight leading-[1.1]">
-                <span class="whitespace-nowrap">Ahnaf Tajwar</span><br> <span class="text-gradient">Suchak</span>
-            </h1>
+        <div class="w-full max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-stretch min-h-[calc(100vh-6rem)]">
+            
+            <!-- Background "Welcome" Text (Full Width) -->
+            <div class="absolute bottom-4 left-0 w-full pointer-events-none select-none z-0 hidden lg:flex justify-end overflow-hidden">
+                <h2 class="text-[10rem] xl:text-[14rem] font-bold text-zinc-900/5 dark:text-white/5 leading-none tracking-tighter whitespace-nowrap pr-12 xl:pr-24">Welcome</h2>
+            </div>
 
-            <p class="text-xl sm:text-2xl text-zinc-600 dark:text-zinc-400 mb-12 h-8 font-medium">
-                <span id="typingText"></span><span class="animate-pulse text-blue-500">|</span>
-            </p>
-
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a target="_blank" href="./assets/Suchak's_Resume_2026.pdf" class="relative group">
-                    <div
-                        class="absolute -inset-0.5 bg-blue-500 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300">
+            <!-- Left Side -->
+            <div class="flex-1 flex w-full relative z-20">
+                <!-- Far Left Vertical Text and Socials -->
+                <div class="hidden md:flex flex-col justify-between absolute left-0 top-0 bottom-0 py-12 w-12 items-center border-r border-zinc-200 dark:border-zinc-800/50 z-30">
+                    <div class="flex-1 flex items-start mt-24">
+                        <span class="transform -rotate-90 whitespace-nowrap text-zinc-400 dark:text-zinc-500 tracking-[0.25em] text-[10px] uppercase font-bold">Programmer / Problem Solver</span>
                     </div>
-                    <button
-                        class="relative bg-zinc-900 dark:bg-white text-white dark:text-black px-10 py-4 rounded-xl transition-all transform hover:scale-105 flex items-center gap-3 font-semibold shadow-xl">
-                        Download Resume
-                        <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-y-1" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m-4-4l4 4 4-4"></path>
-                        </svg>
-                    </button>
-                </a>
+                    <div class="flex flex-col gap-8 items-center mb-10">
+                        <a href="mailto:ahnaftajwarsuchak@gmail.com" class="text-zinc-400 hover:text-blue-500 transition-colors">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/atsuchak" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/atsuchak/" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
 
-                <!-- Social Dock -->
-                <div
-                    class="flex items-center gap-2 p-1.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl">
-                    <a target="_blank" href="https://github.com/atsuchak"
-                        class="p-3 text-zinc-500 hover:text-blue-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-all"
-                        title="GitHub">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                            </path>
-                        </svg>
-                    </a>
-                    <a target="_blank" href="https://www.linkedin.com/in/atsuchak/"
-                        class="p-3 text-zinc-500 hover:text-blue-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-all"
-                        title="LinkedIn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                            </path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
-                    <a target="_blank" href="mailto:ahnaftajwarsuchak@gmail.com"
-                        class="p-3 text-zinc-500 hover:text-blue-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-all"
-                        title="Email">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                            </path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </a>
+                <!-- Main Content -->
+                <div class="md:pl-28 px-4 lg:pr-8 flex flex-col justify-center items-center text-center md:items-start md:text-left w-full h-full relative z-10 py-16 lg:py-0">
+                    <div class="flex items-center justify-center md:justify-start mb-6 relative w-full">
+                        <div class="absolute -left-12 top-1/2 -translate-y-1/2 transform -rotate-90 hidden sm:block">
+                            <span class="text-[10px] font-bold tracking-[0.3em] text-zinc-400 dark:text-zinc-500 uppercase">Student</span>
+                        </div>
+                        <h1 class="text-5xl sm:text-7xl lg:text-[5rem] xl:text-[6rem] font-bold text-zinc-900 dark:text-white tracking-tight leading-[1.05] z-10 text-center md:text-left">
+                            <span class="whitespace-nowrap">Ahnaf Tajwar</span><br>
+                            <span class="text-zinc-900 dark:text-white">Suchak</span>
+                        </h1>
+                    </div>
+                    
+                    <p class="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-lg leading-relaxed z-10 mt-2 font-medium min-h-[80px] sm:min-h-[60px]">
+                        A CSE student passionate about <span id="typingText" class="text-blue-600 dark:text-blue-400 font-semibold"></span><span class="animate-pulse text-zinc-900 dark:text-white font-bold ml-0.5">|</span>
+                    </p>
+
+                    <div class="mt-12 z-10 relative flex flex-col items-center md:items-start w-full">
+                        <a target="_blank" href="./assets/Suchak's_Resume_2026.pdf" class="group flex items-center relative inline-flex">
+                            <div class="hidden sm:block absolute -left-16 w-12 h-[2px] bg-blue-500/50 group-hover:bg-blue-500 transition-colors duration-300"></div>
+                            <div class="flex items-center justify-center border-2 border-zinc-900 dark:border-white text-zinc-900 dark:text-white px-8 py-4 transition-all duration-300 group-hover:bg-zinc-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black font-bold uppercase tracking-[0.15em] text-xs">
+                                Download Resume
+                            </div>
+                        </a>
+
+                        <!-- Social Icons for Mobile -->
+                        <div class="flex md:hidden gap-8 mt-8">
+                            <a href="mailto:ahnaftajwarsuchak@gmail.com" class="text-zinc-400 hover:text-blue-500 transition-colors">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </a>
+                            <a href="https://github.com/atsuchak" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/atsuchak/" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Right Side Image Container -->
+            <div class="lg:w-1/2 absolute inset-0 lg:relative lg:inset-auto pointer-events-none lg:pointer-events-auto flex items-center justify-center lg:justify-end overflow-hidden z-0 lg:z-10 h-full">
+
+                <!-- Profile ASCII Art -->
+                <div class="relative z-10 w-full h-full flex justify-center lg:justify-end items-center max-w-lg lg:max-w-none mx-auto lg:ml-auto lg:mx-0 overflow-hidden [mask-image:radial-gradient(circle_60vw_at_center,black_20%,transparent_100%)] lg:[mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
+                    <pre class="text-[5px] sm:text-[6px] md:text-[7px] lg:text-[8px] xl:text-[9px] leading-[1] font-mono text-zinc-900 dark:text-zinc-300 opacity-40 dark:opacity-30 lg:opacity-70 lg:dark:opacity-20 select-none cursor-default whitespace-pre text-center lg:text-right drop-shadow-md absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:transform-none">
+XXXxxXxx+;++;;;;;;+xx++;;;++++;;;++;:::;+++;;;;;+xxxx+++x+;;;+xXXXXXXXXXXXXXXXXXXXXXXXXXx+;::::::::::::::::xXXXXXXXXXXXXX
+XXXXXXXXXXXx++++++xXXXXx++xxx+;;;++++;;;xXx+;++;+xXXXXXXXxx+++XXXXXXXXXXXXXXXXXXXXXXXXXXx;:::::::::::::::::;XXXXXXXXXXXXX
+XXXXXXXXXXXxxXXx+xXXXXXXx+;+x+++xx+x+;++;+x++Xx++xXXXXXXXXXxXXXXXXXXXXXXXXXXXXXXXXXXXXXXx;;;;:::::::::::::::;xXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXx+++xxxXXXXXxxx++xx;+xxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+;;;:::::::::::::::::;xXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXx++xXXXXXXXXXXXxxx;;;xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+;;;;::;;;:::::::::::::+XXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXxXXXXXXXXXXXXXXXXX+;+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+::::;;+;;;:::::::::::;xXXXXXXXXX
+XXXXXXXXXXXXXXXX+++++xXXXXXXXXXXXXXXXXXXXXXx;;+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+:::::;;;;;::;::::::::;;xXXXXXXXXX
+XXXXXXXXXXXXXXXXx+++++++xxxxxxxXXxxxxxXXXXXx;;xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+;:;;;;;::;;;;::::::::::+XXXXXXXXX
+XXXXXXXXXXXXXXxxxxxxx+++;;;;+++++xx+++xXXXXXXx;+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+;;;+;;++;;::::;;:::::::+XXXXXXXXX
+XXXXXXXXXXXXXXX++++++++++;;;++;;;++++xXXXXXXXx++xXXxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx++xxx+;;:::::::::::::::+XXXXXXXXX
+XXxxXXXXXXXXXXXxx++;;+++;;;;;;;;;;;;++xXXXXx+++++x++xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+;:::::::::::;;;+XXXXXXXXX
+XXx+;;;+xxXXXXXXXXx+;;;;;;;;;;;;;;;;;;+++++++x+;;++xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+:::::::::::::;;;+XXXXXXXXX
+XXXx++;;;;+x+++++x++xx+++;;;;;;;;;;;;;;;;;;;+++;;+xxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx;:::::::::::::::;+XXXXXXXXX
+xxx+++xx+;;;;+++++;;;+;;;;;;;;;;;;;;;;;;;;;;;;;;;++++xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+++;::;:::::::::::;XXXXXXXXX
+xxx+++++++++;+;;;+++;;;;;;;;;;;;;;;;;;+++;;;;;;;;;xxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+;;;:::;::::::::::;XXXXXXXXX
+;;;+++;;;;++++;;;;;++++;;;;;;;;++++++++;;;;;+++;;+xxxxxxXXxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx++;:;:::::::::;XXXXXXXXX
+;;;;;;;;;;;+++;;;+xx+++++++;;;+++++++;;++xxx+xx+;;;;;;:;;;;;;+xxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx++;;;:::::::XXXXXXXXX
+++++;;;;;;:::;;;;;;;;+++;;;;;;;;++++++xxx++;;;;;;:::::;;::::;+xxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx+;::::::XXXXXXXXX
+xxxxx++++;;;++;:::::;;;++++;;;;;;;;;++;;;;;;;;;::;;;::::::::::;;+xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx+;;::;;::XXXXXXXXX
++++++++++++;;;;;;;;;;;;;;;;;;;;;;::;++++++++;:::::;+;::::::::::::;xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxx+;++;;::;XXXXXXXXX
+++++++++++xx++++++;;;;;:::::::;;;++++xx+++;:::::;;;;;;:;;++;;:::::;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxxx+;;;;;XXXXXXXXX
+XXxXXXxxxxxxxxxxx++;++;;;;;;;;;++;;;;;;;;;::::::;++xXxXXXXXXx+:::::+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxXXXxx+++++XXXXXXXXX
+XXxxx++++++++;;;+++++xx+++++;;;+;;;;;::::::::::+XXX$$$$$$$$XXXx;:::XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxxXXXXXXXXX
+xxxxxx+x+x+++++xxxxxxXXxxx++;;;;;+;;:::::;::;;+X$$$$$$$$$$$XXXX;::+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXxx+++++++++++++++++;;;;;;;;;;;;;;++++;;;+X$$$$$$$$$$$$$$XXx;:xXXXXXXxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXxx++;;;++++;;;;;;;;;;:;+++;;;;;;++;XXXXX$XXXX$$XXXXXXx+;XXXXxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX$$XxxXXXXXXXXX
+xxxxxxx+;;;;;+;;;;+++;;;;;;;;;;;;+;;;;;;;+XXxX$XXXXxXXX$XXXXxxxXx+$XXXXXXxXXXXXXXXXXXXXXXXXXxXXXXxxxxx++++xxx+++XXXXXXXXX
+xxxxxxxxx+++;;++++xxxx++++++++++xx+++;;;;+X$XX$$$XXXX$$$$XXXXXXXXx$XxxxxxxxxxxxxxXXXXXXXXXXXXx++xxxxxxxxxx+++++xXXXXXXXXX
+XXXxxxxxxxxxxxxxxxxxxxxxxxx+++++xXx++++;;;X$XXX$$$$$$$$$$XX$$$XXxx$xx++++++++++xxxXXXxxxxxxxxx+++xxxxxxxxxxxxxxxXXXXXXXXX
+xxXXXXXXXXxxxxxxxxxxxxxxxxxx++;++++++++;;;X$XXX$$$$$$$XXXXX$$$$XxXx;;;+++;;;+++xxxx++++;;;;+++xxxxxxxxxxxxxxxxxXXXXXXXXXX
+XXXXXXXXXXxxx+xx++xxxxxxx+x+++++++++++++++;XXXXXX$$$$$$XXXXXXXXX+X+;;;;;;;;;;+;;;;;;;;;;;;;++++;+xxxxxxxx+xxxxxxXXXXXXXXX
+Xxx++xxxxxxxxx++xxx+xxxxxxx+;++++++++;;;++;::+XXXXXXXXXXXXXxXXXx++;;;;;;;::;;;;;;;;;++;;;;;;;;;;;;;;;xxxxxxxxxxxXXXXXXXXX
+xx++;;++xxxxxxxxxxxx++xxxx+;;;;xx+++++;;;;;:::XXXXXXXXXXXXXXXXX+::;;;+++;;;;;;;;;;;;;;;;;;;;;;;;+;;:;;+xxxxxxxxxXXXXXXXXX
+++++++++xxx+++++;;;;;;;;;;;;;++xx+;;+;;;;;;:::XXXXXXX$$$$$XXXx+:;+xX$$$$$X+;;;;;;;;;;;;;;::;;++;;;;;+++++;;+;;;+XXXXXXXXX
++++;;;;+++;;;;;;::;;;;;::;;;+++xx;:;;;;;;;;;+;XXXXXXXXXXXXX++;::+XXxX$$$$$XXx+:::;;;;;;;:;+xx;;:;;+xxxx+:::::::+XXXXXXXXX
++;;;;+xx+;::::;;;;;;;;;;;;;;;;+xX;:::;;;::;;++XXXXXxxxxx+++;;::::;;xXX$$$$$+xXX;;;;;;;;;+xx;;;;;;+++++;;:::::::+XXXXXXXXX
+;;+xx+;;;;;;:;;;;;;;;;;;;;;:::;+X+;:::::;+x++++xXX$$$XXXxx+;;::++;+++X$$$$$$$$$$XXXx;+xXx+;:;;+;:;;;;;;;:::::::xXXXXXXXXX
+xxx+;;;;::;;;;;;;;;;;;;;;++;;;;+x+:::;++++x++++xxxXXX$$XXX+;:;+++++;+x+xxX$$$$$$$$$$xx$$xxxxx;+xxxxxxxXXXxxxxxxXXXXXXXXXX
+++;;++;;;;+;;;;;;;;;;;;;;$$$X;++xx;;+x++++xx++xx+++x$$$$$+;;++++++;++x++++xxXX$$$$$$$$$$X$$X+;;x++xx+xxXXXXXXXXXXXXXXXXXX
+;;;+++;:::;;;;;;+xx;;+x+X$$$$xxxx+;+xx+++xxxxxxxx+++x$$$$x;+x++xx++++x++++x+++xX$$$$$$$$$x$XXXx+++x+++++xXXX$$$XXXXXXXXXX
+x+++++;:::;+xxxx$$$+;x$$$$$$$x++x+++xx+++xxxx+xxxx++xX$$+;xxx++xx++++++++xx+++++X$XX$$$$Xx$$X+X$$++++xxx++++xxxXXXXXXXXXX
+++;;;;;;:::;+++XX$$x+$$$$$$$x++xxxxxxx+++xxxxxxxxxx+++x;++xxx++xxx+++++++xxx+++x+xxxX$$$X$XXx;+xxxXX$$$$$$$$$$$$XXXXXXXXX
+Xx++;;;;;::;+;+XXX$x+$Xxx$$X+++xxxxxxx+++xxxxxxxxx+x+;;;++xxx++xxx++++++++xxx++x++x+X$$$$$$X;;+xXXXX$$$$$$$$$$$$XXXXXXXXX
+;x+;;;;;+x+xx+x$$$$$$$XXxXxxxxxxxxxxxxxxxxxxxxxxxxxxx+X+xxxxx++xxx++xx+;++xxx+x+x++x$$$$$$$$X;::X$XX$$$$$$$$$$$$XX$XXXXXX
+:+x;;;;;+XXXXX$$$$$$$$$$$xxx+xxxxxxxxxxxxxxxxxxxxxxxx++++xxxxxxxxxx++xx+;++xxxxxx+++X$$$$$$$X+++X$$$$$$$$$$$$$$$XXXXXXXXX
+:;x;;;;:+$$$X$$$$$$$$$$$X+xxxxxxxxxxxXxxxxxxxxxxxxxxxxx++xxxxxxxxx+++xx+++++xxx+xx++x$$$$$$$$$XX$$$$X$$$$$$$$$$$XXXXXXXXX
+:::::;;;x$$$X$$$XXXXXXXx+xx++xxxxxxxxXxxxxxXxxxxxXxxxxx+xxxxXxxxxxxxx+++++;;+++xxx++++xxXXXXXXxxxxxxxxxxxxxxx+xXXXXXXXXXX
++;+++++++xxx+xxxxxxxxxxx+xx+xxxxxxxxxxxxxxxxxxxxxxxxxxXxxxxXXxxxxxxxxx++++++;;xxxxx+++;+++++++++++++++++++;;;+xXXXXXXXXXX
+++++++++++++++++++++++++xx++xxx++xxxxxxxxxxXxxxxXxxxxxxx+xxxXxxxXxxxxxx+++++;;+xxxx+++++;;;;;;;;;;;;+;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;;;;;;++++;;;;+++x+xxxx;++Xxx+xxxxxxXxxxxxxxxxxxxxxxxXxxxXXXxxxx+++++;;+x++x++++;;;;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;;;;;;;;++;;;++++xx+xxx+++xxxxxxxxxxXxxxxxxxxxxxxxxxxXxxxxxxxxxx+++++;;++x+x+++x;;;;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;+++;;;;;;;;;++++x+++xx+;+xxx+xxxxxxxxxxxxxxxxxXx+xxxxxxxxxxxxxx+++++;;;+xxx+++x+;;;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;;;;;;;;;;;;+x+++x++++x;;;xxx++++xxxxxxxxxxxxxxxx+xxxxxxxxxxxxx++++++;;++++++++xx;;;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;;;;;;;;;;;;+x+;+xxxxx++;;+xx+++xxxxxxxxxxxxxxxxx++xxxxxxxxxxxx++++++;;+++++++xxx+;;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;;;;;;;;;;;;+xx++++xxxx+;;;+xx++x++xxxxxxxxxx+xxx+xxXXxxxxxxxxxx+++++;++++++++xxx+;;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;;;;;;;;;;;;+x++++;+xxx++;;+xx+++++xxxxxxXxx+xxxxxxxXXxxxxxxxxxx+++++;;+++x++xxxxx+;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;;;;;+++;;;+xxx++;+xxx++;++xx++x++xx++xXXXx+xXXxxxxxxxxxxxxxxxx+++++;:;xx++xxxxxx+;;;;;;;;;;;;;;;;;;;;xXXXXXXXXXX
+;;;;;;;;+++++;;;;+++x+xx++xxx+;;;;;+x+xx++xx++xXXx+xxxxxxxxXXxxxxxxx+xx+++++;::;+++xxxxxx+;:;;;;;;;;;;;;;;;;;;XXXXXXXXXXX
+;;;;;+++++++;+++++;++xx+++xxx;::;;+;++xx+++x++xXXx+xxxxxxxxxxxxxxxxx++x+++++;:;;++xxxxx+++;:;;;;;;;;;;;;;;;;;;XXXXXXXXXXX
++++++++++;+++++++;;++xx++;;;;:;+x;;;;+x+++++++xXxxxxxxxxxxxxxxxxxxx++xx++++++;;+xxxxxxxxxx+;;;;;;;;;;;;;++;;++XXXXXXXXXXX
++++++++++++;;++;;;;;;xxxxx++++++:::;;++x++++++xXxxxxxxxxxxxxxxxxxxx++xx++++++;:;xx++++xxx++;;;;;;;;;;+++++++++XXXXXXXXXXX
++++++++++++;;;;;;;;+++xx++x+++;::;;;++++++++++xXXxxxxxxxxxxxxxxxxxx++xx++++++;:;+xxxxxxxx++;;;;;;;;;;+++++++++XXXXXXXXXXX
+++++++++++++;;;;;;:++;+;++++;;:;;+++++;+x+++++xxxxxxxxxxxxxxxxxxxxx++xx++++++;;;+xxxxxxxx++;::;;;;;;++++++++++XXXXXXXXXXX
+++++++++;;;;;;;;;;;;+x++++++;;;;;;+++;;+x+++++xxxxxxxxxxxxxxxxxxxx+++x+++++++;;;+xxxxxXxxx+;::;;;;;+++++++++++xXXXXXXXXXX
+++++++;;;;;;;:::;;;;+x+;;+x+;++:;++++;;+x+++++xxxxxxxxxxxxxxxxxxxx+++xx++++++;;;;;+++xxxx+++::::;;;+++++++++++xXXXXXXXXXX
++++++;;;+;;:::;;;:;;;xxx+xx+++;:;++++;++++++++xxxx++xxxxxxxxxxxxxx+++x++++++++;+;+++xxxxx+++::::::;;;;;+++++++xXXXXXXXXXX
++++;;;;;;;;;;;;;;;;;;;+x++x++;;;++++;;;+++++++xxxx+xxxxxxxxxxxxxxx+++x++++++++;+;;+++xxxx+++;:::;;;;++++++++++xXXXXXXXXXX
+;;;;;;;;;;:;;;:;;;;;++++;;x+;;;++x++;+++++++++xxxxxxxxxxxxxxxxxxx++++xx+++++++;+;++xxxxxx+++;:::;;;;;+++++++++XXXXXXXXXXX
+++;;;;;;;;;;;;;;;;::;;+x+;+x++++x+++;++++++++xxxx++++xxxxxxxxxx+x++++x++++++++;++;++xxxxxx++;:::;;;;;;++++++++XXXXXXXXXXX
+;;;;;;;;:::::::::::::+++;++xxx;+xxx;;++++++++xxxx++++xx++xxxx++++++++xx++++++++;+++++xXXx+++;::::;;;;;++++++++XXXXXXXXXXX
+;::::::::::::;;;;;;::;;++;++xx;++xx++x++++++xx+++++++xx+++xxx++xxx+xxxx++++++++;;+++++xXx+++;::::;;;;;;+++++++XXXXXXXXXXX
+::::::;;:;;;::;;;::;;;+xx+++x++++xxxx+x++++xx++xx+++++x+++xxx++xxxxxxxx++++++++;;;++++xxx+++;::;;::;;;;+++++++XXXXXXXXXXX
+;;;;:;;;;;;;:;::;;;;:;;;+++++x+++xxx++x+++xxx+++++;;+xx+++xxxxxxxx+++xx++++++++;;;;x+xxx++++;:::::;;;;+++++++xXXXXXXXXXXX
++;;;:;;;;;;;;;:::;;::;:;++++xx+;+xxxxx++++xx+++++;;;+xx+++xx+++++x+xxx+++++++++;;;+++xxxxxx+;:::::;;;;+++++++xXXXXXXXXXXX
+x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++;;++xxxxxx++;::::::;;+xx+xx++xXXXXXXXXXXX
++;::;;;;;:::::;;;;:::;;;;;++x+;++xxxxx+++x++;;;;+;;+xxx+++xxx++xxxxx+xx+++++++++;++xxxXxx+++:::::::;;++xxxxxxXXXXXXXXXXXX
++;:;;::::::::;;;;;;:::::;+++;;+++++++x++++++;;;+++++xxx+++xxx++xxx+++xx+++++++++;++++xx+++x+:::::::;;;;++++++xXXXXXXXXXX$
+:;;;::::;;:::;:::::;:;;::+++;;;++xxxxx++;;++;;++x+++xxx++++x+++xxxxx+xx++++++++++++xxxxx+++;::;:::;;;++xxxxx+XXXXXXXXXXXX
+:;;;::;::;;;:;:::;;;:::::+++;;+xxxxxxx;;;++;;;+xx+++xx+++++x+++xxxxx+xx++++++++;+xx+xxxx+++;::::::;;;+++xxxx+xXXXXXXXXXXX
+;;;;:;;::::::::::;;::;;:;;;;+;++++++++;;;;++++xxxxxxxx+++++x+++xxxxx+xxx+++++++;+xxxxxxx+++;;:;::::;;;++++xxxXXXXXXXXXXXX
+:;:::::::::;:::::::::;;;;;;;+;+++;;;+;;;;+++++xxxx++xx+++++x+++xxx+x+xxxxxx++++;+xxxXxx++++:::::::;;;;+++++++XXXXXXXXXXXX
+::::;;:::::::::::::;;;+;;+++++++;;;+x+++xxxxxxxxx+++xx+++++x+++xxxxxxxxxxx+++++;+xxxxxx++++:::::::;;;;++++++xXXXXXXXXXXXX
+;::::::::::::::::;:;;+xx+++x++xx++++x+++xxxx++xxx++++x++++++++++xx+++xxx+++++++x$$x$$XXXX+::::::::;;;+++++++XXXXXXXXXXXXX
+:::::::::::::::::;;++++++xxx++xxx++xxx+++xx+++xxx++++x+++++x+++xxx+++xxxxx+++++xX$+$$$X$X+::::::::;;;+++++++XXXXXXXXXXXXX
+:::::;::::::;:;::;;+++++x+++++xxx++xxx+++xxx++xxx++++x+++++x+++xxx++xxxxxx++++++$$x$$XX$x::::::::;;;;+++++xxXXXXXXXXXXXXX
+:::::::::;;;;;:;;;+xxx++++x+++++xxxxxx++++xx++xxx++++x+++++++++xxx++xxxxxx++++++++x$XXXX;::;::::;;;+++xxxxxxxXXXXXXXXXXXX
++;::;::;:::::::;;xx++++xxx++++++++++xxx+xxxx++xxx+++++++;++++++xx++++xxxx+xx++++xX$XXXX;:::::::;;;+++xxxxxxxxXXXX$XXXXXXX
+:::::::;;::::;;+xxx++x++xxx++++x+;++++++++xx++xxx++++++;;++++++xxx+++xx+xxxx++++++xxx;::::::::;;++xxxxxxxxxxxXXXXXXXXXXXX
+</pre>
+                </div>
+
+
+            </div>
+
         </div>
 
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-20">
-            <button onclick="scrollToSection('about')" class="group flex flex-col items-center gap-2">
-                <span
-                    class="text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-400 dark:text-zinc-600 group-hover:text-blue-500 transition-colors">Discover</span>
-                <div
-                    class="w-6 h-10 border-2 border-zinc-200 dark:border-zinc-800 rounded-full p-1 flex justify-center">
-                    <div class="w-1 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-                </div>
-            </button>
-        </div>
     </section>
 
     <!-- about -->
-    <section id="about" class="min-h-screen bg-white dark:bg-zinc-900 py-20 px-4 transition-colors duration-200">
+    <section id="about" class="min-h-screen bg-zinc-50 dark:bg-[#050505] py-20 px-4 transition-colors duration-200">
         <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">About Me</h2>
 
@@ -876,7 +988,7 @@
                 </h3>
 
                 <div id="featuredProjectsGrid"
-                    class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[300px]">
+                    class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[220px]">
                     <!-- Bento Grid Cards Injected Here -->
                 </div>
             </div>
@@ -962,7 +1074,7 @@
     </section>
 
     <!-- contact -->
-    <section id="contact" class="min-h-screen bg-white dark:bg-zinc-900 py-20 px-4 transition-colors duration-200">
+    <section id="contact" class="min-h-screen bg-zinc-50 dark:bg-[#050505] py-20 px-4 transition-colors duration-200">
         <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">Get In Touch</h2>
 

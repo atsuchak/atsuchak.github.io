@@ -22,13 +22,24 @@ function toggleTheme() {
 
 const projects = [
     {
-        title: 'Tasked ToDo',
-        description: 'A sleek and efficient to-do list app featuring visual progress tracking, organized task management, and daily session history for sustained productivity',
-        techStack: ['HTML', 'Tailwind CSS', 'JavaScript', 'API'],
-        image: './assets/task_todo_1.png',
-        image: ['./assets/task_todo_1.png', './assets/task_todo_2.png', './assets/task_todo_3.png', './assets/task_todo_4.png'],
-        githubLink: 'https://github.com/atsuchak/ToDo-list-app',
-        liveLink: 'https://tasked-todo.vercel.app/',
+        title: 'Nibash - Smart Building Ecosystem',
+        description: 'A centralized, real-time web platform designed for the comprehensive management of residential buildings with AI-driven security, automated billing, and a biometric gate system.',
+        techStack: ['PHP', 'Python', 'MySQL', 'Tailwind CSS', 'JavaScript', 'OpenCV', 'AI'],
+        image: './assets/nibash_5.png',
+        images: ['./assets/nibash_5.png', './assets/nibash_1.png', './assets/nibash_2.png', './assets/nibash_3.png', './assets/nibash_4.png'],
+        githubLink: 'https://github.com/atsuchak/Nibash',
+        liveLink: '',
+        featured: true,
+        category: 'Web Project'
+    },
+    {
+        title: 'Linked Store',
+        description: 'A user-friendly web and mobile application designed to help you quickly save and manage your important links. Built with Next.js, Tailwind CSS, and MongoDB.',
+        techStack: ['Next.js', 'Tailwind CSS', 'MongoDB', 'NextAuth', 'Zustand', 'Capacitor'],
+        image: './assets/linked_store_1.png',
+        images: ['./assets/linked_store_1.png', './assets/linked_store_4.png', './assets/linked_store_2.png', './assets/linked_store_3.png'],
+        githubLink: 'https://github.com/atsuchak/linked_store',
+        liveLink: '',
         featured: true,
         category: 'Web Project'
     },
@@ -39,6 +50,16 @@ const projects = [
         image: ['./assets/assignment_cover_page_2.png', './assets/assignment_cover_page_1.png', './assets/assignment_cover_page_3.png', './assets/assignment_cover_page_4.png'],
         githubLink: 'https://github.com/atsuchak/uiu-assignment-cover-page-generator',
         liveLink: 'https://uiu-assignment-cover.vercel.app/',
+        category: 'Web Project'
+    },
+    {
+        title: 'Tasked ToDo',
+        description: 'A sleek and efficient to-do list app featuring visual progress tracking, organized task management, and daily session history for sustained productivity',
+        techStack: ['HTML', 'Tailwind CSS', 'JavaScript', 'API'],
+        image: './assets/task_todo_1.png',
+        images: ['./assets/task_todo_1.png', './assets/task_todo_2.png', './assets/task_todo_3.png', './assets/task_todo_4.png'],
+        githubLink: 'https://github.com/atsuchak/ToDo-list-app',
+        liveLink: 'https://tasked-todo.vercel.app/',
         featured: true,
         category: 'Web Project'
     },
@@ -50,7 +71,6 @@ const projects = [
         images: ['./assets/timer_lab_1.png', './assets/timer_lab_2.png', './assets/timer_lab_3.png'],
         githubLink: 'https://github.com/atsuchak/timer-lab',
         liveLink: 'https://timer-lab.vercel.app/',
-        featured: true,
         category: 'Web Project'
     },
     {
@@ -129,7 +149,8 @@ function openProjectModal(project) {
     // State for Carousel
     const imagesArray = project.images || (Array.isArray(project.image) ? project.image : [project.image]);
     window.currentProjectImages = imagesArray.filter(img => typeof img === 'string' && img.trim() !== '');
-    window.currentImageIndex = 0;
+    const isDark = document.documentElement.classList.contains('dark');
+    window.currentImageIndex = (!isDark && window.currentProjectImages.length >= 2) ? 1 : 0;
 
     // Image/Carousel HTML
     let imageSection = '';
@@ -138,7 +159,7 @@ function openProjectModal(project) {
         const isCarousel = window.currentProjectImages.length > 1;
 
         imageSection = `
-            <img id="modalImage" src="${window.currentProjectImages[0]}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-700">
+            <img id="modalImage" src="${window.currentProjectImages[window.currentImageIndex]}" alt="${project.title}" class="w-full h-full object-contain bg-zinc-100 dark:bg-zinc-800 transition-transform duration-700">
             
             ${isCarousel ? `
                 <!-- Prev Button -->
@@ -154,7 +175,7 @@ function openProjectModal(project) {
                 <!-- Indicators -->
                 <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                     ${window.currentProjectImages.map((_, i) =>
-            `<div id="indicator-${i}" class="w-2 h-2 rounded-full transition-all ${i === 0 ? 'bg-white scale-125' : 'bg-white/50'}"></div>`
+            `<div id="indicator-${i}" class="w-2 h-2 rounded-full transition-all ${i === window.currentImageIndex ? 'bg-white scale-125' : 'bg-white/50'}"></div>`
         ).join('')}
                 </div>
             ` : ''}
@@ -345,15 +366,24 @@ function renderFeaturedProjects() {
 
         // Content
         // Determine Content Styling based on Type (Web vs Code)
-        const coverImage = Array.isArray(project.image) ? project.image[0] : project.image;
-        const hasImage = !!coverImage;
+        const hasImagesArray = Array.isArray(project.images) && project.images.length >= 2;
+        const defaultCover = Array.isArray(project.image) ? project.image[0] : project.image;
+        const hasImage = !!defaultCover;
 
         let backgroundHTML = '';
         if (hasImage) {
-            backgroundHTML = `
-                <img src="${coverImage}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-            `;
+            if (hasImagesArray) {
+                backgroundHTML = `
+                    <img src="${project.images[0]}" alt="${project.title}" class="hidden dark:block absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <img src="${project.images[1]}" alt="${project.title}" class="block dark:hidden absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                `;
+            } else {
+                backgroundHTML = `
+                    <img src="${defaultCover}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                `;
+            }
         } else {
             // Code Project: Solid filled background
             backgroundHTML = `
@@ -566,9 +596,9 @@ function renderProjectLibrary() {
 
 // Typing Animation
 const sentences = [
-    'Exploring software development concepts',
-    'Solving problems with competitive programming',
-    'Building and testing software solutions'
+    'exploring software development concepts.',
+    'solving complex problems through competitive programming.',
+    'building projects with modern tech stacks.'
 ];
 let sentenceIndex = 0;
 let charIndex = 0;
