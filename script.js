@@ -361,7 +361,7 @@ function renderFeaturedProjects() {
             // Let's make the first one prominent.
         }
 
-        card.className = `${spanClass} group relative bg-white dark:bg-[#09090b] border border-zinc-200 dark:border-zinc-800/50 rounded-3xl overflow-hidden transition-all duration-500 flex flex-col`;
+        card.className = `${spanClass} group relative bg-transparent border border-zinc-200 dark:border-zinc-800/50 rounded-3xl overflow-hidden transition-all duration-500 flex flex-col`;
         card.onclick = () => openProjectModal(project);
 
         // Content
@@ -637,13 +637,13 @@ typeLoop();
 
 function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
-    const icon = document.getElementById('menuIcon');
+    const icon = document.getElementById('hamburgerBtn');
 
     // Toggle the 'is-open' class for sliding effect
     menu.classList.toggle('is-open');
 
     // Toggle the 'is-active' class for X animation
-    icon.classList.toggle('is-active');
+    if(icon) icon.classList.toggle('is-active');
 
     // Toggle body scroll lock when the menu is open (UX improvement)
     if (menu.classList.contains('is-open')) {
@@ -734,11 +734,13 @@ const sectionObserver = new IntersectionObserver((entries) => {
             const id = entry.target.id;
             document.querySelectorAll('.nav-link').forEach(link => {
                 const isMatch = link.dataset.section === id;
-                link.classList.toggle('text-blue-400', isMatch);
-                link.classList.toggle('text-zinc-600', !isMatch);
-                link.classList.toggle('hover:text-zinc-900', !isMatch);
-                link.classList.toggle('dark:text-gray-300', !isMatch);
-                link.classList.toggle('dark:hover:text-white', !isMatch);
+                link.classList.toggle('text-[#10b981]', isMatch);
+                
+                // For icons to match green state
+                const svg = link.querySelector('svg');
+                if (svg) {
+                    svg.classList.toggle('stroke-[#10b981]', isMatch);
+                }
             });
         }
     });
@@ -960,3 +962,170 @@ window.addEventListener('resize', () => {
         }
     }, 250);
 });
+
+// --- Twisted Coiled String Background Animation ---
+document.addEventListener('DOMContentLoaded', () => {
+    const svg = document.getElementById('string-svg');
+    if (!svg || typeof anime === 'undefined') return;
+
+    const numStrings = 1;
+    const numPoints = 250; // Higher resolution for tight loops
+    const strings = [];
+
+    for (let i = 0; i < numStrings; i++) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+        path.setAttribute('class', 'text-blue-500/30 dark:text-blue-400/25 transition-colors duration-200'); // Light blue, faded
+        path.setAttribute('stroke-width', '2'); // Slightly thicker for a single string
+        svg.appendChild(path);
+
+        const points = [];
+        for (let j = 0; j < numPoints; j++) {
+            points.push({
+                t: j / (numPoints - 1), // 0 to 1
+                offsetX: 0,
+                offsetY: 0
+            });
+        }
+        strings.push({ path, points });
+    }
+
+    let mouse = { x: -1000, y: -1000 };
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+    window.addEventListener('mouseleave', () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+    });
+
+    let scrollVelocity = 0;
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+        if (window.innerWidth <= 768) {
+            scrollVelocity = window.scrollY - lastScrollY;
+        }
+        lastScrollY = window.scrollY;
+    });
+
+    const animState = { time: 0 };
+    anime({
+        targets: animState,
+        time: 100,
+        duration: 120000, // 120 seconds for 100 units = very slow, elegant movement
+        easing: 'linear',
+        loop: true,
+        update: () => {
+            const time = animState.time * 0.1; // Speed scalar
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+            
+            // Expand string across the screen
+            const radiusX = window.innerWidth * 0.6;
+            const radiusY = window.innerHeight * 0.6;
+            
+            scrollVelocity *= 0.9; // Friction
+
+            strings.forEach(str => {
+                const renderedPoints = str.points.map(p => {
+                    const t = p.t * Math.PI * 2;
+                    
+                    // Complex, wandering wobbly loop (spreads around with intricate twists)
+                    // Frequencies are integers to ensure perfect closed loop
+                    const baseX = cx 
+                        + Math.sin(t * 3 + time * 0.6) * radiusX * 0.8
+                        + Math.cos(t * 7 - time * 0.4) * radiusX * 0.3
+                        + Math.sin(t * 11 + time * 0.8) * radiusX * 0.1;
+
+                    const baseY = cy 
+                        + Math.cos(t * 4 + time * 0.5) * radiusY * 0.8
+                        + Math.sin(t * 5 - time * 0.6) * radiusY * 0.3
+                        + Math.cos(t * 9 + time * 0.7) * radiusY * 0.1;
+
+                    const dx = mouse.x - baseX;
+                    const dy = mouse.y - baseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    let targetOffsetX = 0;
+                    let targetOffsetY = 0;
+
+                    // Repel from mouse smoothly
+                    if (dist < 200 && dist > 0) {
+                        const force = Math.pow((200 - dist) / 200, 2);
+                        targetOffsetX = -(dx / dist) * force * 150;
+                        targetOffsetY = -(dy / dist) * force * 150;
+                    }
+
+                    // Mobile scroll wiggle
+                    if (window.innerWidth <= 768) {
+                        targetOffsetY += scrollVelocity * Math.sin(t * 15);
+                    }
+
+                    p.offsetX += (targetOffsetX - p.offsetX) * 0.1;
+                    p.offsetY += (targetOffsetY - p.offsetY) * 0.1;
+
+                    return { x: baseX + p.offsetX, y: baseY + p.offsetY };
+                });
+
+                // Draw smooth curve connecting all points
+                if (renderedPoints.length > 1) {
+                    let d = `M ${renderedPoints[0].x} ${renderedPoints[0].y}`;
+                    for (let i = 0; i < renderedPoints.length - 1; i++) {
+                        const xc = (renderedPoints[i].x + renderedPoints[i + 1].x) / 2;
+                        const yc = (renderedPoints[i].y + renderedPoints[i + 1].y) / 2;
+                        d += ` Q ${renderedPoints[i].x} ${renderedPoints[i].y} ${xc} ${yc}`;
+                    }
+                    d += ` L ${renderedPoints[renderedPoints.length - 1].x} ${renderedPoints[renderedPoints.length - 1].y}`;
+                    // Close the mathematical loop flawlessly
+                    d += ' Z';
+                    str.path.setAttribute('d', d);
+                }
+            });
+        }
+    });
+});
+
+// --- Fetch GitHub Stats ---
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Fetch public repos
+    fetch('https://api.github.com/users/atsuchak')
+        .then(response => response.json())
+        .then(data => {
+            const projectsEl = document.getElementById('gh-projects');
+            if (projectsEl && data.public_repos !== undefined) {
+                projectsEl.textContent = data.public_repos;
+            }
+        })
+        .catch(error => console.error('Error fetching repos:', error));
+
+    // 2. Fetch total contributions
+    fetch('https://github-contributions-api.deno.dev/atsuchak.json')
+        .then(response => response.json())
+        .then(data => {
+            const contribEl = document.getElementById('gh-contributions');
+            if (contribEl && data.totalContributions !== undefined) {
+                // Add a comma for thousands (e.g., 1,024)
+                contribEl.textContent = data.totalContributions.toLocaleString();
+            }
+        })
+        .catch(error => console.error('Error fetching contributions:', error));
+
+    // 3. Fetch total unique languages
+    fetch('https://api.github.com/users/atsuchak/repos')
+        .then(response => response.json())
+        .then(repos => {
+            const langEl = document.getElementById('gh-languages');
+            if (langEl && Array.isArray(repos)) {
+                const languages = new Set();
+                repos.forEach(repo => {
+                    if (repo.language) {
+                        languages.add(repo.language);
+                    }
+                });
+                langEl.textContent = languages.size;
+            }
+        })
+        .catch(error => console.error('Error fetching languages:', error));
+});

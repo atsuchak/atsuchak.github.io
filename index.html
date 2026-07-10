@@ -48,6 +48,7 @@
   </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -202,18 +203,13 @@
             border-radius: 10px;
         }
 
-        /* Icon X animation (KEEP AS IS) */
-        /* Icon X animation (KEEP AS IS) */
-        #menuIcon.is-active .line:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
+        /* Hamburger Animation */
+        #hamburgerBtn.is-active .line-1 {
+            transform: translateY(3.5px) rotate(45deg);
         }
 
-        #menuIcon.is-active .line:nth-child(2) {
-            opacity: 0;
-        }
-
-        #menuIcon.is-active .line:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
+        #hamburgerBtn.is-active .line-2 {
+            transform: translateY(-3.5px) rotate(-45deg);
         }
 
         /* Ambient Glow Blobs */
@@ -278,141 +274,145 @@
 
 
 <body class="bg-gray-100 text-zinc-700 dark:bg-zinc-950 dark:text-gray-300 transition-colors duration-200">
+    <!-- Wavy String Background Container -->
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none;">
+        <svg id="string-svg" width="100%" height="100%" preserveAspectRatio="none">
+            <!-- Paths will be injected dynamically by script.js -->
+        </svg>
+    </div>
 
-    <nav
-        class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl bg-white/30 dark:bg-zinc-900/40 backdrop-blur-md z-50 border border-white/50 dark:border-zinc-700/50 rounded-2xl shadow-lg transition-all duration-300">
-        <div class="px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <a href="#home" onclick="scrollToSection('home')" class="transition-opacity hover:opacity-80">
-                    <img src="./assets/navLogo.png" alt="Ahnaf Tajwar Suchak Logo" class="h-10 w-auto"></a>
+    <nav>
+        <!-- Floating Logo -->
+        <a href="#home" onclick="scrollToSection('home')" class="fixed top-8 left-4 lg:left-8 z-[60] transition-transform hover:scale-105">
+            <img src="./assets/navLogo.png" alt="Ahnaf Tajwar Suchak Logo" class="h-10 w-auto filter dark:invert-0">
+        </a>
 
-                <div class="hidden md:flex space-x-8 items-center" id="navLinks">
-                    <button onclick="scrollToSection('home')"
-                        class="nav-link capitalize transition-colors text-blue-400" data-section="home">home</button>
-                    <button onclick="scrollToSection('about')"
-                        class="nav-link capitalize transition-colors text-zinc-600 hover:text-zinc-900 dark:text-gray-300 dark:hover:text-white"
-                        data-section="about">about</button>
-                    <button onclick="scrollToSection('projects')"
-                        class="nav-link capitalize transition-colors text-zinc-600 hover:text-zinc-900 dark:text-gray-300 dark:hover:text-white"
-                        data-section="projects">projects</button>
-                    <button onclick="scrollToSection('contact')"
-                        class="nav-link capitalize transition-colors text-zinc-600 hover:text-zinc-900 dark:text-gray-300 dark:hover:text-white"
-                        data-section="contact">contact</button>
-
-                    <button type="button" onclick="toggleTheme()"
-                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-500 transition-colors"
-                        title="Toggle theme">
-                        <svg class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
-                            </path>
-                        </svg>
-                        <svg class="w-6 h-6 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="flex items-center gap-4 md:hidden">
-                    <!-- Theme toggle button for mobile -->
-                    <button type="button" onclick="toggleTheme()"
-                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-500 transition-colors"
-                        title="Toggle theme">
-                        <svg class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
-                            </path>
-                        </svg>
-                        <svg class="w-6 h-6 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
-                            </path>
-                        </svg>
-                    </button>
-
-                    <!-- Menu button -->
-                    <button class="text-zinc-900 dark:text-white relative z-50" onclick="toggleMenu()">
-                        <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" class="transition-transform duration-300">
-                            <line class="line" x1="3" y1="12" x2="21" y2="12" stroke-linecap="round"
-                                style="transition: transform 0.3s, opacity 0.3s;"></line>
-                            <line class="line" x1="3" y1="6" x2="21" y2="6" stroke-linecap="round"
-                                style="transition: transform 0.3s, opacity 0.3s;"></line>
-                            <line class="line" x1="3" y1="18" x2="21" y2="18" stroke-linecap="round"
-                                style="transition: transform 0.3s, opacity 0.3s;"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+        <!-- Floating Pill Navbar (Desktop & Mobile) -->
+        <!-- Floating Pill Navbar (Desktop & Mobile) -->
+        <div class="flex fixed bottom-6 left-1/2 -translate-x-1/2 lg:bottom-auto lg:left-auto lg:-translate-x-0 lg:right-8 lg:top-1/2 lg:-translate-y-1/2 flex-row lg:flex-col items-center justify-around lg:justify-center gap-6 lg:gap-10 w-[90%] max-w-sm lg:w-auto bg-zinc-100/90 dark:bg-zinc-900/90 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-full py-6 lg:py-10 px-8 lg:px-6 z-40 shadow-xl transition-all duration-300">
+            <button onclick="scrollToSection('home')" class="nav-link relative group flex items-center justify-center transition-colors text-zinc-500 dark:text-zinc-400 hover:text-sky-400" data-section="home">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-md">Home</span>
+            </button>
+            <button onclick="scrollToSection('about')" class="nav-link relative group flex items-center justify-center transition-colors text-zinc-500 dark:text-zinc-400 hover:text-sky-400" data-section="about">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-md">About</span>
+            </button>
+            <button onclick="scrollToSection('projects')" class="nav-link relative group flex items-center justify-center transition-colors text-zinc-500 dark:text-zinc-400 hover:text-sky-400" data-section="projects">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span class="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-md">Projects</span>
+            </button>
+            <button onclick="scrollToSection('contact')" class="nav-link relative group flex items-center justify-center transition-colors text-zinc-500 dark:text-zinc-400 hover:text-sky-400" data-section="contact">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span class="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-md">Contact</span>
+            </button>
         </div>
 
-        <div id="mobileMenu"
-            class="md:hidden bg-white dark:bg-zinc-900 border-l border-gray-200 dark:border-zinc-800 flex flex-col justify-between">
+        <!-- Top Right Hamburger Menu Button -->
+        <button onclick="toggleMenu()" class="fixed right-4 lg:right-8 top-8 w-12 h-12 bg-zinc-100/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-full flex flex-col items-center justify-center gap-[5px] z-[60] shadow-lg transition-transform hover:scale-105" id="hamburgerBtn">
+            <div class="w-5 h-[2px] bg-zinc-600 dark:bg-zinc-400 transition-transform duration-300 origin-center line-1"></div>
+            <div class="w-5 h-[2px] bg-zinc-600 dark:bg-zinc-400 transition-transform duration-300 origin-center line-2"></div>
+        </button>
 
-            <div class="p-8 pt-24 space-y-4">
-                <button onclick="scrollToSection('home'); toggleMenu();"
-                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
-                    data-section="home">home</button>
+        <!-- Top Right Theme Toggle Button -->
+        <button onclick="toggleTheme()" class="fixed right-20 lg:right-8 top-8 lg:top-24 w-12 h-12 bg-zinc-100/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-full flex items-center justify-center z-[60] shadow-lg transition-transform hover:scale-105 text-zinc-600 dark:text-zinc-400 hover:text-sky-400 dark:hover:text-sky-400" aria-label="Toggle Theme">
+            <svg width="20" height="20" class="hidden dark:block transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            <svg width="20" height="20" class="block dark:hidden transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+        </button>
 
-                <button onclick="scrollToSection('about'); toggleMenu();"
-                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
-                    data-section="about">about</button>
-
-                <button onclick="scrollToSection('projects'); toggleMenu();"
-                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
-                    data-section="projects">projects</button>
-
-                <button onclick="scrollToSection('contact'); toggleMenu();"
-                    class="block w-full text-left capitalize py-3 text-2xl font-semibold text-zinc-600 dark:text-gray-300 nav-link hover:text-blue-500 transition-colors"
-                    data-section="contact">contact</button>
+        <!-- Sidebar Drawer Menu -->
+        <div id="mobileMenu" class="fixed top-0 right-0 h-screen w-80 bg-zinc-50/95 dark:bg-[#121212]/95 backdrop-blur-xl border-l border-zinc-200 dark:border-zinc-800 transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col justify-between overflow-y-auto shadow-2xl">
+            <div class="p-8 pt-32">
+                <h3 class="text-xs text-zinc-500 dark:text-zinc-500 mb-8 tracking-[0.2em] uppercase font-semibold">Menu</h3>
+                <div class="flex flex-col gap-6">
+                    <button onclick="scrollToSection('home'); toggleMenu();" class="group flex items-center gap-4 text-left w-full text-zinc-600 dark:text-zinc-400 hover:text-sky-400 dark:hover:text-sky-400 transition-colors nav-link" data-section="home">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-sky-400 transition-colors">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <span class="text-[15px] font-medium">Home</span>
+                    </button>
+                    <button onclick="scrollToSection('about'); toggleMenu();" class="group flex items-center gap-4 text-left w-full text-zinc-600 dark:text-zinc-400 hover:text-sky-400 dark:hover:text-sky-400 transition-colors nav-link" data-section="about">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-sky-400 transition-colors">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="text-[15px] font-medium">About</span>
+                    </button>
+                    <button onclick="scrollToSection('projects'); toggleMenu();" class="group flex items-center gap-4 text-left w-full text-zinc-600 dark:text-zinc-400 hover:text-sky-400 dark:hover:text-sky-400 transition-colors nav-link" data-section="projects">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-sky-400 transition-colors">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span class="text-[15px] font-medium">Projects</span>
+                    </button>
+                    <button onclick="scrollToSection('contact'); toggleMenu();" class="group flex items-center gap-4 text-left w-full text-zinc-600 dark:text-zinc-400 hover:text-sky-400 dark:hover:text-sky-400 transition-colors nav-link" data-section="contact">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-sky-400 transition-colors">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span class="text-[15px] font-medium">Contact</span>
+                    </button>
+                    
+                    <button type="button" onclick="toggleTheme()" class="group flex items-center gap-4 text-left w-full text-zinc-600 dark:text-zinc-400 hover:text-sky-400 dark:hover:text-sky-400 transition-colors mt-2">
+                        <svg class="w-5 h-5 hidden dark:block group-hover:stroke-sky-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 block dark:hidden group-hover:stroke-sky-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <span class="text-[15px] font-medium">Toggle Theme</span>
+                    </button>
+                </div>
             </div>
-
-            <div class="p-8 pb-12 text-center border-t border-gray-200 dark:border-zinc-700">
-                <div class="flex justify-center space-x-6 mb-6">
-                    <a target="_blank" href="https://github.com/atsuchak"
-                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 transition-colors">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                            </path>
+            
+            <div class="p-8 pb-12">
+                <h3 class="text-xs text-zinc-500 dark:text-zinc-500 mb-6 tracking-[0.2em] uppercase font-semibold">Social</h3>
+                <div class="flex gap-4 mb-8">
+                    <a target="_blank" href="https://github.com/atsuchak" class="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-sky-400 hover:border-sky-400 transition-colors">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                         </svg>
                     </a>
-                    <a target="_blank" href="https://www.linkedin.com/in/atsuchak/"
-                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 transition-colors">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                            </path>
+                    <a target="_blank" href="https://www.linkedin.com/in/atsuchak/" class="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-sky-400 hover:border-sky-400 transition-colors">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                             <rect x="2" y="9" width="4" height="12"></rect>
                             <circle cx="4" cy="4" r="2"></circle>
                         </svg>
                     </a>
-                    <a target="_blank" href="mailto:ahnaftajwarsuchak@gmail.com"
-                        class="text-zinc-500 dark:text-gray-400 hover:text-blue-500 transition-colors">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                            </path>
+                    <a target="_blank" href="mailto:ahnaftajwarsuchak@gmail.com" class="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-sky-400 hover:border-sky-400 transition-colors">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                             <polyline points="22,6 12,13 2,6"></polyline>
                         </svg>
                     </a>
                 </div>
-                <a target="_blank" href="./assets/Suchak's_Resume_2026.pdf" class="inline-block resume-icon-group w-full">
-                    <button
-                        class="w-full bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                <a target="_blank" href="./assets/Suchak's_Resume_2026.pdf" class="inline-block w-full group">
+                    <button class="w-full bg-zinc-900 dark:bg-white dark:text-black hover:bg-sky-400 dark:hover:bg-sky-400 hover:text-white dark:hover:text-white text-white px-6 py-3.5 rounded-full transition-all duration-300 font-medium text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-[0_0_20px_rgba(56,189,248,0.4)]">
                         Download Resume
-                        <svg class="w-5 h-5 resume-icon transition-transform duration-300" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m-4-4l4 4 4-4">
-                            </path>
+                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m-4-4l4 4 4-4"></path>
                         </svg>
                     </button>
                 </a>
@@ -444,19 +444,19 @@
                         <span class="transform -rotate-90 whitespace-nowrap text-zinc-400 dark:text-zinc-500 tracking-[0.25em] text-[10px] uppercase font-bold">Programmer / Problem Solver</span>
                     </div>
                     <div class="flex flex-col gap-8 items-center mb-10">
-                        <a href="mailto:ahnaftajwarsuchak@gmail.com" class="text-zinc-400 hover:text-blue-500 transition-colors">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <a href="mailto:ahnaftajwarsuchak@gmail.com" class="text-sky-400 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
                         </a>
-                        <a href="https://github.com/atsuchak" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <a href="https://github.com/atsuchak" target="_blank" class="text-sky-400 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                             </svg>
                         </a>
-                        <a href="https://www.linkedin.com/in/atsuchak/" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <a href="https://www.linkedin.com/in/atsuchak/" target="_blank" class="text-sky-400 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                                 <rect x="2" y="9" width="4" height="12"></rect>
                                 <circle cx="4" cy="4" r="2"></circle>
@@ -483,27 +483,36 @@
 
                     <div class="mt-12 z-10 relative flex flex-col items-center md:items-start w-full">
                         <a target="_blank" href="./assets/Suchak's_Resume_2026.pdf" class="group flex items-center relative inline-flex">
-                            <div class="hidden sm:block absolute -left-16 w-12 h-[2px] bg-blue-500/50 group-hover:bg-blue-500 transition-colors duration-300"></div>
-                            <div class="flex items-center justify-center border-2 border-zinc-900 dark:border-white text-zinc-900 dark:text-white px-8 py-4 transition-all duration-300 group-hover:bg-zinc-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black font-bold uppercase tracking-[0.15em] text-xs">
-                                Download Resume
+                            <div class="hidden sm:block absolute -left-16 w-12 h-[2px] bg-sky-400/50 group-hover:bg-sky-400 transition-all duration-500 group-hover:-left-20 group-hover:w-16"></div>
+                            
+                            <div class="relative flex items-center justify-center px-8 py-4 font-bold uppercase tracking-[0.15em] text-xs transition-all duration-500 rounded-full group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(56,189,248,0.3)] bg-zinc-900/5 dark:bg-white/5 border border-zinc-900/10 dark:border-white/10 group-hover:border-sky-400/50 backdrop-blur-md overflow-hidden">
+                                <!-- Sweep background -->
+                                <div class="absolute inset-0 bg-gradient-to-r from-sky-400 to-blue-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
+                                
+                                <span class="relative flex items-center gap-2 text-zinc-900 dark:text-white group-hover:text-white z-10 transition-colors duration-500">
+                                    Download Resume
+                                    <svg class="w-4 h-4 transition-transform duration-500 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m-4-4l4 4 4-4"></path>
+                                    </svg>
+                                </span>
                             </div>
                         </a>
 
                         <!-- Social Icons for Mobile -->
                         <div class="flex md:hidden gap-8 mt-8">
-                            <a href="mailto:ahnaftajwarsuchak@gmail.com" class="text-zinc-400 hover:text-blue-500 transition-colors">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <a href="mailto:ahnaftajwarsuchak@gmail.com" class="text-sky-400 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                     <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
                             </a>
-                            <a href="https://github.com/atsuchak" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <a href="https://github.com/atsuchak" target="_blank" class="text-sky-400 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                                 </svg>
                             </a>
-                            <a href="https://www.linkedin.com/in/atsuchak/" target="_blank" class="text-zinc-400 hover:text-blue-500 transition-colors">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <a href="https://www.linkedin.com/in/atsuchak/" target="_blank" class="text-sky-400 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                                     <rect x="2" y="9" width="4" height="12"></rect>
                                     <circle cx="4" cy="4" r="2"></circle>
@@ -619,14 +628,14 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
     </section>
 
     <!-- about -->
-    <section id="about" class="min-h-screen bg-zinc-50 dark:bg-[#050505] py-20 px-4 transition-colors duration-200">
-        <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
+    <section id="about" class="min-h-screen bg-transparent py-20 px-4 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10 relative z-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">About Me</h2>
 
             <div class="grid lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-1">
                     <div
-                        class="rounded-xl p-6 border border-gray-200 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-zinc-600 transition-all sticky top-24">
+                        class="rounded-xl p-6 border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:border-blue-500 dark:hover:border-zinc-600 transition-all sticky top-24 shadow-md">
                         <img src="./assets/profile_image.jpg" alt="A photo of Ahnaf Tajwar Suchak"
                             class="w-full h-[370px] rounded-lg object-cover mb-6">
                         <h3 class="text-xl font-semibold text-zinc-900 dark:text-white mb-3 text-center">Ahnaf Tajwar
@@ -676,7 +685,7 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
                     </div>
                 </div>
 
-                <div class="lg:col-span-2  rounded-xl border border-gray-200 dark:border-zinc-700 p-6 sm:p-8">
+                <div class="lg:col-span-2 rounded-xl border border-gray-200 dark:border-zinc-700 bg-transparent backdrop-blur-sm p-6 sm:p-8">
 
                     <div class="pb-8 border-b border-gray-200 dark:border-zinc-700">
                         <h3 class="text-2xl font-semibold text-zinc-900 dark:text-white mb-4 flex items-center">
@@ -975,7 +984,7 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
 
     <!-- projects -->
     <section id="projects"
-        class="min-h-screen py-20 px-3 sm:px-4 transition-colors duration-200 animated-grid-bg bg-fixed-attachment">
+        class="min-h-screen py-20 px-3 sm:px-4 transition-colors duration-200 bg-transparent relative z-10">
         <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-8 md:mb-16 text-center">My Work
             </h2>
@@ -995,7 +1004,7 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
 
             <!-- Project Archive (Library View) -->
             <div
-                class="p-8 border border-zinc-200 dark:border-zinc-800 rounded-[30px] bg-white dark:bg-zinc-900 shadow-xl relative z-10">
+                class="p-8 border border-zinc-200 dark:border-zinc-800 rounded-[30px] bg-transparent backdrop-blur-sm shadow-xl relative z-10">
                 <div
                     class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10 border-b border-zinc-100 dark:border-zinc-800 pb-8">
                     <div>
@@ -1035,38 +1044,60 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
                 </div>
             </div>
 
-            <div class="mt-20 transition-all duration-1000 opacity-0 translate-y-10" data-animate>
-                <div class="flex flex-col items-center">
-                    <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-10 flex items-center">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-3"></span>
-                        Coding Activity
-                    </h3>
+            <div class="mt-32 transition-all duration-1000 opacity-0 translate-y-10" data-animate>
+                <div class="flex flex-col items-center max-w-4xl mx-auto px-4">
+                    
+                    <!-- Developer-centric Badge -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-800/80 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm mb-6">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-500 dark:text-zinc-400">
+                            <path d="M4 17l6-6-6-6M12 19h8"></path>
+                        </svg>
+                        <span class="text-xs font-mono font-medium text-zinc-600 dark:text-zinc-300">~/github/metrics</span>
+                    </div>
 
-                    <div class="w-full max-w-4xl p-2 bg-transparent overflow-x-auto custom-scrollbar">
-                        <div class="min-w-[600px] sm:min-w-full">
-                            <img src="https://ghchart.rshah.org/3b82f6/atsuchak" alt="Github activity"
-                                class="w-full opacity-90 hover:opacity-100 transition-opacity filter dark:contrast-125 dark:brightness-110" />
-
-                            <div
-                                class="flex justify-between items-center mt-6 text-[10px] text-zinc-400 dark:text-zinc-600 tracking-widest uppercase">
-                                <span>Sparse</span>
-                                <div class="flex gap-1">
-                                    <div class="w-2.5 h-2.5 rounded-sm bg-gray-200 dark:bg-zinc-800"></div>
-                                    <div class="w-2.5 h-2.5 rounded-sm bg-blue-300 dark:bg-blue-900/40"></div>
-                                    <div class="w-2.5 h-2.5 rounded-sm bg-blue-500"></div>
-                                </div>
-                                <span>Dense</span>
-                            </div>
+                    <!-- Big Stats Row -->
+                    <div class="flex flex-wrap justify-center gap-12 sm:gap-24 mb-8 w-full mt-4">
+                        <div class="flex flex-col items-center gap-2">
+                            <span class="text-5xl sm:text-6xl font-bold text-blue-500 tracking-tighter drop-shadow-[0_0_12px_rgba(59,130,246,0.2)]" id="gh-projects">--</span>
+                            <span class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-medium text-center">Public Repos</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <span class="text-5xl sm:text-6xl font-bold text-blue-500 tracking-tighter drop-shadow-[0_0_12px_rgba(59,130,246,0.2)]" id="gh-contributions">--</span>
+                            <span class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-medium text-center">Last Year Contributions</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <span class="text-5xl sm:text-6xl font-bold text-blue-500 tracking-tighter drop-shadow-[0_0_12px_rgba(59,130,246,0.2)]" id="gh-languages">--</span>
+                            <span class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-medium">Languages</span>
                         </div>
                     </div>
 
-                    <a target="_blank" href="https://github.com/atsuchak"
-                        class="mt-10 group flex items-center gap-2 text-zinc-500 dark:text-zinc-400 hover:text-blue-500 transition-colors duration-300">
-                        <span class="text-xs font-medium tracking-[0.2em] uppercase">Browse Repositories</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" class="transform group-hover:translate-x-1 transition-transform">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
+                    <!-- Graph Container (Pure Minimalist) -->
+                    <div class="w-full bg-white dark:bg-[#09090b]/80 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800/80 rounded-[2rem] p-6 sm:p-10 shadow-2xl relative z-10">
+                        <div class="w-full overflow-x-auto custom-scrollbar pb-2">
+                            <div class="min-w-[700px] sm:min-w-full">
+                                <img src="https://ghchart.rshah.org/06b6d4/atsuchak" alt="Github activity" class="w-full opacity-90 hover:opacity-100 transition-opacity filter dark:invert dark:hue-rotate-[180deg] dark:contrast-[1.2]" />
+                            </div>
+                        </div>
+                        
+                        <!-- Legend -->
+                        <div class="flex justify-end items-center mt-6 gap-3 text-[10px] text-zinc-500 dark:text-zinc-500 tracking-widest uppercase font-medium pr-2">
+                            <span>Less</span>
+                            <div class="flex gap-1.5">
+                                <div class="w-3.5 h-3.5 rounded-[3px] bg-gray-100 dark:bg-zinc-900"></div>
+                                <div class="w-3.5 h-3.5 rounded-[3px] bg-cyan-300 dark:bg-cyan-900/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-[3px] bg-cyan-400 dark:bg-cyan-700/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-[3px] bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.4)]"></div>
+                            </div>
+                            <span>More</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer Link -->
+                    <a target="_blank" href="https://github.com/atsuchak" class="mt-12 group flex items-center gap-2 text-zinc-500 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transform group-hover:-translate-y-0.5 transition-transform">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                         </svg>
+                        <span class="text-sm font-medium">View full profile on GitHub</span>
                     </a>
                 </div>
             </div>
@@ -1074,7 +1105,7 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
     </section>
 
     <!-- contact -->
-    <section id="contact" class="min-h-screen bg-zinc-50 dark:bg-[#050505] py-20 px-4 transition-colors duration-200">
+    <section id="contact" class="min-h-screen bg-transparent py-20 px-4 transition-colors duration-200 relative z-10">
         <div class="max-w-7xl mx-auto transition-all duration-1000 opacity-0 translate-y-10" data-animate>
             <h2 class="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-white mb-16 text-center">Get In Touch</h2>
 
@@ -1167,20 +1198,20 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
                         class="space-y-8">
                         <div class="relative group">
                             <input type="text" id="contactName" placeholder="Name" name="name"
-                                class="w-full px-0 py-4 bg-transparent border-b border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-black dark:focus:border-white transition-colors text-lg">
+                                class="w-full px-0 py-4 bg-transparent border-b border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:border-black dark:focus:border-white transition-colors text-lg">
                             <p id="nameError" class="text-red-500 text-xs mt-2 hidden absolute"></p>
                         </div>
 
                         <div class="relative group">
                             <input type="email" id="contactEmail" placeholder="Email Address" name="email"
-                                class="w-full px-0 py-4 bg-transparent border-b border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-black dark:focus:border-white transition-colors text-lg">
+                                class="w-full px-0 py-4 bg-transparent border-b border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:border-black dark:focus:border-white transition-colors text-lg">
                             <p id="emailError" class="text-red-500 text-xs mt-2 hidden absolute"></p>
                         </div>
 
                         <div class="relative group">
                             <textarea id="contactMessage" placeholder="Tell me about your project..." rows="4"
                                 name="message"
-                                class="w-full px-0 py-4 bg-transparent border-b border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-black dark:focus:border-white resize-none transition-colors text-lg"></textarea>
+                                class="w-full px-0 py-4 bg-transparent border-b border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:border-black dark:focus:border-white resize-none transition-colors text-lg"></textarea>
                             <p id="messageError" class="text-red-500 text-xs mt-2 hidden absolute"></p>
                         </div>
 
@@ -1200,7 +1231,7 @@ x;;:;;;;;:;;;::;::;;::::;++++x+++xxxxx+++xxx+;;;+;;+xxx+++xx+++xxxxxxxx+++++++++
     </section>
 
     <footer
-        class="bg-white dark:bg-zinc-900 border-t border-gray-200 dark:border-zinc-800 py-12 px-4 transition-colors duration-200">
+        class="bg-transparent border-t border-gray-200 dark:border-zinc-800 py-12 px-4 transition-colors duration-200 relative z-10">
         <div class="max-w-7xl mx-auto 
                 flex flex-col items-center gap-8 
                 sm:flex-row sm:relative sm:justify-center">
