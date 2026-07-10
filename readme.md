@@ -1,70 +1,43 @@
-<div align="center">
+# Personal Portfolio Website
 
-# Ahnaf Tajwar Suchak
+This repository contains the source code for my interactive personal portfolio website, available live at **[atsuchak.me](https://atsuchak.me/)**.
 
-**Computer Science Student | Software Developer | Competitive Programmer**
+The site is designed to showcase my software development projects, technical skills, and competitive programming achievements in a clean, responsive, and visually engaging format.
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit_Site-00599C?style=for-the-badge&logo=vercel&logoColor=white)](https://atsuchak.me/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/atsuchak)
-[![Email](https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ahnaftajwarsuchak@gmail.com)
+---
 
-[![Codeforces](https://img.shields.io/badge/Codeforces-400%2B_Solved-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white)](https://codeforces.com/profile/atsuchak)
+## ✨ Features
 
-</div>
+- **Responsive Design**: Fully optimized layout for mobile, tablet, and desktop viewing.
+- **Theme Switcher**: Built-in toggle for seamless switching between Dark and Light modes, with persistent user preference.
+- **Interactive Animations**: Features custom cursor effects, an animated grid background, and floating ambient glow blobs.
+- **Dynamic Project Gallery**: A filterable section that dynamically loads and displays web applications, algorithmic problem-solving repositories, and their respective tech stacks.
+- **Custom Navigation**: A floating pill-shaped navigation bar for quick access to different sections.
 
-<br/>
+---
 
-## 🙋‍♂️ About Me
-I am a Computer Science student who enjoys building software and solving algorithmic problems. I spend my time writing code, participating in competitive programming, and learning new technologies. 
+## 🛠️ Built With
 
-- 💻 I am currently focusing on core Computer Science concepts and web development.
-- ⚙️ I actively participate in competitive programming contests.
-- 🔧 I build practical, user-friendly applications to apply what I learn.
+This project was built from the ground up without heavy frontend frameworks to maintain high performance and deep customization.
 
-<br/>
+- **Frontend**: HTML5
+- **Styling**: Tailwind CSS (Utility-first styling) & Custom CSS (Animations)
+- **Interactivity**: Vanilla JavaScript
+- **Animations**: Anime.js
+- **Hosting**: GitHub Pages
 
-## 🛠️ Tech Stack
+---
 
-<div align="center">
+## 📁 Repository Structure
 
-<img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++"/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/>
-<img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="Java"/>
+- `index.html`: The main structural entry point containing the layout, navigation, and content sections.
+- `script.js`: Handles all interactive elements including the custom animated cursor, theme toggling, mobile menu, and section filtering.
+- `assets/`: Contains all static resources like project images, resume, and icons used across the site.
 
-<br/>
+---
 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5"/>
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/>
-<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS"/>
-<img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase"/>
+## 🚀 View Live
 
-</div>
+**👉 [Visit the live portfolio here](https://atsuchak.me/)**
 
-<br/>
-
-## 🚀 Projects
-
-### 🌐 Web Applications
-| Project | Description |
-| :--- | :--- |
-| [**Tasked ToDo**](https://tasked-todo.vercel.app/) | A to-do list app with progress tracking and task history. |
-| [**Assignment Cover Page**](https://uiu-assignment-cover.vercel.app/) | A generator for UIU-standard assignment cover pages. |
-| [**Timer Lab**](https://timer-lab.vercel.app/) | A productivity tool that includes a timer, stopwatch, and clock. |
-| [**Code Progress**](https://code-progress.vercel.app/) | A dashboard to track my competitive programming progress. |
-| [**QR Generator**](https://atsuchak.github.io/QrGenerator/) | A simple tool to generate QR codes from text or URLs. |
-
-### 📁 Problem Solving & DSA
-| Repository | Description |
-| :--- | :--- |
-| [**Competitive Programming Solutions**](https://github.com/atsuchak/Competitive-Programming.git) | My solutions for Codeforces, CodeChef, and HackerRank problems. |
-| [**Data Structure and Algorithm**](https://github.com/atsuchak/DSA.git) | My implementations of various searching, sorting, graph, and tree algorithms. |
-| [**JavaScript Fundamentals**](https://github.com/atsuchak/javascript.git) | Notes and small implementations of core JavaScript concepts. |
-
-<br/>
-
-## 📈 GitHub Stats
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=atsuchak&show_icons=true&theme=transparent&hide_border=true&title_color=3b82f6" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=atsuchak&layout=compact&theme=transparent&hide_border=true&title_color=3b82f6" alt="Top Languages" />
-</div>
+*(For information about my background, contact details, and social links, please visit the live site or my main GitHub profile.)*
