@@ -1,71 +1,70 @@
-# Ahnaf Tajwar Suchak 🚀
+<div align="center">
 
-<p align="center">
-  <strong>CSE Student | Programmer | Problem Solver</strong>
-</p>
+# Ahnaf Tajwar Suchak
 
-<p align="center">
-  <a href="https://atsuchak.me/"><b>View Live Portfolio</b></a>
-</p>
+**Computer Science Student | Software Developer | Competitive Programmer**
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Competitive%20Programming-Codeforces-blue?style=for-the-badge&logo=codeforces" alt="Codeforces"/>
-  <img src="https://img.shields.io/badge/Solved-400+-green?style=for-the-badge" alt="Solved"/>
-</p>
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit_Site-00599C?style=for-the-badge&logo=vercel&logoColor=white)](https://atsuchak.me/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/atsuchak)
+[![Email](https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ahnaftajwarsuchak@gmail.com)
 
----
+[![Codeforces](https://img.shields.io/badge/Codeforces-400%2B_Solved-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white)](https://codeforces.com/profile/atsuchak)
 
-### 👋 About Me
-Hi, I'm **Ahnaf Tajwar Suchak**, a CSE student passionate about exploring software development concepts and solving complex problems through competitive programming. I love building and testing innovative tech solutions that make a difference.
+</div>
 
-- 🔭 Exploring software development and core CS concepts.
-- 💡 Passionate about Problem Solving and Algorithms.
-- 🌱 Building and refining projects with modern tech stacks.
+<br/>
 
----
+## 🙋‍♂️ About Me
+I am a Computer Science student who enjoys building software and solving algorithmic problems. I spend my time writing code, participating in competitive programming, and learning new technologies. 
 
-### 🛠️ Tech Stack
-![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
+- 💻 I am currently focusing on core Computer Science concepts and web development.
+- ⚙️ I actively participate in competitive programming contests.
+- 🔧 I build practical, user-friendly applications to apply what I learn.
 
----
+<br/>
 
-### 💻 Featured Projects
+## 🛠️ Tech Stack
 
-#### 🌐 Web Applications
-- **[Tasked ToDo](https://tasked-todo.vercel.app/)**: A sleek and efficient to-do list app featuring visual progress tracking and history.
-- **[Assignment Cover Page](https://uiu-assignment-cover.vercel.app/)**: UIU-standard assignment cover page generator.
-- **[Timer Lab](https://timer-lab.vercel.app/)**: A versatile productivity suite with timer, stopwatch, and clock.
-- **[Code Progress](https://code-progress.vercel.app/)**: Dashboard to track competitive programming progress.
-- **[QR Generator](https://atsuchak.github.io/QrGenerator/)**: Simple tool for generating QR codes from text or links.
+<div align="center">
 
-#### 📁 Problem Solving & DSA
-- **[Competitive Programming Solutions](https://github.com/atsuchak/Competitive-Programming.git)**: Solutions for Codeforces, CodeChef, and HackerRank.
-- **[Data Structure and Algorithm](https://github.com/atsuchak/DSA.git)**: Implementations of searching, sorting, graph, and tree concepts.
-- **[JavaScript Fundamentals](https://github.com/atsuchak/javascript.git)**: Core concepts and small JS implementations.
+<img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++"/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/>
+<img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="Java"/>
 
----
+<br/>
 
-### 📊 GitHub Stats
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=atsuchak&show_icons=true&theme=transparent" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=atsuchak&layout=compact&theme=transparent" alt="Top Languages" />
-</p>
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5"/>
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/>
+<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS"/>
+<img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase"/>
 
----
+</div>
 
-### 🤝 Connect with Me
-- **LinkedIn**: [atsuchak](https://www.linkedin.com/in/atsuchak)
-- **Portfolio**: [atsuchak.me](https://atsuchak.me/)
-- **Email**: ahnaftajwarsuchak@gmail.com
+<br/>
 
----
+## 🚀 Projects
 
-<p align="center">
-  <i>"Code is not just commands, it's a way to solve the world's puzzles."</i>
-</p>
+### 🌐 Web Applications
+| Project | Description |
+| :--- | :--- |
+| [**Tasked ToDo**](https://tasked-todo.vercel.app/) | A to-do list app with progress tracking and task history. |
+| [**Assignment Cover Page**](https://uiu-assignment-cover.vercel.app/) | A generator for UIU-standard assignment cover pages. |
+| [**Timer Lab**](https://timer-lab.vercel.app/) | A productivity tool that includes a timer, stopwatch, and clock. |
+| [**Code Progress**](https://code-progress.vercel.app/) | A dashboard to track my competitive programming progress. |
+| [**QR Generator**](https://atsuchak.github.io/QrGenerator/) | A simple tool to generate QR codes from text or URLs. |
+
+### 📁 Problem Solving & DSA
+| Repository | Description |
+| :--- | :--- |
+| [**Competitive Programming Solutions**](https://github.com/atsuchak/Competitive-Programming.git) | My solutions for Codeforces, CodeChef, and HackerRank problems. |
+| [**Data Structure and Algorithm**](https://github.com/atsuchak/DSA.git) | My implementations of various searching, sorting, graph, and tree algorithms. |
+| [**JavaScript Fundamentals**](https://github.com/atsuchak/javascript.git) | Notes and small implementations of core JavaScript concepts. |
+
+<br/>
+
+## 📈 GitHub Stats
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=atsuchak&show_icons=true&theme=transparent&hide_border=true&title_color=3b82f6" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=atsuchak&layout=compact&theme=transparent&hide_border=true&title_color=3b82f6" alt="Top Languages" />
+</div>
