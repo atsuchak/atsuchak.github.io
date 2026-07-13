@@ -102,6 +102,7 @@ const codeSolutions = [
         description: 'Code solutions for various problems found on platforms such as Codeforces, CodeChef and HackerRank',
         techStack: ['C++', 'Java', 'Algorithms', 'Data Structures', 'Problem Solving'],
         githubLink: 'https://github.com/atsuchak/Competitive-Programming.git',
+        mobileImage: './assets/cp_mobile_cover.png',
         featured: true,
         category: 'Code Project'
     },
@@ -110,6 +111,7 @@ const codeSolutions = [
         description: 'Implementations of various core data structures, including searching, sorting, graph, and tree concepts.',
         techStack: ['C++', 'Data Structures', 'Algorithm'],
         githubLink: 'https://github.com/atsuchak/DSA.git',
+        mobileImage: './assets/dsa_mobile_cover.png',
         featured: true,
         category: 'Code Project'
     },
@@ -118,6 +120,7 @@ const codeSolutions = [
         description: 'Implementations of javascript small projects, core programming concepts, fundamentals of js.',
         techStack: ['JavaScript', 'HTML', 'CSS'],
         githubLink: 'https://github.com/atsuchak/javascript.git',
+        mobileImage: './assets/js_mobile_cover.png',
         featured: true,
         category: 'Code Project'
     },
@@ -333,9 +336,107 @@ const allProjects = [...projects, ...codeSolutions];
 let libraryState = {
     filter: 'All',
     search: '',
-    visibleCount: 6,
-    increment: 6
+    isExpanded: false
 };
+
+// Add resize listener to dynamically update layouts when switching between mobile/desktop sizes
+window.addEventListener('resize', () => {
+    clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(() => {
+        if (typeof renderProjectLibrary === 'function') {
+            renderProjectLibrary();
+        }
+    }, 100);
+});
+
+let mobileCarouselInterval;
+
+function createFeaturedCard(project, index, isDesktop, isCarousel) {
+    const card = document.createElement('div');
+
+    let spanClass = "row-span-1";
+    if (isDesktop && index === 0) {
+        spanClass = "md:col-span-2 md:row-span-2";
+    }
+
+    let sizingClass = isDesktop ? spanClass : (isCarousel ? "snap-center min-w-[85%] shrink-0 h-[220px]" : "h-[300px] sm:h-[400px]");
+
+    card.className = `${sizingClass} group relative bg-transparent border border-zinc-200 dark:border-zinc-800/50 rounded-3xl overflow-hidden transition-all duration-500 flex flex-col cursor-pointer`;
+    card.onclick = () => openProjectModal(project);
+
+    const hasImagesArray = Array.isArray(project.images) && project.images.length >= 2;
+    const defaultCover = Array.isArray(project.image) ? project.image[0] : project.image;
+    
+    // Check if there is a mobile-only image specified and we're rendering a mobile card
+    const useMobileImage = !isDesktop && project.mobileImage;
+    const hasImage = !!defaultCover || useMobileImage;
+
+    let backgroundHTML = '';
+    if (hasImage) {
+        if (useMobileImage) {
+            backgroundHTML = `
+                <img src="${project.mobileImage}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"></div>
+            `;
+        } else if (hasImagesArray) {
+            backgroundHTML = `
+                <img src="${project.images[0]}" alt="${project.title}" class="hidden dark:block absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <img src="${project.images[1]}" alt="${project.title}" class="block dark:hidden absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            `;
+        } else {
+            backgroundHTML = `
+                <img src="${defaultCover}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            `;
+        }
+    } else {
+        backgroundHTML = `
+            <div class="absolute inset-0 w-full h-full bg-zinc-50 dark:bg-zinc-900 transition-colors"></div>
+            <div class="absolute inset-0 w-full h-full border border-zinc-200 dark:border-zinc-800/50 rounded-3xl group-hover:border-blue-500/50 transition-colors"></div>
+        `;
+    }
+
+    const contentContainerClass = hasImage
+        ? "absolute bottom-0 left-0 p-5 md:p-8 w-full md:transform md:translate-y-2 md:group-hover:translate-y-0 transition-transform duration-300"
+        : "absolute inset-0 p-5 md:p-8 flex flex-col justify-start";
+
+    const titleColor = hasImage ? "text-white" : "text-zinc-900 dark:text-white";
+    const descColor = hasImage ? "text-gray-300" : "text-zinc-600 dark:text-zinc-400";
+    const categoryColor = hasImage ? "text-blue-400" : "text-blue-500";
+
+    const pillClass = hasImage
+        ? "bg-white/5 backdrop-blur-md text-white/90 border border-white/20"
+        : "border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-500";
+
+    card.innerHTML = `
+        ${backgroundHTML}
+        
+        <div class="${contentContainerClass}">
+            <div class="mb-2 md:mb-3">
+                 <span class="${categoryColor} font-bold text-[9px] md:text-[10px] tracking-widest uppercase">${project.category || 'Project'}</span>
+            </div>
+            <h3 class="text-xl md:text-3xl font-bold ${titleColor} mb-2 md:mb-3 leading-tight md:group-hover:text-blue-500 transition-colors">${project.title}</h3>
+            <p class="${descColor} text-sm md:text-base line-clamp-2 md:line-clamp-3 mb-4 md:mb-6 transition-all duration-300 opacity-0 md:group-hover:opacity-100 md:transform md:translate-y-2 md:group-hover:translate-y-0 hidden md:block">
+                ${project.description}
+            </p>
+            <div class="flex flex-wrap gap-2 ${hasImage ? '' : 'mt-auto'}">
+                ${project.techStack.slice(0, 3).map(tech =>
+        `<span class="px-2.5 py-0.5 md:px-3 md:py-1 ${pillClass} text-[9px] md:text-[10px] rounded-full font-medium transition-colors md:group-hover:border-blue-500/30">${tech}</span>`
+    ).join('')}
+            </div>
+        </div>
+        
+        <div class="absolute top-6 right-6 p-2 rounded-full opacity-0 md:group-hover:opacity-100 transition-all duration-300 transform md:group-hover:translate-x-0 md:group-hover:translate-y-0 md:translate-x-2 md:-translate-y-2 text-blue-500 hidden md:block">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+        </div>
+    `;
+
+    return card;
+}
 
 function renderFeaturedProjects() {
     const grid = document.getElementById('featuredProjectsGrid');
@@ -345,96 +446,68 @@ function renderFeaturedProjects() {
 
     const featured = [...projects, ...codeSolutions].filter(p => p.featured);
 
+    // Desktop Container
+    const desktopGrid = document.createElement('div');
+    desktopGrid.className = "hidden md:grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[220px]";
+
+    // Mobile Container
+    const mobileContainer = document.createElement('div');
+    mobileContainer.className = "flex flex-col gap-4 md:hidden overflow-hidden";
+
+    const mobileCarousel = document.createElement('div');
+    mobileCarousel.className = "flex overflow-x-auto snap-x snap-mandatory gap-4 custom-scrollbar pb-4 -mx-3 px-3";
+
     featured.forEach((project, index) => {
-        const card = document.createElement('div');
+        // Create Desktop Card
+        const desktopCard = createFeaturedCard(project, index, true, false);
+        desktopGrid.appendChild(desktopCard);
 
-        // Bento Grid Spans
-        // First item (Code Progress) = Big Hero (2 cols, 2 rows on medium+)
-        let spanClass = "row-span-1";
+        // Create Mobile Card
         if (index === 0) {
-            spanClass = "md:col-span-2 md:row-span-2";
+            const mobileCard = createFeaturedCard(project, index, false, false);
+            mobileContainer.appendChild(mobileCard);
         } else {
-            // ensure others fill nicely if needed, but auto-flow works too.
-            // SkyThread, CP, TaskedToDo are remaining 3.
-            // Grid is cols-1 md:cols-3.
-            // If item 0 is 2x2, it takes 4 cells space? No, CSS Grid spans are helpful.
-            // Let's make the first one prominent.
+            const mobileCard = createFeaturedCard(project, index, false, true);
+            mobileCarousel.appendChild(mobileCard);
         }
-
-        card.className = `${spanClass} group relative bg-transparent border border-zinc-200 dark:border-zinc-800/50 rounded-3xl overflow-hidden transition-all duration-500 flex flex-col`;
-        card.onclick = () => openProjectModal(project);
-
-        // Content
-        // Determine Content Styling based on Type (Web vs Code)
-        const hasImagesArray = Array.isArray(project.images) && project.images.length >= 2;
-        const defaultCover = Array.isArray(project.image) ? project.image[0] : project.image;
-        const hasImage = !!defaultCover;
-
-        let backgroundHTML = '';
-        if (hasImage) {
-            if (hasImagesArray) {
-                backgroundHTML = `
-                    <img src="${project.images[0]}" alt="${project.title}" class="hidden dark:block absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <img src="${project.images[1]}" alt="${project.title}" class="block dark:hidden absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                `;
-            } else {
-                backgroundHTML = `
-                    <img src="${defaultCover}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                `;
-            }
-        } else {
-            // Code Project: Solid filled background
-            backgroundHTML = `
-                <div class="absolute inset-0 w-full h-full bg-zinc-50 dark:bg-zinc-900 transition-colors"></div>
-                <div class="absolute inset-0 w-full h-full border border-zinc-200 dark:border-zinc-800/50 rounded-3xl group-hover:border-blue-500/50 transition-colors"></div>
-            `;
-        }
-
-        // Content Container: Reduced padding on mobile, removed transforms on mobile
-        const contentContainerClass = hasImage
-            ? "absolute bottom-0 left-0 p-5 md:p-8 w-full md:transform md:translate-y-2 md:group-hover:translate-y-0 transition-transform duration-300"
-            : "absolute inset-0 p-5 md:p-8 flex flex-col justify-start";
-
-        const titleColor = hasImage ? "text-white" : "text-zinc-900 dark:text-white";
-        const descColor = hasImage ? "text-gray-300" : "text-zinc-600 dark:text-zinc-400";
-        const categoryColor = hasImage ? "text-blue-400" : "text-blue-500";
-
-        // Tech Pills: Reduced padding/border for mobile
-        const pillClass = hasImage
-            ? "bg-white/5 backdrop-blur-md text-white/90 border border-white/20"
-            : "border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-500";
-
-        card.innerHTML = `
-            ${backgroundHTML}
-            
-            <div class="${contentContainerClass}">
-                <div class="mb-2 md:mb-3">
-                     <span class="${categoryColor} font-bold text-[9px] md:text-[10px] tracking-widest uppercase">${project.category || 'Project'}</span>
-                </div>
-                <h3 class="text-xl md:text-3xl font-bold ${titleColor} mb-2 md:mb-3 leading-tight md:group-hover:text-blue-500 transition-colors">${project.title}</h3>
-                <p class="${descColor} text-sm md:text-base line-clamp-2 md:line-clamp-3 mb-4 md:mb-6 transition-all duration-300 opacity-0 md:group-hover:opacity-100 md:transform md:translate-y-2 md:group-hover:translate-y-0 hidden md:block">
-                    ${project.description}
-                </p>
-                <div class="flex flex-wrap gap-2 ${hasImage ? '' : 'mt-auto'}">
-                    ${project.techStack.slice(0, 3).map(tech =>
-            `<span class="px-2.5 py-0.5 md:px-3 md:py-1 ${pillClass} text-[9px] md:text-[10px] rounded-full font-medium transition-colors md:group-hover:border-blue-500/30">${tech}</span>`
-        ).join('')}
-                </div>
-            </div>
-            
-            <!-- Icon top right - Desktop Only -->
-            <div class="absolute top-6 right-6 p-2 rounded-full opacity-0 md:group-hover:opacity-100 transition-all duration-300 transform md:group-hover:translate-x-0 md:group-hover:translate-y-0 md:translate-x-2 md:-translate-y-2 text-blue-500 hidden md:block">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
-            </div>
-        `;
-
-        grid.appendChild(card);
     });
+
+    if (featured.length > 1) {
+        mobileContainer.appendChild(mobileCarousel);
+    }
+
+    grid.appendChild(desktopGrid);
+    grid.appendChild(mobileContainer);
+
+    // Auto-scroll logic for mobile carousel
+    function startCarouselInterval() {
+        if (mobileCarouselInterval) clearInterval(mobileCarouselInterval);
+        mobileCarouselInterval = setInterval(() => {
+            if (window.innerWidth >= 768) return; // Don't scroll on desktop
+
+            const scrollLeft = mobileCarousel.scrollLeft;
+            const scrollWidth = mobileCarousel.scrollWidth;
+            const clientWidth = mobileCarousel.clientWidth;
+
+            // If we reached the end, scroll back to start
+            if (scrollLeft + clientWidth >= scrollWidth - 10) {
+                mobileCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                // Scroll by one card width approx
+                const cardWidth = clientWidth * 0.85 + 16;
+                mobileCarousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            }
+        }, 2000);
+    }
+
+    if (featured.length > 1) {
+        startCarouselInterval();
+        
+        // Reset the timer when the user manually scrolls
+        mobileCarousel.addEventListener('scroll', () => {
+            startCarouselInterval();
+        }, { passive: true });
+    }
 }
 
 function initProjectLibrary() {
@@ -464,7 +537,7 @@ function initProjectLibrary() {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             libraryState.search = e.target.value.toLowerCase();
-            libraryState.visibleCount = libraryState.increment; // Reset pagination on search
+            libraryState.isExpanded = false; // Reset pagination on search
             renderProjectLibrary();
         });
     }
@@ -473,22 +546,10 @@ function initProjectLibrary() {
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (loadMoreBtn) {
         loadMoreBtn.onclick = () => {
-            // Calculate how many we *could* show
-            const filteredCount = allProjects.filter(p => {
-                const matchesCategory = libraryState.filter === 'All' || p.category === libraryState.filter;
-                const matchesSearch = p.title.toLowerCase().includes(libraryState.search) ||
-                    p.description.toLowerCase().includes(libraryState.search) ||
-                    p.techStack.some(t => t.toLowerCase().includes(libraryState.search));
-                return matchesCategory && matchesSearch;
-            }).length;
-
-            if (libraryState.visibleCount >= filteredCount) {
-                // Showing all, so collapse
-                libraryState.visibleCount = libraryState.increment;
+            libraryState.isExpanded = !libraryState.isExpanded;
+            if (!libraryState.isExpanded) {
+                // Scroll back to top of the grid when collapsing
                 document.getElementById('projectLibraryGrid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                // Expand
-                libraryState.visibleCount += libraryState.increment;
             }
             renderProjectLibrary();
         };
@@ -499,7 +560,7 @@ function initProjectLibrary() {
 
 function setLibraryFilter(category) {
     libraryState.filter = category;
-    libraryState.visibleCount = libraryState.increment; // Reset pagination
+    libraryState.isExpanded = false; // Reset pagination
 
     // Update active button styles
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -530,9 +591,10 @@ function renderProjectLibrary() {
     });
 
     // Pagination Logic
-    const visibleProjects = filtered.slice(0, libraryState.visibleCount);
+    const initialCount = window.innerWidth >= 768 ? 6 : 4;
+    const visibleCount = libraryState.isExpanded ? filtered.length : initialCount;
+    const visibleProjects = filtered.slice(0, visibleCount);
     const totalCount = filtered.length;
-    const isShowingAll = libraryState.visibleCount >= totalCount;
 
     if (visibleProjects.length === 0) {
         grid.innerHTML = `<div class="col-span-full text-center py-10 text-zinc-500">No projects found matching your criteria.</div>`;
@@ -581,15 +643,11 @@ function renderProjectLibrary() {
 
     // Toggle Load More Button
     if (loadMoreBtn) {
-        if (totalCount <= libraryState.increment) {
+        if (totalCount <= initialCount) {
             loadMoreBtn.classList.add('hidden');
         } else {
             loadMoreBtn.classList.remove('hidden');
-            if (isShowingAll) {
-                loadMoreBtn.textContent = "Show Less";
-            } else {
-                loadMoreBtn.textContent = "Show More";
-            }
+            loadMoreBtn.textContent = libraryState.isExpanded ? "Show Less" : "Show More";
         }
     }
 }
@@ -745,8 +803,8 @@ const sectionObserver = new IntersectionObserver((entries) => {
         }
     });
 }, {
-    threshold: 0.2, // Trigger when 20% is visible
-    rootMargin: '-10% 0px -40% 0px' // Bias towards the top/middle of the viewport
+    threshold: 0, // Trigger as soon as the section reaches the upper-middle of the viewport
+    rootMargin: '-20% 0px -60% 0px' // Creates a narrow intersection band at 20%-40% from the top
 });
 
 document.querySelectorAll('section[id]').forEach(section => sectionObserver.observe(section));
